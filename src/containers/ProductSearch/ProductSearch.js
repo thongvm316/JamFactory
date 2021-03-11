@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {
-  Button,
-  DatePicker,
-  Row,
-  Col,
-  Table,
-  Modal,
-  Select,
-  Popover,
-} from 'antd'
+import { Button, DatePicker, Row, Col, Table, Modal, Select } from 'antd'
 import Filter from './Filter'
 import Chart from './Chart'
 import './ProductSearch.scss'
@@ -29,49 +20,49 @@ const ProductSearch = (props) => {
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
   const [lastIndex, setLastIndex] = useState(0)
-  const [getParamsFilter, setGetParamsFilter] = useState(null)
-  const [sortIndex, setSortIndex] = useState(0)
+  // const [getParamsFilter, setGetParamsFilter] = useState(null)
+  // const [sortIndex, setSortIndex] = useState(0)
   const [filters, setFilters] = useState()
   const [params, setParams] = useState()
   const [visible, setVisible] = useState(false)
-  const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
-    isFilter: false,
-    isSort: false,
-  })
-  const [triggerSortLoadMore, setTriggerSortLoadMore] = useState({
-    seller_price_asc: false,
-    seller_price_desc: false,
-    review_asc: false,
-    review_desc: false,
-    sold_asc: false,
-    sold_desc: false,
-  })
+  // const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
+  //   isFilter: false,
+  //   isSort: false,
+  // })
+  // const [triggerSortLoadMore, setTriggerSortLoadMore] = useState({
+  //   seller_price_asc: false,
+  //   seller_price_desc: false,
+  //   review_asc: false,
+  //   review_desc: false,
+  //   sold_asc: false,
+  //   sold_desc: false,
+  // })
 
   useEffect(() => {
     getProducts()
   }, [filters, lastIndex])
 
-  useEffect(() => {
-    if (sortIndex == 0) return
-    if (triggerSortLoadMore.seller_price_asc == true) {
-      sortApi('seller_price', 'asc')
-    }
-    if (triggerSortLoadMore.seller_price_desc == true) {
-      sortApi('seller_price', 'desc')
-    }
-    if (triggerSortLoadMore.review_asc == true) {
-      sortApi('review', 'asc')
-    }
-    if (triggerSortLoadMore.review_desc == true) {
-      sortApi('review', 'desc')
-    }
-    if (triggerSortLoadMore.sold_asc == true) {
-      sortApi('sold', 'asc')
-    }
-    if (triggerSortLoadMore.sold_desc == true) {
-      sortApi('sold', 'desc')
-    }
-  }, [sortIndex])
+  // useEffect(() => {
+  //   if (sortIndex == 0) return
+  //   if (triggerSortLoadMore.seller_price_asc == true) {
+  //     sortApi('seller_price', 'asc')
+  //   }
+  //   if (triggerSortLoadMore.seller_price_desc == true) {
+  //     sortApi('seller_price', 'desc')
+  //   }
+  //   if (triggerSortLoadMore.review_asc == true) {
+  //     sortApi('review', 'asc')
+  //   }
+  //   if (triggerSortLoadMore.review_desc == true) {
+  //     sortApi('review', 'desc')
+  //   }
+  //   if (triggerSortLoadMore.sold_asc == true) {
+  //     sortApi('sold', 'asc')
+  //   }
+  //   if (triggerSortLoadMore.sold_desc == true) {
+  //     sortApi('sold', 'desc')
+  //   }
+  // }, [sortIndex])
 
   const showModal = () => {
     setVisible(true)
@@ -84,11 +75,11 @@ const ProductSearch = (props) => {
 
   const getProducts = async () => {
     setLoading(true)
-    setLoadMoreFilterOrSort({
-      ...loadMoreFilterOrSort,
-      isFilter: true,
-      isSort: false,
-    })
+    // setLoadMoreFilterOrSort({
+    //   ...loadMoreFilterOrSort,
+    //   isFilter: true,
+    //   isSort: false,
+    // })
     if (filters && filters.category && filters.category === '전체보기') {
       delete filters['category']
     }
@@ -106,7 +97,7 @@ const ProductSearch = (props) => {
       }
     }
 
-    setGetParamsFilter(params)
+    // setGetParamsFilter(params)
 
     const config = {
       headers: {
@@ -195,125 +186,125 @@ const ProductSearch = (props) => {
     })
   }
 
-  const SortSellerPrice = () => (
-    <>
-      <div className="style-sort">
-        <p
-          onClick={() => {
-            sortApi('seller_price', 'asc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: true,
-              seller_price_desc: false,
-              review_asc: false,
-              review_desc: false,
-              sold_asc: false,
-              sold_desc: false,
-            })
-          }}
-        >
-          오름차순
-        </p>
-        <p
-          onClick={() => {
-            sortApi('seller_price', 'desc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: false,
-              seller_price_desc: true,
-              review_asc: false,
-              review_desc: false,
-              sold_asc: false,
-              sold_desc: false,
-            })
-          }}
-        >
-          내림차순
-        </p>
-        {/* <p>취소</p> */}
-      </div>
-    </>
-  )
+  // const SortSellerPrice = () => (
+  //   <>
+  //     <div className="style-sort">
+  //       <p
+  //         onClick={() => {
+  //           sortApi('seller_price', 'asc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: true,
+  //             seller_price_desc: false,
+  //             review_asc: false,
+  //             review_desc: false,
+  //             sold_asc: false,
+  //             sold_desc: false,
+  //           })
+  //         }}
+  //       >
+  //         오름차순
+  //       </p>
+  //       <p
+  //         onClick={() => {
+  //           sortApi('seller_price', 'desc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: false,
+  //             seller_price_desc: true,
+  //             review_asc: false,
+  //             review_desc: false,
+  //             sold_asc: false,
+  //             sold_desc: false,
+  //           })
+  //         }}
+  //       >
+  //         내림차순
+  //       </p>
+  //       {/* <p>취소</p> */}
+  //     </div>
+  //   </>
+  // )
 
-  const SortReview = () => (
-    <>
-      <div className="style-sort">
-        <p
-          onClick={() => {
-            sortApi('review', 'asc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: false,
-              seller_price_desc: false,
-              review_asc: true,
-              review_desc: false,
-              sold_asc: false,
-              sold_desc: false,
-            })
-          }}
-        >
-          오름차순
-        </p>
-        <p
-          onClick={() => {
-            sortApi('review', 'desc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: false,
-              seller_price_desc: false,
-              review_asc: false,
-              review_desc: true,
-              sold_asc: false,
-              sold_desc: false,
-            })
-          }}
-        >
-          내림차순
-        </p>
-        {/* <p>취소</p> */}
-      </div>
-    </>
-  )
+  // const SortReview = () => (
+  //   <>
+  //     <div className="style-sort">
+  //       <p
+  //         onClick={() => {
+  //           sortApi('review', 'asc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: false,
+  //             seller_price_desc: false,
+  //             review_asc: true,
+  //             review_desc: false,
+  //             sold_asc: false,
+  //             sold_desc: false,
+  //           })
+  //         }}
+  //       >
+  //         오름차순
+  //       </p>
+  //       <p
+  //         onClick={() => {
+  //           sortApi('review', 'desc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: false,
+  //             seller_price_desc: false,
+  //             review_asc: false,
+  //             review_desc: true,
+  //             sold_asc: false,
+  //             sold_desc: false,
+  //           })
+  //         }}
+  //       >
+  //         내림차순
+  //       </p>
+  //       {/* <p>취소</p> */}
+  //     </div>
+  //   </>
+  // )
 
-  const SortSold = () => (
-    <>
-      <div className="style-sort">
-        <p
-          onClick={() => {
-            sortApi('sold', 'asc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: false,
-              seller_price_desc: false,
-              review_asc: false,
-              review_desc: false,
-              sold_asc: true,
-              sold_desc: false,
-            })
-          }}
-        >
-          오름차순
-        </p>
-        <p
-          onClick={() => {
-            sortApi('sold', 'desc')
-            setTriggerSortLoadMore({
-              ...triggerSortLoadMore,
-              seller_price_asc: false,
-              seller_price_desc: false,
-              review_asc: false,
-              review_desc: false,
-              sold_asc: false,
-              sold_desc: true,
-            })
-          }}
-        >
-          내림차순
-        </p>
-        {/* <p>취소</p> */}
-      </div>
-    </>
-  )
+  // const SortSold = () => (
+  //   <>
+  //     <div className="style-sort">
+  //       <p
+  //         onClick={() => {
+  //           sortApi('sold', 'asc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: false,
+  //             seller_price_desc: false,
+  //             review_asc: false,
+  //             review_desc: false,
+  //             sold_asc: true,
+  //             sold_desc: false,
+  //           })
+  //         }}
+  //       >
+  //         오름차순
+  //       </p>
+  //       <p
+  //         onClick={() => {
+  //           sortApi('sold', 'desc')
+  //           setTriggerSortLoadMore({
+  //             ...triggerSortLoadMore,
+  //             seller_price_asc: false,
+  //             seller_price_desc: false,
+  //             review_asc: false,
+  //             review_desc: false,
+  //             sold_asc: false,
+  //             sold_desc: true,
+  //           })
+  //         }}
+  //       >
+  //         내림차순
+  //       </p>
+  //       {/* <p>취소</p> */}
+  //     </div>
+  //   </>
+  // )
 
   const columns = [
     {
@@ -335,7 +326,8 @@ const ProductSearch = (props) => {
       // sorter: (a, b) => a.market_name.length - b.market_name.length,
     },
     {
-      title: <Popover content={<SortSellerPrice />}>가격</Popover>,
+      // title: <Popover content={<SortSellerPrice />}>가격</Popover>,
+      title: '가격',
       render: (record) => {
         return (
           <NumberFormat
@@ -345,11 +337,12 @@ const ProductSearch = (props) => {
           />
         )
       },
-      // defaultSortOrder: false,
-      // sorter: (a, b) => a.seller_price - b.seller_price,
+      defaultSortOrder: false,
+      sorter: (a, b) => a.seller_price - b.seller_price,
     },
     {
-      title: <Popover content={<SortReview />}>리뷰</Popover>,
+      // title: <Popover content={<SortReview />}>리뷰</Popover>,
+      title: '리뷰',
       key: '리뷰',
       render: (record) => (
         <NumberFormat
@@ -358,11 +351,12 @@ const ProductSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      // defaultSortOrder: false,
-      // sorter: (a, b) => a.review - b.review,
+      defaultSortOrder: false,
+      sorter: (a, b) => a.review - b.review,
     },
     {
-      title: <Popover content={<SortSold />}>판매수</Popover>,
+      // title: <Popover content={<SortSold />}>판매수</Popover>,
+      title: '판매수',
       key: '판매수',
       render: (record) => (
         <NumberFormat
@@ -371,75 +365,73 @@ const ProductSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      // defaultSortOrder: false,
-      // sorter: (a, b) => a.sold - b.sold,
+      defaultSortOrder: false,
+      sorter: (a, b) => a.sold - b.sold,
     },
   ]
 
   /*---- Sort API ----*/
-  // const loadMoreSort = () => {
-  //   setSortIndex(productList.length)
-  // }
-
   const loadMore = () => {
-    if (loadMoreFilterOrSort.isFilter) {
-      const lengthData = productList.length
-      setLastIndex(productList[lengthData - 1].id)
-    }
+    // if (loadMoreFilterOrSort.isFilter) {
+    //   const lengthData = productList.length
+    //   setLastIndex(productList[lengthData - 1].id)
+    // }
 
-    if (loadMoreFilterOrSort.isSort) {
-      setSortIndex(productList.length)
-    }
+    // if (loadMoreFilterOrSort.isSort) {
+    //   setSortIndex(productList.length)
+    // }
+    const lengthData = productList.length
+    setLastIndex(productList[lengthData - 1].id)
   }
 
-  const sortApi = (field, sort) => {
-    const getData = async () => {
-      setLoading(true)
-      setLoadMoreFilterOrSort({
-        ...loadMoreFilterOrSort,
-        isFilter: false,
-        isSort: true,
-      })
-      const addSortParam = getParamsFilter.concat(`&sort=${field},${sort}`)
-      const config = {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          'X-Auth-Token': localStorage.getItem('token-user'),
-        },
-      }
-      try {
-        const res = await axios.get(
-          `${API_URL}/product/search?sortIndex=${sortIndex}${addSortParam}`,
-          config,
-        )
-        console.log(res)
+  // const sortApi = (field, sort) => {
+  //   const getData = async () => {
+  //     setLoading(true)
+      // setLoadMoreFilterOrSort({
+      //   ...loadMoreFilterOrSort,
+      //   isFilter: false,
+      //   isSort: true,
+      // })
+      // const addSortParam = getParamsFilter.concat(`&sort=${field},${sort}`)
+  //     const config = {
+  //       headers: {
+  //         Accept: 'application/json',
+  //         'Content-Type': 'application/json',
+  //         'X-Auth-Token': localStorage.getItem('token-user'),
+  //       },
+  //     }
+  //     try {
+  //       const res = await axios.get(
+  //         `${API_URL}/product/search?sortIndex=${sortIndex}${addSortParam}`,
+  //         config,
+  //       )
+  //       console.log(res)
 
-        if (res.status == 200) {
-          // if (sortIndex > 0) {
-          //   if (lastIndex > 0) {
-          //     setProductList([])
-          //   }
-          //   setProductList(productList.concat(res.data.data.result))
-          // } else {
-          //   setProductList(res.data.data.result)
-          // }
-          if (lastIndex > 0) {
-            setProductList([])
-          }
-          setProductList(res.data.data.result)
-        }
-        setLoading(false)
-      } catch (error) {
-        if (error.response.statusText == 'Unauthorized') {
-          localStorage.clear()
-          props.history.push('/')
-        }
-        setLoading(false)
-      }
-    }
-    getData()
-  }
+  //       if (res.status == 200) {
+  //         // if (sortIndex > 0) {
+  //         //   if (lastIndex > 0) {
+  //         //     setProductList([])
+  //         //   }
+  //         //   setProductList(productList.concat(res.data.data.result))
+  //         // } else {
+  //         //   setProductList(res.data.data.result)
+  //         // }
+  //         if (lastIndex > 0) {
+  //           setProductList([])
+  //         }
+  //         setProductList(res.data.data.result)
+  //       }
+  //       setLoading(false)
+  //     } catch (error) {
+  //       if (error.response.statusText == 'Unauthorized') {
+  //         localStorage.clear()
+  //         props.history.push('/')
+  //       }
+  //       setLoading(false)
+  //     }
+  //   }
+  //   getData()
+  // }
 
   const [countSelected, setCountSelected] = useState(0)
 
@@ -581,21 +573,7 @@ const ProductSearch = (props) => {
               검색
             </Button>
           </div>
-          {/* <div className="filter-date">
-            <Space>
-              <DatePicker onChange={onChangeStartDate} />
-              <LineOutlined style={{ width: '40px', height: '8px', color: '#6A7187' }} />
-              <DatePicker onChange={onChangeEndDate} />
-
-              <Button className="btn-light-blue  border-radius-6" onClick={onSearch} style={{ backgroundColor: '#71c4d5', border: 'none' }} type="primary">적용하기</Button>
-            </Space>
-          </div> */}
           <div className="input-product-search" style={{ display: 'flex' }}>
-            {/* <Input style={{ marginRight: '5px' }} placeholder="Search" onChange={onChangeSearch} />
-            <Select defaultValue="0" className="select-after">
-              <Option value="0">밴더명</Option>
-              <Option value="1">제품명</Option>
-            </Select> */}
             <Button
               disabled={loading}
               className="btn-light-blue border-radius-6"
@@ -614,10 +592,6 @@ const ProductSearch = (props) => {
       </Row>
 
       <Row className="res-small-device card-border">
-        {/* <Button onClick={ascendSort}>as Test</Button>
-        <Button onClick={descendSort}>de Test</Button>
-        <Button onClick={clearSorter}>cl Test</Button> */}
-
         <Col span={24}>
           <Table
             columns={columns}
@@ -644,33 +618,6 @@ const ProductSearch = (props) => {
               }
             }}
           />
-          {/* <Table
-            loading={loading}
-            rowKey={(record) => record.id}
-            columns={columns}
-            dataSource={productList}
-            scroll={{ x: 1300 }}
-            pagination={false}
-            showSorterTooltip={false}
-            onChange={handleChangeTable}
-            sorter={false}
-            onRow={(record, rowIndex) => {
-              return {
-                onClick: (event) => {
-                  let state = { product: record }
-
-                  if (filters && filters.start && filters.end) {
-                    state.data = { start: filters.start, end: filters.end }
-                  }
-
-                  props.history.push({
-                    pathname: '/product-detail',
-                    state,
-                  })
-                },
-              }
-            }}
-          /> */}
         </Col>
         <Col span={24} style={{ textAlign: 'center', marginTop: '2rem' }}>
           {productList.length ? (

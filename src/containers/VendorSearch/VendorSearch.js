@@ -9,6 +9,7 @@ import {
   Table,
   Select,
   Modal,
+  Popover,
 } from 'antd'
 import { SearchOutlined } from '@ant-design/icons'
 import { API_URL } from '../../constants/appConstants'
@@ -29,7 +30,7 @@ const VendorSearch = (props) => {
   const [dates, setDates] = useState([])
 
   const [vendors, setVendors] = useState([])
-  console.log(vendors)
+  // console.log(vendors)
   // const [startDate, setStartDate] = useState()
   // const [endDate, setEndDate] = useState()
   // const [key, setKey] = useState()
@@ -37,14 +38,344 @@ const VendorSearch = (props) => {
 
   const [filter, setFilter] = useState()
   const [lastIndex, setLastIndex] = useState(0)
-
-  // Table
-  const [countSelected, setCountSelected] = useState(0)
+  const [sortIndex, setsortIndex] = useState(0)
+  let resetSortIndex;
+  const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
+    isFilter: false,
+    isSort: false,
+  })
+  const [triggerSortLoadMore, setTriggerSortLoadMore] = useState({
+    product_count_asc: false,
+    product_count_desc: false,
+    revenue_asc: false,
+    revenue_desc: false,
+    total_review_asc: false,
+    total_review_desc: false,
+    sale_count_asc: false,
+    sale_count_desc: false,
+  })
 
   useEffect(() => {
     getVendor()
   }, [lastIndex])
 
+  useEffect(() => {
+    if (sortIndex == 0) return
+    if (triggerSortLoadMore.product_count_asc == true) {
+      sortApi('product_count', 'asc')
+    }
+    if (triggerSortLoadMore.product_count_desc == true) {
+      sortApi('product_count', 'desc')
+    }
+    if (triggerSortLoadMore.revenue_asc == true) {
+      sortApi('revenue', 'asc')
+    }
+    if (triggerSortLoadMore.revenue_desc == true) {
+      sortApi('revenue', 'desc')
+    }
+    if (triggerSortLoadMore.total_review_asc == true) {
+      sortApi('total_review', 'asc')
+    }
+    if (triggerSortLoadMore.total_review_desc == true) {
+      sortApi('total_review', 'desc')
+    }
+    if (triggerSortLoadMore.sale_count_asc == true) {
+      sortApi('sale_count', 'asc')
+    }
+    if (triggerSortLoadMore.sale_count_desc == true) {
+      sortApi('sale_count', 'desc')
+    }
+  }, [sortIndex])
+
+  const SortProductCount = () => (
+    <>
+      <div className="style-sort">
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                resetSortIndex = 0
+                setsortIndex(0)
+              }
+            }
+            sortApi('product_count', 'asc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: true,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          오름차순
+        </p>
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                resetSortIndex = 0;
+                setsortIndex(0)
+              }
+            }
+            sortApi('product_count', 'desc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: true,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          내림차순
+        </p>
+        {/* <p>취소</p> */}
+      </div>
+    </>
+  )
+
+  const SortRevenue = () => (
+    <>
+      <div className="style-sort">
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                resetSortIndex = 0
+                setsortIndex(0)
+              }
+            }
+            sortApi('revenue', 'asc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: true,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          오름차순
+        </p>
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                setsortIndex(0)
+                resetSortIndex = 0
+              }
+            }
+            sortApi('revenue', 'desc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: true,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          내림차순
+        </p>
+        {/* <p>취소</p> */}
+      </div>
+    </>
+  )
+
+  const SortTotalReview = () => (
+    <>
+      <div className="style-sort">
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                setsortIndex(0)
+                resetSortIndex = 0
+              }
+            }
+            sortApi('total_review', 'asc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: true,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          오름차순
+        </p>
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                setsortIndex(0)
+                resetSortIndex = 0
+              }
+            }
+            sortApi('total_review', 'desc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: true,
+              sale_count_asc: false,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          내림차순
+        </p>
+        {/* <p>취소</p> */}
+      </div>
+    </>
+  )
+
+  const SortSaleCount = () => (
+    <>
+      <div className="style-sort">
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                setsortIndex(0)
+                resetSortIndex = 0
+              }
+            }
+            sortApi('sale_count', 'asc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: true,
+              sale_count_desc: false,
+            })
+          }}
+        >
+          오름차순
+        </p>
+        <p
+          onClick={() => {
+            for (const key in triggerSortLoadMore) {
+              if (triggerSortLoadMore[key]) {
+                setsortIndex(0)
+                resetSortIndex = 0
+              }
+            }
+            sortApi('sale_count', 'desc')
+            setTriggerSortLoadMore({
+              ...triggerSortLoadMore,
+              product_count_asc: false,
+              product_count_desc: false,
+              revenue_asc: false,
+              revenue_desc: false,
+              total_review_asc: false,
+              total_review_desc: false,
+              sale_count_asc: false,
+              sale_count_desc: true,
+            })
+          }}
+        >
+          내림차순
+        </p>
+        {/* <p>취소</p> */}
+      </div>
+    </>
+  )
+
+  const loadMoreSort = (params) => {
+    if (loadMoreFilterOrSort.isFilter) {
+      setLastIndex(vendors.length)
+    }
+
+    if (loadMoreFilterOrSort.isSort) {
+      setsortIndex(vendors.length)
+    }
+  }
+
+  const sortApi = async (field, sort) => {
+    setLoading(true)
+    setLoadMoreFilterOrSort({
+      ...loadMoreFilterOrSort,
+      isFilter: false,
+      isSort: true
+    })
+    const config = {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Auth-Token': localStorage.getItem('token-user'),
+      },
+    }
+
+    let params = ''
+    for (const key in filter) {
+      if (filter[key]) {
+        params += `&${key}=${filter[key]}`
+      }
+    }
+
+    try {
+      const res = await axios.get(
+        `${API_URL}/bander/search?lastIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${params}&sort=${field},${sort}`,
+        config,
+      )
+
+      if (sortIndex > 0) {
+        if (lastIndex > 0) {
+          setVendors([])
+        }
+        if (resetSortIndex == 0) {
+          setVendors(res.data.data.result)
+        } else {
+          setVendors(vendors.concat(res.data.data.result))
+        }
+        
+        resetSortIndex = undefined;
+      } else {
+        setVendors(res.data.data.result)
+      }
+      setLoading(false)
+    } catch (error) {
+      if (error.response.statusText == 'Unauthorized') {
+        localStorage.clear()
+
+        props.history.push('/')
+      }
+      setLoading(false)
+    }
+  }
+
+  // Table
+  const [countSelected, setCountSelected] = useState(0)
   const goToStore = (record) => {
     var win = window.open(record.bander_url, '_blank')
     win.focus()
@@ -54,7 +385,6 @@ const VendorSearch = (props) => {
     {
       title: '벤더명',
       render: (record) => {
-        // console.log(record)
         return (
           <a
             style={{
@@ -70,7 +400,7 @@ const VendorSearch = (props) => {
       },
     },
     {
-      title: '총 판매 상품 수',
+      title: <Popover content={<SortProductCount />}>총 판매 상품 수</Popover>,
       render: (record) => (
         <NumberFormat
           value={record.product_count}
@@ -78,12 +408,12 @@ const VendorSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      sorter: {
-        compare: (a, b) => a.product_count - b.product_count,
-      },
+      // sorter: {
+      //   compare: (a, b) => a.product_count - b.product_count,
+      // },
     },
     {
-      title: '총 판매 매출',
+      title: <Popover content={<SortRevenue />}>총 판매 매출</Popover>,
       render: (record) => (
         <NumberFormat
           value={record.revenue}
@@ -91,12 +421,12 @@ const VendorSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      sorter: {
-        compare: (a, b) => a.revenue - b.revenue,
-      },
+      // sorter: {
+      //   compare: (a, b) => a.revenue - b.revenue,
+      // },
     },
     {
-      title: '리뷰',
+      title: <Popover content={<SortTotalReview />}>리뷰</Popover>,
       render: (record) => (
         <NumberFormat
           value={record.total_review}
@@ -104,12 +434,12 @@ const VendorSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      sorter: {
-        compare: (a, b) => a.total_review - b.total_review,
-      },
+      // sorter: {
+      //   compare: (a, b) => a.total_review - b.total_review,
+      // },
     },
     {
-      title: '판매수',
+      title: <Popover content={<SortSaleCount />}>판매수</Popover>,
       render: (record) => (
         <NumberFormat
           value={record.sale_count}
@@ -117,9 +447,9 @@ const VendorSearch = (props) => {
           thousandSeparator={true}
         />
       ),
-      sorter: {
-        compare: (a, b) => a.sale_count - b.sale_count,
-      },
+      // sorter: {
+      //   compare: (a, b) => a.sale_count - b.sale_count,
+      // },
     },
   ]
 
@@ -166,6 +496,11 @@ const VendorSearch = (props) => {
 
   const getVendor = async () => {
     setLoading(true)
+    setLoadMoreFilterOrSort({
+      ...loadMoreFilterOrSort,
+      isFilter: true,
+      isSort: false
+    })
     let params = ''
     for (const key in filter) {
       if (filter[key]) {
@@ -202,11 +537,19 @@ const VendorSearch = (props) => {
     setLoading(false)
   }
 
-  const loadMore = async () => {
-    setLastIndex(vendors.length)
+  /* Get Excel File */
+  const getExcelFile = () => {
+    if (loadMoreFilterOrSort.isFilter) {
+      getExcelFileFilter()
+    }
+
+    if (loadMoreFilterOrSort.isSort) {
+      getExcelFileSort()
+    }
   }
 
-  const getExcelFile = async () => {
+  const getExcelFileFilter = () => {
+    setLoading(true)
     const lengthData = vendors.length
     let params = `lastIndex=${lengthData}`
 
@@ -219,7 +562,6 @@ const VendorSearch = (props) => {
     saleStatusApi
       .getExcelFileBander(params)
       .then((value) => {
-        console.log('Success')
         fileDownload(value, 'data.xls')
         setLoading(false)
       })
@@ -227,29 +569,61 @@ const VendorSearch = (props) => {
         console.log(err.response)
         setLoading(false)
       })
+  }
 
-    // const lengthData = vendors.length
-    // const config = {
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //     'X-Auth-Token': localStorage.getItem('token-user'),
+  const getExcelFileSort = () => {
+    setLoading(true)
+    const lengthData = vendors.length
+    let params = `lastIndex=${lengthData}`
 
-    //   },
-    // }
-    // try {
-    //   const { data } = await axios.get(
-    //     `${API_URL}/product/export?lastIndex=${lengthData}${params}`,
-    //     config,
-    //   )
-    //   fileDownload(data, 'data.xls')
-    // } catch (error) {
-    //   if (error.response.statusText == "Unauthorized") {
-    //     localStorage.clear()
+    for (const key in filter) {
+      if (filter[key]) {
+        params += `&${key}=${filter[key]}`
+      }
+    }
 
-    //     props.history.push('/')
-    //   }
-    // }
+    if (triggerSortLoadMore.product_count_asc) {
+      var addSortParam = params.concat(`&sort=product_count,asc`)
+    }
+
+    if (triggerSortLoadMore.product_count_desc) {
+      var addSortParam = params.concat(`&sort=product_count,desc`)
+    }
+
+    if (triggerSortLoadMore.revenue_asc) {
+      var addSortParam = params.concat(`&sort=revenue,asc`)
+    }
+
+    if (triggerSortLoadMore.revenue_desc) {
+      var addSortParam = params.concat(`&sort=revenue,desc`)
+    }
+
+    if (triggerSortLoadMore.total_review_asc) {
+      var addSortParam = params.concat(`&sort=total_review,asc`)
+    }
+
+    if (triggerSortLoadMore.total_review_desc) {
+      var addSortParam = params.concat(`&sort=total_review,desc`)
+    }
+
+    if (triggerSortLoadMore.sale_count_asc) {
+      var addSortParam = params.concat(`&sort=sale_count,asc`)
+    }
+
+    if (triggerSortLoadMore.sale_count_desc) {
+      var addSortParam = params.concat(`&sort=sale_count,desc`)
+    }
+
+    saleStatusApi
+      .getExcelFileBander(addSortParam)
+      .then((value) => {
+        fileDownload(value, 'data.xls')
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.log(err.response)
+        setLoading(false)
+      })
   }
 
   const onOpenChange = (open) => {
@@ -393,6 +767,7 @@ const VendorSearch = (props) => {
                 }}
                 className="border-radius-6"
                 onClick={getVendor}
+                disabled={loading}
               >
                 적용하기
               </Button>
@@ -406,11 +781,6 @@ const VendorSearch = (props) => {
               placeholder="Search"
               suffix={<SearchOutlined />}
             />
-            {/* <Select defaultValue="카테고리" className="select-after">
-              <Option value="카테고리">카테고리</Option>
-              <Option value="밴더명">밴더명</Option>
-              <Option value="제품명">제품명</Option>
-            </Select> */}
             <Button
               disabled={loading}
               onClick={getExcelFile}
@@ -443,7 +813,9 @@ const VendorSearch = (props) => {
         <Col span={24} style={{ textAlign: 'center', marginTop: '2rem' }}>
           {vendors.length ? (
             <Button
-              onClick={loadMore}
+              // onClick={loadMore}
+              onClick={loadMoreSort}
+              disabled={loading}
               className="btn-light-blue border-radius-6"
               style={{
                 backgroundColor: '#71c4d5',
