@@ -15,6 +15,16 @@ import saleStatusApi from '../../api/SaleStatusAPI'
 const { Option } = Select
 
 const ProductSearch = (props) => {
+  const convertToTimeStamp = (strDate) => {
+    var datum = Date.parse(strDate)
+    return datum / 1000
+  }
+  const startOfMonth = moment().clone().startOf('month').format('YYYY-MM-DD')
+  const endOfMonth = moment().clone().endOf('month').format('YYYY-MM-DD')
+  let allDateOfCurrentMonth = [
+    convertToTimeStamp(startOfMonth),
+    convertToTimeStamp(endOfMonth),
+  ]
   const [productList, setProductList] = useState([])
   const [loading, setLoading] = useState(false)
   const [startDate, setStartDate] = useState()
@@ -22,7 +32,7 @@ const ProductSearch = (props) => {
   const [lastIndex, setLastIndex] = useState(0)
   // const [getParamsFilter, setGetParamsFilter] = useState(null)
   // const [sortIndex, setSortIndex] = useState(0)
-  const [filters, setFilters] = useState()
+  const [filters, setFilters] = useState({ start: allDateOfCurrentMonth[0], end: allDateOfCurrentMonth[1] })
   const [params, setParams] = useState()
   const [visible, setVisible] = useState(false)
   // const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
@@ -39,6 +49,7 @@ const ProductSearch = (props) => {
   // })
 
   useEffect(() => {
+    console.log(filters)
     getProducts()
   }, [filters, lastIndex])
 
@@ -111,7 +122,7 @@ const ProductSearch = (props) => {
         `${API_URL}/product/search?lastIndex=${lastIndex}${params}`,
         config,
       )
-      console.log(res)
+      // console.log(res)
 
       if (res.status == 200) {
         if (lastIndex > 0) {
@@ -456,10 +467,6 @@ const ProductSearch = (props) => {
   // RanggePicker
   const { RangePicker } = DatePicker
   const [valueDate, setValueDate] = useState([])
-  const convertToTimeStamp = (strDate) => {
-    var datum = Date.parse(strDate)
-    return datum / 1000
-  }
   const onChange = (dateString) => {
     // console.log('Formatted Selected Time: ', dateString);
     let startDay = convertToTimeStamp(dateString[0])
