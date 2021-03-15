@@ -30,7 +30,7 @@ const Sidebar = (props) => {
             style={{ fontWeight: '900', color: 'white', fontSize: '24px' }}
             to="home"
           >
-            잼인사이트
+            GEM BOX
           </NavLink>
         </Menu.Item>
         <Menu.Item
@@ -39,7 +39,7 @@ const Sidebar = (props) => {
           key="/page1"
         >
           <NavLink to="/home">
-            <Image src={Home} style={{ marginRight: '11px' }} />홈
+            <Image src={Home} style={{ marginRight: '11px' }} />잼인사이트
           </NavLink>
         </Menu.Item>
         <Menu.Item className="app-menu-item" key="/page2">

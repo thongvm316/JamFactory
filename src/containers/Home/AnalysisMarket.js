@@ -455,7 +455,7 @@ const AnalysisMarket = (props) => {
                   fontSize: '16px',
                 }}
               >
-                집계 월
+                기간
               </h1>
             </Col>
             <Col xs={24} sm={10} md={10} lg={10} xl={4}>

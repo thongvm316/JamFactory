@@ -142,7 +142,7 @@ const AdminFindAccount = (props) => {
     >
       <Row justify="center" gutter={24} style={{ textAlign: 'center' }}>
         <Col span={24}>
-          <h1>잼인사이트</h1>
+          <h1>GEM BOX</h1>
         </Col>
         <Col
           xs={20}

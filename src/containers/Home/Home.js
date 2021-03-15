@@ -217,7 +217,7 @@ const Home = (props) => {
             fontSize: '16px',
           }}
         >
-          집계 월
+          기간
         </h1>
         <Col xl={20} className="date-picker">
           <DatePicker
