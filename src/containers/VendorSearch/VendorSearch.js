@@ -742,10 +742,33 @@ const VendorSearch = (props) => {
     })
   }
 
+    // Select Market
+    function handleChangeSelectMarket(value) {
+      if (value === '전체보기') {
+        const { market, ...forFilter } = filter
+        setFilter(forFilter)
+      } else {
+        setFilter({ ...filter, market: value })
+      }
+    }
+
   return (
     <div className="vendor-search">
       <Row className="card-border" style={{ marginBottom: '2rem' }}>
-        <Col span={24} className="wraper-actions-vender">
+        <Col span={2} style={{ textAlign: 'start'}}>
+            <Select onChange={handleChangeSelectMarket} style={{ width: '90%' }} defaultValue="전체보기">
+              <Option value="전체보기">전체보기</Option>
+              <Option value="11번가">11번가</Option>
+              <Option value="G마켓">G마켓</Option>
+              <Option value="쿠팡">쿠팡</Option>
+              <Option value="인터파크">인터파크</Option>
+              <Option value="옥션">옥션</Option>
+              <Option value="스마트스토어">스마트스토어</Option>
+              <Option value="티몬">티몬</Option>
+              <Option value="위메프">위메프</Option>
+            </Select>
+          </Col>
+        <Col span={22} className="wraper-actions-vender">
           <div style={{ display: 'flex', marginRight: '50px' }}>
             <div className="filter-date" style={{ marginRight: '10px' }}>
               <Space>

@@ -161,7 +161,6 @@ const Home = (props) => {
       homeApi
         .getTopRevenue(params)
         .then((value) => {
-          console.log(value)
           if (value && value.data && value.data.result) {
             setDataTopBander(value.data.result)
           }
@@ -170,7 +169,6 @@ const Home = (props) => {
       homeApi
         .getTopSell(params)
         .then((value) => {
-          console.log(value)
           if (value && value.data && value.data.result) {
             setDataTopProduct(value.data.result)
           }

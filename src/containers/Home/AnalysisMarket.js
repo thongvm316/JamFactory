@@ -507,6 +507,7 @@ const AnalysisMarket = (props) => {
             <Option value="옥션">옥션</Option>
             <Option value="스마트스토어">스마트스토어</Option>
             <Option value="티몬">티몬</Option>
+            <Option value="위메프">위메프</Option>
           </Select>
         </Col>
       </Row>
