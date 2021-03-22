@@ -682,10 +682,15 @@ const VendorSearch = (props) => {
     }
   }
 
-  const onChangeRangePicker = (val) => {
+  const onChangeRangePicker = (val, dateString) => {
     setValue(val)
+    console.log(dateString);
 
     if (val && val[0] && val[1]) {
+      const toTimestamp = (strDate) => {
+        var datum = Date.parse(strDate)
+        return datum / 1000
+      }
       const startDate = parseInt(moment(val[0]).format('DD'))
       const endDate = parseInt(moment(val[1]).format('DD'))
 
@@ -693,10 +698,11 @@ const VendorSearch = (props) => {
         setValue('')
       }
 
+      console.log(val, toTimestamp(dateString[0]), toTimestamp(dateString[1]));
       setFilter({
         ...filter,
-        start: moment(val[0]).unix(),
-        end: moment(val[1]).unix(),
+        start: toTimestamp(dateString[0]),
+        end: toTimestamp(dateString[1]),
       })
     } else {
       setFilter({ ...filter, start: '', end: '' })
@@ -776,7 +782,7 @@ const VendorSearch = (props) => {
                   value={hackValue || value}
                   // disabledDate={disabledDate}
                   // onCalendarChange={(val) => onCalendarChange(val)}
-                  onChange={(val) => onChangeRangePicker(val)}
+                  onChange={(val, dateString) => onChangeRangePicker(val, dateString)}
                   onOpenChange={onOpenChange}
                 />
               </Space>

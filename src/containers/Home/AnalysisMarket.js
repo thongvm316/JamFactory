@@ -353,6 +353,7 @@ const AnalysisMarket = (props) => {
   // Select Market
   function handleChangeSelectMarket(value) {
     setSelectMarket(value)
+    setIsCallApi(false)
   }
 
   // Get Data
@@ -369,8 +370,10 @@ const AnalysisMarket = (props) => {
         setData(value.data.result.total_sale)
       }
       setLoading(false)
+      setIsCallApi(true)
     } catch (error) {
       setLoading(false)
+      setIsCallApi(true)
       console.log(error.response)
     }
   }
@@ -394,10 +397,12 @@ const AnalysisMarket = (props) => {
       if (value && value.data.result && value.data.result.total_sale) {
         setData(value.data.result.total_sale)
         setLoadingUseEfect(false)
+        setIsCallApi(true)
       }
     } catch (error) {
       console.log(error.response)
       setLoadingUseEfect(false)
+      setIsCallApi(true)
     }
   }, [])
 
@@ -412,8 +417,10 @@ const AnalysisMarket = (props) => {
       if (res && res.data.result && res.data.result.total_sale) {
         setMarketTotalSale(res.data.result.total_sale)
       }
+      setIsCallApi(true)
     } catch (error) {
       console.log(error.response)
+      setIsCallApi(true)
     }
   }, [])
 
@@ -429,10 +436,20 @@ const AnalysisMarket = (props) => {
       if (res && res.data.result && res.data.result.total_sale) {
         setMarketTotalSale(res.data.result.total_sale)
       }
+      setIsCallApi(true)
     } catch (error) {
       console.log(error.response)
+      setIsCallApi(true)
     }
   }
+
+  /* Call API when change market */
+  const [isCallApi, setIsCallApi] = useState(true)
+  useEffect(() => {
+    if (isCallApi) return;
+    getData()
+    getMarketTotalSale()
+  }, [selectMarket])
 
   return (
     <div className="analysis-market">

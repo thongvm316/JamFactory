@@ -329,12 +329,12 @@ const ProductSearch = (props) => {
     {
       title: '카테고리',
       dataIndex: 'category_tag',
-      // sorter: (a, b) => a.category_tag.length - b.category_tag.length,
+      sorter: (a, b) => a.category_tag.length - b.category_tag.length,
     },
     {
       title: '마켓명',
       dataIndex: 'market_name',
-      // sorter: (a, b) => a.market_name.length - b.market_name.length,
+      sorter: (a, b) => a.market_name.length - b.market_name.length,
     },
     {
       // title: <Popover content={<SortSellerPrice />}>가격</Popover>,

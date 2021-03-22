@@ -122,7 +122,12 @@ const Home = (props) => {
                     prefix={'₩'}
                   />
                 ) : (
-                  db.sold
+                  <NumberFormat
+                    value={db.sold}
+                    displayType={'text'}
+                    thousandSeparator={true}
+                    suffix={'개'}
+                  />
                 )}
               </li>
             </ul>
