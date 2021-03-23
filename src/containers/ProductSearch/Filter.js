@@ -238,7 +238,7 @@ const Filter = (props) => {
         <Col span={5}>
           <Select
             onChange={handleChangeSearchBy}
-            defaultValue="0"
+            defaultValue="2"
             className="select-after"
           >
             <Option value="0">카테고리</Option>
@@ -320,7 +320,7 @@ const Filter = (props) => {
             </Col>
             <Col span={19}>
               <Slider
-                step={10000000}
+                step={1000}
                 min={0}
                 max={100000000}
                 range
