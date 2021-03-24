@@ -219,7 +219,7 @@ const MarketSaleStatusChart = (props) => {
     title: '',
     chart: {
       zoomType: 'xy',
-      width: 420,
+      width: 350,
     },
     xAxis: {
       categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],

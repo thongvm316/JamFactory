@@ -275,7 +275,7 @@ const ProductDetail = (props) => {
     chart: {
       type: 'spline',
       renderTo: 'container',
-      width: 1800,
+      width: 1500,
     },
     title: {
       text: '판매 추이 그래프',
