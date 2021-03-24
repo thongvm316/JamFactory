@@ -11,6 +11,7 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import NumberFormat from 'react-number-format'
 import saleStatusApi from '../../api/SaleStatusAPI'
+import { useLastLocation } from 'react-router-last-location';
 
 const { Option } = Select
 
@@ -47,9 +48,11 @@ const ProductSearch = (props) => {
   //   sold_asc: false,
   //   sold_desc: false,
   // })
+  let lastLocation = useLastLocation();
+  let productSearchOptions = JSON.parse(localStorage.getItem('product-search-options'))
+
 
   useEffect(() => {
-    console.log(filters)
     getProducts()
   }, [filters, lastIndex])
 
@@ -76,6 +79,9 @@ const ProductSearch = (props) => {
   // }, [sortIndex])
 
   const showModal = () => {
+    // if (!lastLocation || lastLocation.pathname != '/product-detail'){
+    //   localStorage.setItem('product-search-options', null)
+    // }
     setVisible(true)
   }
   const handleOk = (values) => {
@@ -86,29 +92,39 @@ const ProductSearch = (props) => {
 
   const getProducts = async () => {
     setLoading(true)
-    // setLoadMoreFilterOrSort({
-    //   ...loadMoreFilterOrSort,
-    //   isFilter: true,
-    //   isSort: false,
-    // })
-    if (filters && filters.category && filters.category === '전체보기') {
-      delete filters['category']
-    }
-    let params = ''
+    let params = '';
 
-    if (filters && filters.markets && filters.markets.length) {
-      _.each(filters.markets, (market, index) => {
+    let filterOptions = {}
+
+    if (lastLocation && lastLocation.pathname == '/product-detail') {
+
+      if (productSearchOptions) {
+        filterOptions = productSearchOptions
+
+      } else {
+        filterOptions = filters;
+      }
+
+    }
+    if (!lastLocation || lastLocation.pathname != '/product-detail'){
+      filterOptions = filters;
+    }
+
+    if (filterOptions && filterOptions.category && filterOptions.category === '전체보기') {
+      delete filterOptions['category']
+    }
+
+    if (filterOptions && filterOptions.markets && filterOptions.markets.length) {
+      _.each(filterOptions.markets, (market, index) => {
         params += `&market[]=${market}`
       })
     }
 
-    for (const key in filters) {
-      if (filters[key]) {
-        params += `&${key}=${filters[key]}`
+    for (const key in filterOptions) {
+      if (filterOptions[key]) {
+        params += `&${key}=${filterOptions[key]}`
       }
     }
-
-    // setGetParamsFilter(params)
 
     const config = {
       headers: {
@@ -398,12 +414,12 @@ const ProductSearch = (props) => {
   // const sortApi = (field, sort) => {
   //   const getData = async () => {
   //     setLoading(true)
-      // setLoadMoreFilterOrSort({
-      //   ...loadMoreFilterOrSort,
-      //   isFilter: false,
-      //   isSort: true,
-      // })
-      // const addSortParam = getParamsFilter.concat(`&sort=${field},${sort}`)
+  // setLoadMoreFilterOrSort({
+  //   ...loadMoreFilterOrSort,
+  //   isFilter: false,
+  //   isSort: true,
+  // })
+  // const addSortParam = getParamsFilter.concat(`&sort=${field},${sort}`)
   //     const config = {
   //       headers: {
   //         Accept: 'application/json',
@@ -486,8 +502,7 @@ const ProductSearch = (props) => {
 
     try {
       const { data } = await axios.get(
-        `${API_URL}/product?keyword=kid&start_date=${valueDate[0]}&end_date=${
-          valueDate[1]
+        `${API_URL}/product?keyword=kid&start_date=${valueDate[0]}&end_date=${valueDate[1]
         }&last_id=${100}`,
         config,
       )

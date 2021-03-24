@@ -3,6 +3,7 @@ import Routes from './Routes'
 
 import 'moment/locale/ko'
 import { BrowserRouter as Router } from 'react-router-dom'
+import { LastLocationProvider } from 'react-router-last-location';
 
 // export default class Root extends Component {
 //   render() {
@@ -17,7 +18,9 @@ import { BrowserRouter as Router } from 'react-router-dom'
 const Root = () => {
   return (
     <Router>
-      <Routes />
+      <LastLocationProvider>
+        <Routes />
+      </LastLocationProvider>
     </Router>
   )
 }

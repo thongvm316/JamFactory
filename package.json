@@ -23,11 +23,12 @@
     "react-dom": "^17.0.0",
     "react-number-format": "^4.4.4",
     "react-router-dom": "^5.2.0",
+    "react-router-last-location": "^2.0.1",
     "react-scripts": "^4.0.3",
     "serve": "^11.3.2"
   },
   "scripts": {
-    "dev": "PORT=80 react-scripts start",
+    "dev": "react-scripts start",
     "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
