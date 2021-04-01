@@ -30,7 +30,7 @@ const Filter = (props) => {
   const [price, setPrice] = useState([50000, 7500000])
   const [startDate, setStartDate] = useState()
   const [endDate, setEndDate] = useState()
-  const [filter, setFilter] = useState({ searchBy: '2', category: '전체보기' })
+  const [filter, setFilter] = useState({ category: '전체보기' })
   const zxc = ["쿠팡", "스마트스토어", "위메프"];
 
   let lastLocation = useLastLocation();

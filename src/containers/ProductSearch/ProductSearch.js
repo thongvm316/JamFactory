@@ -33,7 +33,7 @@ const ProductSearch = (props) => {
   const [lastIndex, setLastIndex] = useState(0)
   // const [getParamsFilter, setGetParamsFilter] = useState(null)
   // const [sortIndex, setSortIndex] = useState(0)
-  const [filters, setFilters] = useState({ start: allDateOfCurrentMonth[0], end: allDateOfCurrentMonth[1] })
+  const [filters, setFilters] = useState({})
   const [params, setParams] = useState()
   const [visible, setVisible] = useState(false)
   // const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
