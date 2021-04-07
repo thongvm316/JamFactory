@@ -246,7 +246,7 @@ const Filter = (props) => {
         <Col span={5}>
           <Select
             onChange={handleChangeSearchBy}
-            defaultValue={productSearchOptions && productSearchOptions.searchBy ? productSearchOptions.searchBy : '1'}
+            defaultValue={productSearchOptions && productSearchOptions.searchBy ? productSearchOptions.searchBy : '2'}
             className="select-after"
           >
             <Option value="0">카테고리</Option>
@@ -329,8 +329,8 @@ const Filter = (props) => {
             <Col span={19}>
               <Slider
                 step={1000}
-                min={0}
-                max={100000000}
+                min={50000}
+                max={300000}
                 range
                 defaultValue={[productSearchOptions && productSearchOptions.minPrice ? productSearchOptions.minPrice : '', productSearchOptions && productSearchOptions.maxPrice ? productSearchOptions.maxPrice : '']}
                 onChange={onChangeSlider}
@@ -338,7 +338,7 @@ const Filter = (props) => {
               />
             </Col>
             <Col span={4}>
-              <div>₩ 100,000,000</div>
+              <div>₩ 300,000+</div>
             </Col>
 
             <Col span={4}>
