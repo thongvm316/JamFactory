@@ -28,13 +28,12 @@ const ProductSearch = (props) => {
   ]
   const [productList, setProductList] = useState([])
   const [loading, setLoading] = useState(false)
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
   const [lastIndex, setLastIndex] = useState(0)
   // const [getParamsFilter, setGetParamsFilter] = useState(null)
   // const [sortIndex, setSortIndex] = useState(0)
   const [filters, setFilters] = useState({})
-  const [params, setParams] = useState()
+  const [paramsOfGetExcelFile, setParamsOfGetExcelFile] = useState('')
+  console.log(paramsOfGetExcelFile);
   const [visible, setVisible] = useState(false)
   // const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
   //   isFilter: false,
@@ -133,6 +132,8 @@ const ProductSearch = (props) => {
       }
     }
 
+    setParamsOfGetExcelFile(params)
+
     const config = {
       headers: {
         Accept: 'application/json',
@@ -191,21 +192,6 @@ const ProductSearch = (props) => {
     e.stopPropagation()
     var win = window.open(record.url, '_blank')
     win.focus()
-  }
-
-  const renderName = (record) => {
-    return (
-      <div style={{ display: 'flex' }}>
-        <Button
-          onClick={(e) => goToWeb(e, record)}
-          style={{ marginRight: '5px' }}
-          className="btn-light-orange"
-        >
-          판매 사이트 가기
-        </Button>
-        <div>{record.name}</div>
-      </div>
-    )
   }
 
   /* ---- Of Table ---- */
@@ -497,53 +483,30 @@ const ProductSearch = (props) => {
     setValueDate([startDay, endDay])
   }
 
-  const getDateFilter = async () => {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        'X-Auth-Token':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsImV4cCI6IjIwMTcwMTAxMDAwMCJ9.eyJzaWQiOiIxMjM0NTY3ODkwMTIzNDU2Nzg5MCIsImNvZGUiOiJhYmNkZXJmZ2hpIiwic2Vzc2lvbiI6IklHUURQeTYrSWZPR003OUZqT3dDIn0.wPM7MqaXIlbJxZ8Mb4Qgd2vhiB1KIBpKmGtVbF7eZtg',
-      },
-    }
-
-    try {
-      const { data } = await axios.get(
-        `${API_URL}/product?keyword=kid&start_date=${valueDate[0]}&end_date=${valueDate[1]
-        }&last_id=${100}`,
-        config,
-      )
-      // console.log(data)
-    } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
-
-        props.history.push('/')
-      }
-    }
-  }
-
   const getExcelFile = async () => {
+    setLoading(true)
+
     const lengthData = productList.length
 
     let params = `lastIndex=${productList[lengthData - 1].id}`
+    params += `${paramsOfGetExcelFile}`
+    console.log(params);
 
-    if (filters && filters.markets && filters.markets.length) {
-      _.each(filters.markets, (market, index) => {
-        params += `&market[]=${market}`
-      })
-    }
+    // if (filters && filters.markets && filters.markets.length) {
+    //   _.each(filters.markets, (market, index) => {
+    //     params += `&market[]=${market}`
+    //   })
+    // }
 
-    for (const key in filters) {
-      if (filters[key]) {
-        params += `&${key}=${filters[key]}`
-      }
-    }
+    // for (const key in filters) {
+    //   if (filters[key]) {
+    //     params += `&${key}=${filters[key]}`
+    //   }
+    // }
 
     saleStatusApi
       .getExcelFileProduct(params)
       .then((value) => {
-        console.log('Success')
         fileDownload(value, 'data.xls')
         setLoading(false)
       })
@@ -551,42 +514,6 @@ const ProductSearch = (props) => {
         console.log(err.response)
         setLoading(false)
       })
-
-    // const config = {
-    //   headers: {
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //     'X-Auth-Token': localStorage.getItem('token-user'),
-
-    //   },
-    // }
-    // console.log(config)
-
-    // try {
-    //   const { data } = await axios.get(
-    //     `${API_URL}/product/export?lastIndex=${productList[lengthData - 1].id}${params}`,
-    //     config,
-    //   )
-    //   fileDownload(data, 'data.xls')
-    // } catch (error) {
-    //   if (error.response.statusText == "Unauthorized") {
-    //     localStorage.clear()
-
-    //     props.history.push('/')
-    //   }
-    // }
-  }
-
-  const onChangeSearch = (e) => {
-    setParams({ ...params, key: e.target.value })
-  }
-
-  const onChangeStartDate = (date, dateString) => {
-    setStartDate(moment(dateString).unix())
-  }
-
-  const onChangeEndDate = (date, dateString) => {
-    setEndDate(moment(dateString).unix())
   }
 
   return (

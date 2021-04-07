@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
   Checkbox,
   Row,
@@ -10,7 +10,6 @@ import {
   Modal,
   DatePicker,
 } from 'antd'
-import { LineOutlined } from '@ant-design/icons'
 
 import './Filter.scss'
 import CategoryList from '../CategoryList/CategoryList'
@@ -26,17 +25,11 @@ const Filter = (props) => {
   const [value, setValue] = useState()
   const [dates, setDates] = useState([])
 
-
-  const [price, setPrice] = useState([50000, 7500000])
-  const [startDate, setStartDate] = useState()
-  const [endDate, setEndDate] = useState()
-  const [filter, setFilter] = useState({ category: '전체보기' })
-  const zxc = ["쿠팡", "스마트스토어", "위메프"];
+  const [filter, setFilter] = useState({ category: '카테고리 선택' })
 
   let lastLocation = useLastLocation();
-  console.log(lastLocation)
   let productSearchOptions = lastLocation && lastLocation.pathname == '/product-detail' ? JSON.parse(localStorage.getItem('product-search-options')) : filter
-  console.log(productSearchOptions)
+
   function onChangeMarket(value) {
     setFilter({ ...filter, markets: value })
   }
@@ -56,34 +49,18 @@ const Filter = (props) => {
   }
 
   const minReviews = (e) => {
-    // const review = filter.reviews;
-    // review[0] = e.target.value
-    // setFilter({ ...filter, reviews: review })
-
     setFilter({ ...filter, minReview: e.target.value })
   }
 
   const maxReviews = (e) => {
-    // const review = filter.reviews;
-    // review[1] = e.target.value
-    // setFilter({ ...filter, reviews: review })
-
     setFilter({ ...filter, maxReview: e.target.value })
   }
 
   const setMinSale = (e) => {
-    // const search = filter.searchs;
-    // search[0] = e.target.value
-    // setFilter({ ...filter, searchs: search })
-
     setFilter({ ...filter, minSale: e.target.value })
   }
 
   const setMaxSale = (e) => {
-    // const search = filter.searchs;
-    // search[1] = e.target.value
-    // setFilter({ ...filter, searchs: search })
-
     setFilter({ ...filter, maxSale: e.target.value })
   }
 
@@ -112,53 +89,6 @@ const Filter = (props) => {
     }
   }
 
-  const disabledDate = (current) => {
-    const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
-
-    if (!dates || dates.length === 0) {
-      const date =
-        (current && moment(current).format('DD') == 1) ||
-        (current && moment(current).format('DD') == 15) ||
-        (current && moment(current).format('DD') == daysInMonth)
-
-      return !date
-    } else {
-      if (dates[0]) {
-        return !(
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-
-      if (dates[1]) {
-        return !(
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-    }
-  }
-
   const onChangeRangePicker = (val) => {
     setValue(val)
     console.log(val)
@@ -177,40 +107,8 @@ const Filter = (props) => {
         rangePicker: val
       })
     } else {
-      setFilter({ ...filter, start: '', end: '' })
+      setFilter({ ...filter, start: '', end: ''})
     }
-  }
-
-  const onCalendarChange = (val) => {
-    if (val && val[0]) {
-      const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
-      const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth == day) {
-        modal('시작일은 월의 마지막 일자가 될 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[1]) {
-      const day = parseInt(moment(val[1]).format('DD'))
-      if (1 == day) {
-        modal('시작일을 마지막 일자로 선택 할 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[0] && val[1]) {
-      const startDate = parseInt(moment(val[0]).format('DD'))
-      const endDate = parseInt(moment(val[1]).format('DD'))
-
-      if (startDate == endDate) {
-        modal('시작일은 종료일과 같을 수 없습니다')
-
-        return
-      }
-    }
-
-    setDates(val)
   }
 
   const modal = (text) => {
@@ -255,16 +153,6 @@ const Filter = (props) => {
           </Select>
         </Col>
       </Row>
-
-      {/* <Row style={{ marginBottom: '2rem' }}>
-                <Col span={4}><h4>Search By</h4></Col>
-                <Col span={20}>
-                    <Select onChange={handleChangeSearchBy} defaultValue="0" className="select-after">
-                        <Option value="0">밴더명</Option>
-                        <Option value="1">제품명</Option>
-                    </Select>
-                </Col>
-            </Row> */}
 
       <Row>
         <Col span={4}>
@@ -311,9 +199,6 @@ const Filter = (props) => {
             category={productSearchOptions && productSearchOptions.category ? productSearchOptions.category : filter.category}
             onChangeCategory={(value) => handleChangeCategory(value)}
           />
-          {/* <p style={{ padding: '.5rem 1.5rem', backgroundColor: '#F8F8FB' }}>
-            전체보기
-          </p> */}
         </Col>
       </Row>
 
