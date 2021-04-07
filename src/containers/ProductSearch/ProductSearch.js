@@ -127,7 +127,14 @@ const ProductSearch = (props) => {
 
     for (const key in filterOptions) {
       if (filterOptions[key]) {
-        params += `&${key}=${filterOptions[key]}`
+
+        if (key == 'maxPrice' && filterOptions[key] == 300000){
+
+        } else {
+          params += `&${key}=${filterOptions[key]}`
+
+        }
+
       }
     }
 
