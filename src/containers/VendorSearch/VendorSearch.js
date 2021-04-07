@@ -361,6 +361,7 @@ const VendorSearch = (props) => {
         
         resetSortIndex = undefined;
       } else {
+        resetSortIndex = undefined;
         setVendors(res.data.data.result)
       }
       setLoading(false)
@@ -371,6 +372,7 @@ const VendorSearch = (props) => {
         props.history.push('/')
       }
       setLoading(false)
+      resetSortIndex = undefined;
     }
   }
 
