@@ -29,11 +29,13 @@ const ProductSearch = (props) => {
   const [productList, setProductList] = useState([])
   const [loading, setLoading] = useState(false)
   const [lastIndex, setLastIndex] = useState(0)
-  const [lastIndexSort, setLastIndexSort] = useState(0)
+
   const [getParamsFilter, setGetParamsFilter] = useState(null)
+  const [paramsOfGetExcelFile, setParamsOfGetExcelFile] = useState('')
+  const [getParamForApiGetExcelSort, setGetParamForApiGetExcelSort] = useState('')
+
   const [sortIndex, setSortIndex] = useState(0)
   const [filters, setFilters] = useState({})
-  const [paramsOfGetExcelFile, setParamsOfGetExcelFile] = useState('')
   const [visible, setVisible] = useState(false)
   const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
     isFilter: false,
@@ -76,7 +78,7 @@ const ProductSearch = (props) => {
     if (triggerSortLoadMore.sold_desc == true) {
       sortApi('sold', 'desc')
     }
-  }, [sortIndex, lastIndexSort])
+  }, [sortIndex])
 
   const showModal = () => {
     // if (!lastLocation || lastLocation.pathname != '/product-detail'){
@@ -440,9 +442,7 @@ const ProductSearch = (props) => {
     }
 
     if (loadMoreFilterOrSort.isSort) {
-      const lengthData = productList.length
       setSortIndex(productList.length)
-      setLastIndexSort(productList[lengthData - 1].id)
     }
     // const lengthData = productList.length
     // setLastIndex(productList[lengthData - 1].id)
@@ -470,6 +470,8 @@ const ProductSearch = (props) => {
           `${API_URL}/product/search?sortIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${addSortParam}`,
           config,
         )
+
+        setGetParamForApiGetExcelSort(`sortIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${addSortParam}`)
 
         if (res.status == 200) {
           if (sortIndex > 0) {
@@ -502,44 +504,22 @@ const ProductSearch = (props) => {
     getData()
   }
 
-  const [countSelected, setCountSelected] = useState(0)
-
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        'selectedRows: ',
-        selectedRows,
-      )
-      setCountSelected(selectedRows.length)
-    },
-    onSelect: (record, selected, selectedRows) => {
-      console.log(record, selected, selectedRows)
-    },
-    onSelectAll: (selected, selectedRows, changeRows) => {
-      console.log(selected, selectedRows, changeRows)
-      setCountSelected(selectedRows.length)
-    },
-  }
-
-  // RanggePicker
-  const { RangePicker } = DatePicker
-  const [valueDate, setValueDate] = useState([])
-  const onChange = (dateString) => {
-    // console.log('Formatted Selected Time: ', dateString);
-    let startDay = convertToTimeStamp(dateString[0])
-    let endDay = convertToTimeStamp(dateString[1])
-    setValueDate([startDay, endDay])
-  }
-
+  /* Get Excel File */
   const getExcelFile = async () => {
+    if (loadMoreFilterOrSort.isFilter) {
+      getExcelFileFilter()
+    }
+
+    if (loadMoreFilterOrSort.isSort) {
+      getExcelFileSort()
+    }
+  }
+
+  const getExcelFileFilter = () => {
     setLoading(true)
-
     const lengthData = productList.length
-
     let params = `lastIndex=${productList[lengthData - 1].id}`
     params += `${paramsOfGetExcelFile}`
-    console.log(params);
 
     saleStatusApi
       .getExcelFileProduct(params)
@@ -551,6 +531,31 @@ const ProductSearch = (props) => {
         console.log(err.response)
         setLoading(false)
       })
+  }
+
+  const getExcelFileSort = () => {
+    setLoading(true)
+
+    saleStatusApi
+      .getExcelFileProductSort(getParamForApiGetExcelSort)
+      .then((value) => {
+        fileDownload(value, 'data.xls')
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.log(err.response)
+        setLoading(false)
+      })
+  }
+
+  // RanggePicker
+  const { RangePicker } = DatePicker
+  const [valueDate, setValueDate] = useState([])
+  const onChange = (dateString) => {
+    // console.log('Formatted Selected Time: ', dateString);
+    let startDay = convertToTimeStamp(dateString[0])
+    let endDay = convertToTimeStamp(dateString[1])
+    setValueDate([startDay, endDay])
   }
 
   return (
