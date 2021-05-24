@@ -5,8 +5,8 @@ import Footer from '../../components/Footer'
 
 import adminApi from '../../api/AdminAPI'
 import './AdminFindAccount.scss'
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import firebase from '../../constants/firebase';
+import { ExclamationCircleOutlined } from '@ant-design/icons'
+import firebase from '../../constants/firebase'
 import { API_URL } from '../../constants/appConstants'
 import axios from 'axios'
 
@@ -28,9 +28,9 @@ const AdminFindAccount = (props) => {
   }
 
   const [phoneInput, setPhoneInput] = useState('')
-  const { phone, verify_code } = bodySubmit;
+  const { phone, verify_code } = bodySubmit
   const [firebaseToken, setFirebaseToken] = useState('')
-  const [account, setAccount] = useState({});
+  const [account, setAccount] = useState({})
 
   const verify = () => {
     var recaptcha = new firebase.auth.RecaptchaVerifier('recaptcha', {
@@ -38,15 +38,15 @@ const AdminFindAccount = (props) => {
     })
 
     firebase
-    .auth()
-    .signInWithPhoneNumber(phoneInput, recaptcha)
-    .then(function (confirmationResult) {
-      console.log(confirmationResult)
-      window.confirmationResult = confirmationResult
-    })
-    .catch(function (error) {
-      alert(error.message)
-    })
+      .auth()
+      .signInWithPhoneNumber(phoneInput, recaptcha)
+      .then(function (confirmationResult) {
+        console.log(confirmationResult)
+        window.confirmationResult = confirmationResult
+      })
+      .catch(function (error) {
+        alert(error.message)
+      })
 
     // setLoading(true)
     // adminApi
@@ -69,23 +69,21 @@ const AdminFindAccount = (props) => {
       headers: {
         'Firebase-Auth-Token': firebaseToken,
         'Content-type': 'application/json',
-        Accept: 'application/json'
+        Accept: 'application/json',
       },
     }
 
     const { data } = await axios.put(
       `${API_URL}/admin/findaccount`,
-      {phone: phone},
+      { phone: phone },
       config,
     )
     console.log(data)
 
-    if (data.success == true){
+    if (data.success == true) {
       setAccount(data.data.result)
       setIsModalVisible(true)
     }
-
-
 
     // setLoading(true)
     // adminApi
@@ -101,19 +99,17 @@ const AdminFindAccount = (props) => {
   }
 
   const onChangeVerifyCode = async (e) => {
-    if (e.target.value && e.target.value.length >= 6){
+    if (e.target.value && e.target.value.length >= 6) {
       window.confirmationResult
-      .confirm(e.target.value)
-      .then(function (result) {
-        setFirebaseToken(result.user.za)
-        console.log(result.user.za)
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
+        .confirm(e.target.value)
+        .then(function (result) {
+          setFirebaseToken(result.user.za)
+          console.log(result.user.za)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
     }
-
-
   }
 
   const onFinish = async (values) => {
@@ -125,9 +121,9 @@ const AdminFindAccount = (props) => {
   }
 
   const handleOk = () => {
-    setIsModalVisible(false);
+    setIsModalVisible(false)
     props.history.push('admin-login')
-  };
+  }
 
   return (
     <div
@@ -158,9 +154,9 @@ const AdminFindAccount = (props) => {
         >
           <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
             <div className="verified" style={{ display: 'flex' }}>
-            <Form.Item>
-              <div id="recaptcha"></div>
-            </Form.Item>
+              <Form.Item>
+                <div id="recaptcha"></div>
+              </Form.Item>
               <Form.Item
                 name="phone"
                 rules={[
@@ -213,7 +209,12 @@ const AdminFindAccount = (props) => {
         </Col>
       </Row>
       <Footer />
-      <Modal title={'계정'} visible={isModalVisible} footer={false} onCancel={handleOk}>
+      <Modal
+        title={'계정'}
+        visible={isModalVisible}
+        footer={false}
+        onCancel={handleOk}
+      >
         <div style={{ textAlign: 'center' }}>
           <div style={{ marginBottom: '30px' }}>
             <p>Id</p>
