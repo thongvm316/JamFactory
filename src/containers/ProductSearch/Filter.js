@@ -15,7 +15,7 @@ import './Filter.scss'
 import CategoryList from '../CategoryList/CategoryList'
 import moment from 'moment'
 import NumberFormat from 'react-number-format'
-import { useLastLocation } from 'react-router-last-location';
+import { useLastLocation } from 'react-router-last-location'
 
 const { RangePicker } = DatePicker
 const { Option } = Select
@@ -25,10 +25,13 @@ const Filter = (props) => {
   const [value, setValue] = useState()
   const [dates, setDates] = useState([])
 
-  const [filter, setFilter] = useState({ category: '카테고리 선택' })
+  const [filter, setFilter] = useState({})
 
-  let lastLocation = useLastLocation();
-  let productSearchOptions = lastLocation && lastLocation.pathname == '/product-detail' ? JSON.parse(localStorage.getItem('product-search-options')) : filter
+  let lastLocation = useLastLocation()
+  let productSearchOptions =
+    lastLocation && lastLocation.pathname == '/product-detail'
+      ? JSON.parse(localStorage.getItem('product-search-options'))
+      : filter
 
   function onChangeMarket(value) {
     setFilter({ ...filter, markets: value })
@@ -104,10 +107,10 @@ const Filter = (props) => {
         ...filter,
         start: moment(val[0]).unix(),
         end: moment(val[1]).unix(),
-        rangePicker: val
+        rangePicker: val,
       })
     } else {
-      setFilter({ ...filter, start: '', end: ''})
+      setFilter({ ...filter, start: '', end: '' })
     }
   }
 
@@ -119,14 +122,21 @@ const Filter = (props) => {
   }
 
   return (
-    <div className="modal">
+    <div className='modal'>
       <Row style={{ marginBottom: '2rem' }}>
         <Col span={4}>
           <h4>시작일, 종료일</h4>
         </Col>
         <Col span={16}>
           <RangePicker
-            defaultValue={productSearchOptions && productSearchOptions.rangePicker ? [moment(productSearchOptions.rangePicker[0]), moment(productSearchOptions.rangePicker[1])] : ''}
+            defaultValue={
+              productSearchOptions && productSearchOptions.rangePicker
+                ? [
+                    moment(productSearchOptions.rangePicker[0]),
+                    moment(productSearchOptions.rangePicker[1]),
+                  ]
+                : ''
+            }
             value={hackValue || value}
             onChange={(val) => onChangeRangePicker(val)}
             onOpenChange={onOpenChange}
@@ -139,17 +149,29 @@ const Filter = (props) => {
           <h4>검색</h4>
         </Col>
         <Col span={15}>
-          <Input style={{ marginRight: '5px' }} defaultValue={productSearchOptions && productSearchOptions.key ? productSearchOptions.key : ''} onChange={onChangeSearch} />
+          <Input
+            style={{ marginRight: '5px' }}
+            defaultValue={
+              productSearchOptions && productSearchOptions.key
+                ? productSearchOptions.key
+                : ''
+            }
+            onChange={onChangeSearch}
+          />
         </Col>
         <Col span={5}>
           <Select
             onChange={handleChangeSearchBy}
-            defaultValue={productSearchOptions && productSearchOptions.searchBy ? productSearchOptions.searchBy : '2'}
-            className="select-after"
+            defaultValue={
+              productSearchOptions && productSearchOptions.searchBy
+                ? productSearchOptions.searchBy
+                : '2'
+            }
+            className='select-after'
           >
-            <Option value="0">카테고리</Option>
-            <Option value="1">밴더명</Option>
-            <Option value="2">제품명</Option>
+            <Option value='0'>카테고리</Option>
+            <Option value='1'>밴더명</Option>
+            <Option value='2'>제품명</Option>
           </Select>
         </Col>
       </Row>
@@ -159,31 +181,38 @@ const Filter = (props) => {
           <h4>마켓</h4>
         </Col>
         <Col span={20}>
-          <Checkbox.Group defaultValue={productSearchOptions && productSearchOptions.markets ? productSearchOptions.markets : ''} onChange={onChangeMarket}>
+          <Checkbox.Group
+            defaultValue={
+              productSearchOptions && productSearchOptions.markets
+                ? productSearchOptions.markets
+                : ''
+            }
+            onChange={onChangeMarket}
+          >
             <Row>
               <Col span={6}>
-                <Checkbox value="11번가">11번가</Checkbox>
+                <Checkbox value='11번가'>11번가</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="G마켓">G마켓</Checkbox>
+                <Checkbox value='G마켓'>G마켓</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="쿠팡">쿠팡</Checkbox>
+                <Checkbox value='쿠팡'>쿠팡</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="위메프">위메프</Checkbox>
+                <Checkbox value='위메프'>위메프</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="티몬">티몬</Checkbox>
+                <Checkbox value='티몬'>티몬</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="인터파크">인터파크</Checkbox>
+                <Checkbox value='인터파크'>인터파크</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="스마트스토어">스마트스토어</Checkbox>
+                <Checkbox value='스마트스토어'>스마트스토어</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value="전제 선택">전제 선택</Checkbox>
+                <Checkbox value='전제 선택'>전제 선택</Checkbox>
               </Col>
             </Row>
           </Checkbox.Group>
@@ -194,15 +223,19 @@ const Filter = (props) => {
         <Col span={4}>
           <h4>카테고리</h4>
         </Col>
-        <Col className="select-category-analysis">
+        <Col className='select-category-analysis'>
           <CategoryList
-            category={productSearchOptions && productSearchOptions.category ? productSearchOptions.category : filter.category}
+            category={
+              productSearchOptions && productSearchOptions.category
+                ? productSearchOptions.category
+                : filter.category
+            }
             onChangeCategory={(value) => handleChangeCategory(value)}
           />
         </Col>
       </Row>
 
-      <Row className="price" style={{ marginTop: '2rem' }}>
+      <Row className='price' style={{ marginTop: '2rem' }}>
         <Col span={4}>
           <h4>가격</h4>
         </Col>
@@ -217,7 +250,14 @@ const Filter = (props) => {
                 min={50000}
                 max={300000}
                 range
-                defaultValue={[productSearchOptions && productSearchOptions.minPrice ? productSearchOptions.minPrice : '', productSearchOptions && productSearchOptions.maxPrice ? productSearchOptions.maxPrice : '']}
+                defaultValue={[
+                  productSearchOptions && productSearchOptions.minPrice
+                    ? productSearchOptions.minPrice
+                    : '',
+                  productSearchOptions && productSearchOptions.maxPrice
+                    ? productSearchOptions.maxPrice
+                    : '',
+                ]}
                 onChange={onChangeSlider}
                 onAfterChange={onChangeSlider}
               />
@@ -229,7 +269,11 @@ const Filter = (props) => {
             <Col span={4}>
               <div style={{ color: '#42ABBC' }}>
                 <NumberFormat
-                  value={productSearchOptions && productSearchOptions.minPrice ? productSearchOptions.minPrice : filter.minPrice}
+                  value={
+                    productSearchOptions && productSearchOptions.minPrice
+                      ? productSearchOptions.minPrice
+                      : filter.minPrice
+                  }
                   displayType={'text'}
                   prefix={'₩'}
                   thousandSeparator={true}
@@ -240,7 +284,11 @@ const Filter = (props) => {
             <Col span={4}>
               <div style={{ color: '#42ABBC' }}>
                 <NumberFormat
-                  value={productSearchOptions && productSearchOptions.maxPrice ? productSearchOptions.maxPrice : filter.maxPrice}
+                  value={
+                    productSearchOptions && productSearchOptions.maxPrice
+                      ? productSearchOptions.maxPrice
+                      : filter.maxPrice
+                  }
                   displayType={'text'}
                   prefix={'₩'}
                   thousandSeparator={true}
@@ -251,7 +299,7 @@ const Filter = (props) => {
         </Col>
       </Row>
 
-      <Row className="search-number-of-review" style={{ marginBottom: '1rem' }}>
+      <Row className='search-number-of-review' style={{ marginBottom: '1rem' }}>
         <Col span={4}>
           <h4>리뷰수 검색</h4>
         </Col>
@@ -259,13 +307,17 @@ const Filter = (props) => {
           <Row>
             <Input.Group compact>
               <Input
-                defaultValue={productSearchOptions && productSearchOptions.minReview ? productSearchOptions.minReview : ''}
+                defaultValue={
+                  productSearchOptions && productSearchOptions.minReview
+                    ? productSearchOptions.minReview
+                    : ''
+                }
                 onChange={minReviews}
                 style={{ width: 150, textAlign: 'center' }}
-                suffix="최소"
+                suffix='최소'
               />
               <Input
-                className="site-input-split"
+                className='site-input-split'
                 style={{
                   width: 30,
                   borderLeft: 0,
@@ -275,24 +327,28 @@ const Filter = (props) => {
                   border: 'none',
                   margin: '0 1rem',
                 }}
-                placeholder="~"
+                placeholder='~'
                 disabled
               />
               <Input
-                defaultValue={productSearchOptions && productSearchOptions.maxReview ? productSearchOptions.maxReview : ''}
+                defaultValue={
+                  productSearchOptions && productSearchOptions.maxReview
+                    ? productSearchOptions.maxReview
+                    : ''
+                }
                 onChange={maxReviews}
                 style={{
                   width: 150,
                   textAlign: 'center',
                 }}
-                suffix="최소"
+                suffix='최소'
               />
             </Input.Group>
           </Row>
         </Col>
       </Row>
 
-      <Row className="sale-search" style={{ marginBottom: '1rem' }}>
+      <Row className='sale-search' style={{ marginBottom: '1rem' }}>
         <Col span={4}>
           <h4>판매수 검색</h4>
         </Col>
@@ -300,13 +356,17 @@ const Filter = (props) => {
           <Row>
             <Input.Group compact>
               <Input
-                defaultValue={productSearchOptions && productSearchOptions.minSale ? productSearchOptions.minSale : ''}
+                defaultValue={
+                  productSearchOptions && productSearchOptions.minSale
+                    ? productSearchOptions.minSale
+                    : ''
+                }
                 onChange={setMinSale}
                 style={{ width: 150, textAlign: 'center' }}
-                suffix="최소"
+                suffix='최소'
               />
               <Input
-                className="site-input-split"
+                className='site-input-split'
                 style={{
                   width: 30,
                   borderLeft: 0,
@@ -316,18 +376,22 @@ const Filter = (props) => {
                   border: 'none',
                   margin: '0 1rem',
                 }}
-                placeholder="~"
+                placeholder='~'
                 disabled
               />
               <Input
-                defaultValue={productSearchOptions && productSearchOptions.maxSale ? productSearchOptions.maxSale : ''}
+                defaultValue={
+                  productSearchOptions && productSearchOptions.maxSale
+                    ? productSearchOptions.maxSale
+                    : ''
+                }
                 onChange={setMaxSale}
-                className="site-input-right"
+                className='site-input-right'
                 style={{
                   width: 150,
                   textAlign: 'center',
                 }}
-                suffix="최소"
+                suffix='최소'
               />
             </Input.Group>
           </Row>
@@ -336,7 +400,7 @@ const Filter = (props) => {
 
       <Row>
         <Col span={24} style={{ textAlign: 'center', marginTop: '2rem' }}>
-          <span className="btn-save" onClick={onSave}>
+          <span className='btn-save' onClick={onSave}>
             확인
           </span>
         </Col>
