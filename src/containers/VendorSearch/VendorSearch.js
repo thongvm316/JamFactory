@@ -39,7 +39,7 @@ const VendorSearch = (props) => {
   const [filter, setFilter] = useState()
   const [lastIndex, setLastIndex] = useState(0)
   const [sortIndex, setsortIndex] = useState(0)
-  let resetSortIndex;
+  let resetSortIndex
   const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
     isFilter: false,
     isSort: false,
@@ -89,7 +89,7 @@ const VendorSearch = (props) => {
 
   const SortProductCount = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -118,7 +118,7 @@ const VendorSearch = (props) => {
           onClick={() => {
             for (const key in triggerSortLoadMore) {
               if (triggerSortLoadMore[key]) {
-                resetSortIndex = 0;
+                resetSortIndex = 0
                 setsortIndex(0)
               }
             }
@@ -145,7 +145,7 @@ const VendorSearch = (props) => {
 
   const SortRevenue = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -201,7 +201,7 @@ const VendorSearch = (props) => {
 
   const SortTotalReview = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -257,7 +257,7 @@ const VendorSearch = (props) => {
 
   const SortSaleCount = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -326,7 +326,7 @@ const VendorSearch = (props) => {
     setLoadMoreFilterOrSort({
       ...loadMoreFilterOrSort,
       isFilter: false,
-      isSort: true
+      isSort: true,
     })
     const config = {
       headers: {
@@ -345,7 +345,9 @@ const VendorSearch = (props) => {
 
     try {
       const res = await axios.get(
-        `${API_URL}/bander/search?lastIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${params}&sort=${field},${sort}`,
+        `${API_URL}/bander/search?lastIndex=${
+          resetSortIndex == 0 ? resetSortIndex : sortIndex
+        }${params}&sort=${field},${sort}`,
         config,
       )
 
@@ -358,21 +360,22 @@ const VendorSearch = (props) => {
         } else {
           setVendors(vendors.concat(res.data.data.result))
         }
-        
-        resetSortIndex = undefined;
+
+        resetSortIndex = undefined
       } else {
-        resetSortIndex = undefined;
+        resetSortIndex = undefined
         setVendors(res.data.data.result)
       }
       setLoading(false)
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
-
-        props.history.push('/')
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
+          props.history.push('/')
+        }
       }
       setLoading(false)
-      resetSortIndex = undefined;
+      resetSortIndex = undefined
     }
   }
 
@@ -501,7 +504,7 @@ const VendorSearch = (props) => {
     setLoadMoreFilterOrSort({
       ...loadMoreFilterOrSort,
       isFilter: true,
-      isSort: false
+      isSort: false,
     })
     let params = ''
     for (const key in filter) {
@@ -529,14 +532,18 @@ const VendorSearch = (props) => {
           setVendors(res.data.data.result)
         }
       }
+      setLoading(false)
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
 
-        props.history.push('/')
+          props.history.push('/')
+        }
       }
+      console.log(error.response)
+      setLoading(false)
     }
-    setLoading(false)
   }
 
   /* Get Excel File */
@@ -686,7 +693,7 @@ const VendorSearch = (props) => {
 
   const onChangeRangePicker = (val, dateString) => {
     setValue(val)
-    console.log(dateString);
+    console.log(dateString)
 
     if (val && val[0] && val[1]) {
       const toTimestamp = (strDate) => {
@@ -700,7 +707,7 @@ const VendorSearch = (props) => {
         setValue('')
       }
 
-      console.log(val, toTimestamp(dateString[0]), toTimestamp(dateString[1]));
+      console.log(val, toTimestamp(dateString[0]), toTimestamp(dateString[1]))
       setFilter({
         ...filter,
         start: toTimestamp(dateString[0]),
@@ -750,41 +757,47 @@ const VendorSearch = (props) => {
     })
   }
 
-    // Select Market
-    function handleChangeSelectMarket(value) {
-      if (value === '전체보기') {
-        const { market, ...forFilter } = filter
-        setFilter(forFilter)
-      } else {
-        setFilter({ ...filter, market: value })
-      }
+  // Select Market
+  function handleChangeSelectMarket(value) {
+    if (value === '전체보기') {
+      const { market, ...forFilter } = filter
+      setFilter(forFilter)
+    } else {
+      setFilter({ ...filter, market: value })
     }
+  }
 
   return (
-    <div className="vendor-search">
-      <Row className="card-border" style={{ marginBottom: '2rem' }}>
-        <Col span={2} style={{ textAlign: 'start'}}>
-            <Select onChange={handleChangeSelectMarket} style={{ width: '90%' }} defaultValue="전체보기">
-              <Option value="전체보기">전체보기</Option>
-              <Option value="11번가">11번가</Option>
-              <Option value="G마켓">G마켓</Option>
-              <Option value="쿠팡">쿠팡</Option>
-              <Option value="인터파크">인터파크</Option>
-              <Option value="옥션">옥션</Option>
-              <Option value="스마트스토어">스마트스토어</Option>
-              <Option value="티몬">티몬</Option>
-              <Option value="위메프">위메프</Option>
-            </Select>
-          </Col>
-        <Col span={22} className="wraper-actions-vender">
+    <div className='vendor-search'>
+      <Row className='card-border' style={{ marginBottom: '2rem' }}>
+        <Col span={2} style={{ textAlign: 'start' }}>
+          <Select
+            onChange={handleChangeSelectMarket}
+            style={{ width: '90%' }}
+            defaultValue='전체보기'
+          >
+            <Option value='전체보기'>전체보기</Option>
+            <Option value='11번가'>11번가</Option>
+            <Option value='G마켓'>G마켓</Option>
+            <Option value='쿠팡'>쿠팡</Option>
+            <Option value='인터파크'>인터파크</Option>
+            <Option value='옥션'>옥션</Option>
+            <Option value='스마트스토어'>스마트스토어</Option>
+            <Option value='티몬'>티몬</Option>
+            <Option value='위메프'>위메프</Option>
+          </Select>
+        </Col>
+        <Col span={22} className='wraper-actions-vender'>
           <div style={{ display: 'flex', marginRight: '50px' }}>
-            <div className="filter-date" style={{ marginRight: '10px' }}>
+            <div className='filter-date' style={{ marginRight: '10px' }}>
               <Space>
                 <RangePicker
                   value={hackValue || value}
                   // disabledDate={disabledDate}
                   // onCalendarChange={(val) => onCalendarChange(val)}
-                  onChange={(val, dateString) => onChangeRangePicker(val, dateString)}
+                  onChange={(val, dateString) =>
+                    onChangeRangePicker(val, dateString)
+                  }
                   onOpenChange={onOpenChange}
                 />
               </Space>
@@ -796,7 +809,7 @@ const VendorSearch = (props) => {
                   color: 'white',
                   border: 'none',
                 }}
-                className="border-radius-6"
+                className='border-radius-6'
                 onClick={getVendor}
                 disabled={loading}
               >
@@ -806,22 +819,22 @@ const VendorSearch = (props) => {
           </div>
           <div style={{ display: 'flex' }}>
             <Input
-              className="border-radius-6"
+              className='border-radius-6'
               onChange={onChangeSearch}
               style={{ marginRight: '5px' }}
-              placeholder="Search"
+              placeholder='Search'
               suffix={<SearchOutlined />}
             />
             <Button
               disabled={loading}
               onClick={getExcelFile}
-              className="btn-light-blue border-radius-6"
+              className='btn-light-blue border-radius-6'
               style={{
                 backgroundColor: '#71c4d5',
                 border: 'none',
                 marginLeft: '10px',
               }}
-              type="primary"
+              type='primary'
             >
               EXCEL
             </Button>
@@ -829,7 +842,7 @@ const VendorSearch = (props) => {
         </Col>
       </Row>
 
-      <Row className="card-border">
+      <Row className='card-border'>
         <Col span={24}>
           <Table
             loading={loading}
@@ -847,13 +860,13 @@ const VendorSearch = (props) => {
               // onClick={loadMore}
               onClick={loadMoreSort}
               disabled={loading}
-              className="btn-light-blue border-radius-6"
+              className='btn-light-blue border-radius-6'
               style={{
                 backgroundColor: '#71c4d5',
                 border: 'none',
                 marginLeft: '10px',
               }}
-              type="primary"
+              type='primary'
             >
               LOAD MORE
             </Button>

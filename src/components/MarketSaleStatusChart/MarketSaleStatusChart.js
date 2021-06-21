@@ -321,7 +321,7 @@ const MarketSaleStatusChart = (props) => {
         setData(res.data.data.result)
       }
     } catch (error) {
-      if (error && error.response && error.statusText) {
+      if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
@@ -333,13 +333,13 @@ const MarketSaleStatusChart = (props) => {
 
   return (
     <div>
-      <Spin tip="Loading..." spinning={spinning}>
+      <Spin tip='Loading...' spinning={spinning}>
         <HighchartsReact
           highcharts={Highcharts}
           options={optionsLineAndColumnChart}
           {...props}
         />
-        <div className="market">{props.market}</div>
+        <div className='market'>{props.market}</div>
       </Spin>
     </div>
   )

@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { Button, DatePicker, Row, Col, Table, Modal, Select, Popover } from 'antd'
+import {
+  Button,
+  DatePicker,
+  Row,
+  Col,
+  Table,
+  Modal,
+  Select,
+  Popover,
+} from 'antd'
 import Filter from './Filter'
 import Chart from './Chart'
 import './ProductSearch.scss'
@@ -11,7 +20,7 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import NumberFormat from 'react-number-format'
 import saleStatusApi from '../../api/SaleStatusAPI'
-import { useLastLocation } from 'react-router-last-location';
+import { useLastLocation } from 'react-router-last-location'
 
 const { Option } = Select
 
@@ -32,7 +41,8 @@ const ProductSearch = (props) => {
 
   const [getParamsFilter, setGetParamsFilter] = useState(null)
   const [paramsOfGetExcelFile, setParamsOfGetExcelFile] = useState('')
-  const [getParamForApiGetExcelSort, setGetParamForApiGetExcelSort] = useState('')
+  const [getParamForApiGetExcelSort, setGetParamForApiGetExcelSort] =
+    useState('')
 
   const [sortIndex, setSortIndex] = useState(0)
   const [filters, setFilters] = useState({})
@@ -49,10 +59,11 @@ const ProductSearch = (props) => {
     sold_asc: false,
     sold_desc: false,
   })
-  let resetSortIndex;
-  let lastLocation = useLastLocation();
-  let productSearchOptions = JSON.parse(localStorage.getItem('product-search-options'))
-
+  let resetSortIndex
+  let lastLocation = useLastLocation()
+  let productSearchOptions = JSON.parse(
+    localStorage.getItem('product-search-options'),
+  )
 
   useEffect(() => {
     getProducts()
@@ -99,29 +110,34 @@ const ProductSearch = (props) => {
       isFilter: true,
       isSort: false,
     })
-    let params = '';
+    let params = ''
 
     let filterOptions = {}
 
     if (lastLocation && lastLocation.pathname == '/product-detail') {
-
       if (productSearchOptions) {
         filterOptions = productSearchOptions
-
       } else {
-        filterOptions = filters;
+        filterOptions = filters
       }
-
     }
-    if (!lastLocation || lastLocation.pathname != '/product-detail'){
-      filterOptions = filters;
+    if (!lastLocation || lastLocation.pathname != '/product-detail') {
+      filterOptions = filters
     }
 
-    if (filterOptions && filterOptions.category && filterOptions.category === '전체보기') {
+    if (
+      filterOptions &&
+      filterOptions.category &&
+      filterOptions.category === '전체보기'
+    ) {
       delete filterOptions['category']
     }
 
-    if (filterOptions && filterOptions.markets && filterOptions.markets.length) {
+    if (
+      filterOptions &&
+      filterOptions.markets &&
+      filterOptions.markets.length
+    ) {
       _.each(filterOptions.markets, (market, index) => {
         params += `&market[]=${market}`
       })
@@ -129,14 +145,10 @@ const ProductSearch = (props) => {
 
     for (const key in filterOptions) {
       if (filterOptions[key]) {
-
-        if (key == 'maxPrice' && filterOptions[key] == 300000){
-
+        if (key == 'maxPrice' && filterOptions[key] == 300000) {
         } else {
           params += `&${key}=${filterOptions[key]}`
-
         }
-
       }
     }
 
@@ -216,7 +228,7 @@ const ProductSearch = (props) => {
 
   const SortSellerPrice = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -268,7 +280,7 @@ const ProductSearch = (props) => {
 
   const SortReview = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -320,7 +332,7 @@ const ProductSearch = (props) => {
 
   const SortSold = () => (
     <>
-      <div className="style-sort">
+      <div className='style-sort'>
         <p
           onClick={() => {
             for (const key in triggerSortLoadMore) {
@@ -467,11 +479,17 @@ const ProductSearch = (props) => {
       }
       try {
         const res = await axios.get(
-          `${API_URL}/product/search?sortIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${addSortParam}`,
+          `${API_URL}/product/search?sortIndex=${
+            resetSortIndex == 0 ? resetSortIndex : sortIndex
+          }${addSortParam}`,
           config,
         )
 
-        setGetParamForApiGetExcelSort(`sortIndex=${resetSortIndex == 0 ? resetSortIndex : sortIndex}${addSortParam}`)
+        setGetParamForApiGetExcelSort(
+          `sortIndex=${
+            resetSortIndex == 0 ? resetSortIndex : sortIndex
+          }${addSortParam}`,
+        )
 
         if (res.status == 200) {
           if (sortIndex > 0) {
@@ -485,20 +503,22 @@ const ProductSearch = (props) => {
               setProductList(res.data.data.result)
             }
 
-            resetSortIndex = undefined;
+            resetSortIndex = undefined
           } else {
             setProductList(res.data.data.result)
-            resetSortIndex = undefined;
+            resetSortIndex = undefined
           }
         }
         setLoading(false)
       } catch (error) {
-        if (error.response.statusText == 'Unauthorized') {
-          localStorage.clear()
-          props.history.push('/')
+        if (error && error.response && error.response.statusText) {
+          if (error.response.statusText == 'Unauthorized') {
+            localStorage.clear()
+            props.history.push('/')
+          }
         }
         setLoading(false)
-        resetSortIndex = undefined;
+        resetSortIndex = undefined
       }
     }
     getData()
@@ -559,29 +579,29 @@ const ProductSearch = (props) => {
   }
 
   return (
-    <div className="product-search">
-      <Row className="card-border" style={{ marginBottom: '2rem' }}>
-        <Col span={24} className="wraper-actions">
+    <div className='product-search'>
+      <Row className='card-border' style={{ marginBottom: '2rem' }}>
+        <Col span={24} className='wraper-actions'>
           <div>
             <Button
-              className="main-btn-style border-radius-6"
+              className='main-btn-style border-radius-6'
               onClick={showModal}
               disabled={loading}
             >
               검색
             </Button>
           </div>
-          <div className="input-product-search" style={{ display: 'flex' }}>
+          <div className='input-product-search' style={{ display: 'flex' }}>
             <Button
               disabled={loading}
-              className="btn-light-blue border-radius-6"
+              className='btn-light-blue border-radius-6'
               onClick={getExcelFile}
               style={{
                 backgroundColor: '#71c4d5',
                 border: 'none',
                 marginLeft: '10px',
               }}
-              type="primary"
+              type='primary'
             >
               EXCEL
             </Button>
@@ -589,7 +609,7 @@ const ProductSearch = (props) => {
         </Col>
       </Row>
 
-      <Row className="res-small-device card-border">
+      <Row className='res-small-device card-border'>
         <Col span={24}>
           <Table
             columns={columns}
@@ -621,13 +641,13 @@ const ProductSearch = (props) => {
           {productList.length ? (
             <Button
               onClick={loadMore}
-              className="btn-light-blue border-radius-6"
+              className='btn-light-blue border-radius-6'
               style={{
                 backgroundColor: '#71c4d5',
                 border: 'none',
                 marginLeft: '10px',
               }}
-              type="primary"
+              type='primary'
               disabled={loading}
             >
               LOAD MORE
@@ -643,7 +663,7 @@ const ProductSearch = (props) => {
         onOk={handleOk}
         onCancel={handleCancel}
         width={800}
-        className="style-btn"
+        className='style-btn'
         footer={false}
       >
         <Filter onOk={(values) => handleOk(values)} />
@@ -654,10 +674,10 @@ const ProductSearch = (props) => {
         onOk={handleOkTwo}
         onCancel={handleCancelTwo}
         width={1000}
-        className="style-btn"
+        className='style-btn'
         sorter={true}
         footer={[
-          <Button key="back" onClick={handleOkTwo}>
+          <Button key='back' onClick={handleOkTwo}>
             Cancel
           </Button>,
           <Button
@@ -667,8 +687,8 @@ const ProductSearch = (props) => {
               color: '#6b5db0',
               fontWeight: 700,
             }}
-            key="submit"
-            type="primary"
+            key='submit'
+            type='primary'
             onClick={handleCancelTwo}
           >
             OK

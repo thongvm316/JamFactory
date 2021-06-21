@@ -100,9 +100,11 @@ const ProductDetail = (props) => {
         setProductDetailShare(res.data.data.result.share)
       }
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
-        props.history.push('/')
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
+          props.history.push('/')
+        }
       }
     }
     setSpinningOfShare(false)
@@ -134,7 +136,7 @@ const ProductDetail = (props) => {
       }
     } catch (error) {
       console.log(error.response)
-      if (error && error.response && error.statusText) {
+      if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
@@ -162,10 +164,11 @@ const ProductDetail = (props) => {
         setCategoryRanking(res.data.data.result.category_rank)
       }
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
-
-        props.history.push('/')
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
+          props.history.push('/')
+        }
       }
     }
   }
@@ -188,10 +191,11 @@ const ProductDetail = (props) => {
         setSaleRanking(res.data.data.result.total_rank)
       }
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
-
-        props.history.push('/')
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
+          props.history.push('/')
+        }
       }
     }
   }
@@ -214,10 +218,12 @@ const ProductDetail = (props) => {
         setShareKing(res.data.data.result.share)
       }
     } catch (error) {
-      if (error.response.statusText == 'Unauthorized') {
-        localStorage.clear()
+      if (error && error.response && error.response.statusText) {
+        if (error.response.statusText == 'Unauthorized') {
+          localStorage.clear()
 
-        props.history.push('/')
+          props.history.push('/')
+        }
       }
     }
   }
@@ -347,28 +353,28 @@ const ProductDetail = (props) => {
   return (
     <>
       <Row
-        className="card-border main-header"
+        className='card-border main-header'
         style={{ padding: '60px', marginBottom: '120px' }}
       >
         <Col span={24}>
-          <div className="info">
-            <div className="avatar">
+          <div className='info'>
+            <div className='avatar'>
               <img src={product.image} style={{ width: '100%' }} />
             </div>
-            <div className="text">
+            <div className='text'>
               <div>
                 <h4>{product.category_tag}</h4>
                 <h2>{product.name}</h2>
-                <Space size="large">
+                <Space size='large'>
                   <h4>{product.market_name}</h4>
                   <h4>{product.bander_name}</h4>
                 </Space>
                 <br />
-                <Button onClick={goToStore} className="btn-light-orange">
+                <Button onClick={goToStore} className='btn-light-orange'>
                   판매 사이트 가기
                 </Button>
               </div>
-              <div className="price">
+              <div className='price'>
                 <Space>
                   <div>총판매액</div>
                   <h2>
@@ -416,32 +422,32 @@ const ProductDetail = (props) => {
           </div>
         </Col>
         <Divider />
-        <div className="gust-header">
-          <div className="card-item-border card-item">
-            <div className="card-item-text">
+        <div className='gust-header'>
+          <div className='card-item-border card-item'>
+            <div className='card-item-text'>
               <h2 style={{ color: '#2A4EAA' }}>
                 {product.category_tag} <br /> 카테고리 순위
               </h2>
               <h2 style={{ color: '#6E798C' }}>{categoryRanking}위</h2>
             </div>
-            <div className="card-item-icon">
+            <div className='card-item-icon'>
               <img src={Card2} />
             </div>
           </div>
-          <div className="card-item-border card-item">
-            <div className="card-item-text">
+          <div className='card-item-border card-item'>
+            <div className='card-item-text'>
               <h2 style={{ color: '#2A4EAA' }}>종합 판매순위</h2>
               <h2 style={{ color: '#6E798C' }}>{saleRanking}위</h2>
             </div>
-            <div className="card-item-icon">
+            <div className='card-item-icon'>
               <img src={Card3} />
             </div>
           </div>
-          <div className="card-item-border card-chart">
-            <div className="card-item-chart">
-              <h2 className="test">점유율</h2>
+          <div className='card-item-border card-chart'>
+            <div className='card-item-chart'>
+              <h2 className='test'>점유율</h2>
 
-              <Spin tip="Loading..." spinning={spinningOfShare}>
+              <Spin tip='Loading...' spinning={spinningOfShare}>
                 <PieChart highcharts={Highcharts} options={options} />
               </Spin>
             </div>
@@ -477,14 +483,14 @@ const ProductDetail = (props) => {
             </Row> */}
       <Row
         style={{ marginBottom: '20px', position: 'relative' }}
-        className="card-border"
+        className='card-border'
       >
-        <Col span={24} className="product-detail__style">
+        <Col span={24} className='product-detail__style'>
           <Space>
             <DatePicker
               defaultValue={moment(currentMonth, 'YYYY')}
               onChange={onChange}
-              picker="year"
+              picker='year'
             />
             <Button
               style={{
@@ -500,7 +506,7 @@ const ProductDetail = (props) => {
           </Space>
         </Col>
         <Col span={24}>
-          <Spin tip="Loading..." spinning={spinning}>
+          <Spin tip='Loading...' spinning={spinning}>
             <HighchartsReact
               highcharts={Highcharts}
               options={optionsLineChart}
@@ -510,11 +516,11 @@ const ProductDetail = (props) => {
         </Col>
       </Row>
 
-      <Row gutter={16} className="card-border">
+      <Row gutter={16} className='card-border'>
         {market_list.map((market, index) => {
           return (
             <Col key={index} span={6} style={{ marginBottom: '10px' }}>
-              <div className="card-item-border">
+              <div className='card-item-border'>
                 <MarketSaleStatusChart
                   year={yearForCallApi}
                   market={market}
