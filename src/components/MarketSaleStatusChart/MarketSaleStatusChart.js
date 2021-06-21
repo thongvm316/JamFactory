@@ -321,6 +321,8 @@ const MarketSaleStatusChart = (props) => {
         setData(res.data.data.result)
       }
     } catch (error) {
+      console.log(error.response)
+      setSpinning(false)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()

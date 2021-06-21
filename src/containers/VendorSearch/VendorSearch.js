@@ -368,13 +368,14 @@ const VendorSearch = (props) => {
       }
       setLoading(false)
     } catch (error) {
+      console.log(error.response)
+      setLoading(false)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
       }
-      setLoading(false)
       resetSortIndex = undefined
     }
   }
@@ -534,6 +535,8 @@ const VendorSearch = (props) => {
       }
       setLoading(false)
     } catch (error) {
+      console.log(error.response)
+      setLoading(false)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
@@ -541,8 +544,6 @@ const VendorSearch = (props) => {
           props.history.push('/')
         }
       }
-      console.log(error.response)
-      setLoading(false)
     }
   }
 

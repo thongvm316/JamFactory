@@ -177,6 +177,8 @@ const ProductSearch = (props) => {
       }
       setLoading(false)
     } catch (error) {
+      console.log(error.response)
+      setLoading(false)
       if (
         error &&
         error.response &&
@@ -185,7 +187,6 @@ const ProductSearch = (props) => {
         localStorage.clear()
         props.history.push('/')
       }
-      setLoading(false)
     }
     if (typeof filters === 'object') {
       filters.category = '전체보기'
@@ -511,13 +512,14 @@ const ProductSearch = (props) => {
         }
         setLoading(false)
       } catch (error) {
+        console.log(error.response)
+        setLoading(false)
         if (error && error.response && error.response.statusText) {
           if (error.response.statusText == 'Unauthorized') {
             localStorage.clear()
             props.history.push('/')
           }
         }
-        setLoading(false)
         resetSortIndex = undefined
       }
     }

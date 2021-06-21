@@ -100,6 +100,8 @@ const ProductDetail = (props) => {
         setProductDetailShare(res.data.data.result.share)
       }
     } catch (error) {
+      console.log(error.response)
+      setSpinningOfShare(false)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
@@ -136,6 +138,7 @@ const ProductDetail = (props) => {
       }
     } catch (error) {
       console.log(error.response)
+      setSpinning(false)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
@@ -164,6 +167,7 @@ const ProductDetail = (props) => {
         setCategoryRanking(res.data.data.result.category_rank)
       }
     } catch (error) {
+      console.log(error.response)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
@@ -191,6 +195,7 @@ const ProductDetail = (props) => {
         setSaleRanking(res.data.data.result.total_rank)
       }
     } catch (error) {
+      console.log(error.response)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
@@ -218,6 +223,7 @@ const ProductDetail = (props) => {
         setShareKing(res.data.data.result.share)
       }
     } catch (error) {
+      console.log(error.response)
       if (error && error.response && error.response.statusText) {
         if (error.response.statusText == 'Unauthorized') {
           localStorage.clear()
