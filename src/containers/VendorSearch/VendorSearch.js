@@ -36,7 +36,7 @@ const VendorSearch = (props) => {
   // const [key, setKey] = useState()
   const [loading, setLoading] = useState(false)
 
-  const [filter, setFilter] = useState()
+  const [filter, setFilter] = useState({})
   const [lastIndex, setLastIndex] = useState(0)
   const [sortIndex, setsortIndex] = useState(0)
   let resetSortIndex
@@ -480,6 +480,17 @@ const VendorSearch = (props) => {
 
   // DatePicker
   const { RangePicker } = DatePicker
+  // set default daysInMonth
+  const toTimestamp = (strDate) => {
+    var datum = Date.parse(strDate)
+    return datum / 1000
+  }
+  const startOfMonth = moment().clone().startOf('month').format('YYYY-MM-DD')
+  const endOfMonth = moment().clone().endOf('month').format('YYYY-MM-DD')
+  const allDateOfCurrentMonth = [
+    toTimestamp(startOfMonth),
+    toTimestamp(endOfMonth),
+  ]
 
   const onChangeStartDate = (date, dateString) => {
     console.log(dateString)
@@ -501,6 +512,8 @@ const VendorSearch = (props) => {
   }
 
   const getVendor = async () => {
+    let paramsOfFirstPageLoad = `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+
     setLoading(true)
     setLoadMoreFilterOrSort({
       ...loadMoreFilterOrSort,
@@ -523,7 +536,9 @@ const VendorSearch = (props) => {
     }
     try {
       const res = await axios.get(
-        `${API_URL}/bander/search?lastIndex=${lastIndex}${params}`,
+        `${API_URL}/bander/search?lastIndex=${lastIndex}${
+          params ? params : paramsOfFirstPageLoad
+        }`,
         config,
       )
       if (res.status == 200) {
@@ -794,6 +809,7 @@ const VendorSearch = (props) => {
               <Space>
                 <RangePicker
                   value={hackValue || value}
+                  defaultValue={[moment(startOfMonth), moment(endOfMonth)]}
                   // disabledDate={disabledDate}
                   // onCalendarChange={(val) => onCalendarChange(val)}
                   onChange={(val, dateString) =>

@@ -25,8 +25,8 @@ const ProductDetail = (props) => {
   const [spinning, setSpinning] = useState(false)
   const [spinningOfShare, setSpinningOfShare] = useState(false)
   const [productDetailShare, setProductDetailShare] = useState()
-  const [year, setYear] = useState('')
-  const [yearForCallApi, setYearForCallApi] = useState()
+  const [year, setYear] = useState(null)
+  const [yearForCallApi, setYearForCallApi] = useState(null)
 
   const convertData = (data) => {
     const dataForRender = ['', '', '', '', '', '', '', '', '', '', '', '']
@@ -76,7 +76,7 @@ const ProductDetail = (props) => {
     getCategoryRanking()
     getSaleRanking()
     getShareRanking()
-    getProductTrendGraph()
+    getProductTrendGraph(true)
     getProductDetailShare()
   }, [])
 
@@ -112,9 +112,12 @@ const ProductDetail = (props) => {
     setSpinningOfShare(false)
   }
 
-  const getProductTrendGraph = async () => {
+  const getProductTrendGraph = async (isUseEffectRun = false) => {
     setSpinning(true)
-    setYearForCallApi(year)
+    if (isUseEffectRun == true) {
+    } else {
+      setYearForCallApi(year)
+    }
     const currentYear = moment().year()
     const config = {
       headers: {
@@ -346,6 +349,7 @@ const ProductDetail = (props) => {
   // Date Picker
   const date = new Date()
   const currentMonth = moment.utc(date).format('YYYY-MM')
+
   function onChange(date, dateString) {
     // console.log(date, dateString)
     setYear(dateString)
@@ -460,33 +464,6 @@ const ProductDetail = (props) => {
           </div>
         </div>
       </Row>
-      {/* <Row gutter={24} style={{ marginTop: '30px' }}>
-                <Col span={18} offset={2}>
-                    <Row gutter={24}>
-                        <Col span={8}>
-                            <div style={{ height: '150px' }} className="card-border">
-                                <h4>종합 판매순위</h4>
-                                <h2 style={{ fontSize: '40px' }}>56위</h2>
-                            </div>
-                        </Col>
-                        <Col span={8}>
-                            <div style={{ height: '150px' }} className="card-border">
-                                <div>
-                                    <h4>유아 인형</h4>
-                                    <h4>카테고리 순위</h4>
-                                </div>
-                                <h2 style={{ fontSize: '40px' }}>24위</h2>
-                            </div>
-                        </Col>
-                        <Col span={8}>
-                            <div style={{ height: '150px' }} className="card-border">
-                                <PieChart highcharts={Highcharts} options={options} />
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
-
-            </Row> */}
       <Row
         style={{ marginBottom: '20px', position: 'relative' }}
         className='card-border'

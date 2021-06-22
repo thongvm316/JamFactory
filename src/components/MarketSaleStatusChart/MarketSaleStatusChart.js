@@ -8,7 +8,6 @@ import { Spin } from 'antd'
 import moment from 'moment'
 
 const MarketSaleStatusChart = (props) => {
-  //   console.log(props)
   const [data, setData] = useState([
     // {
     //   revenue: '23900',
