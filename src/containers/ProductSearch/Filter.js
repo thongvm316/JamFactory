@@ -25,7 +25,9 @@ const Filter = (props) => {
   const [value, setValue] = useState()
   const [dates, setDates] = useState([])
 
-  const [filter, setFilter] = useState({})
+  const [filter, setFilter] = useState({
+    searchBy: '2'
+  })
 
   let lastLocation = useLastLocation()
   let productSearchOptions =
