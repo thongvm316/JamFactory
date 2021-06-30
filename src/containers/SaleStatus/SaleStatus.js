@@ -114,84 +114,6 @@ const SaleStatus = () => {
     }
   }
 
-  const onCalendarChange = (val) => {
-    if (val && val[0]) {
-      const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
-      const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth == day) {
-        modal('시작일은 월의 마지막 일자가 될 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[1]) {
-      const day = parseInt(moment(val[1]).format('DD'))
-      if (1 == day) {
-        modal('시작일을 마지막 일자로 선택 할 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[0] && val[1]) {
-      const startDate = parseInt(moment(val[0]).format('DD'))
-      const endDate = parseInt(moment(val[1]).format('DD'))
-
-      if (startDate == endDate) {
-        modal('시작일은 종료일과 같을 수 없습니다')
-        return
-      }
-    }
-
-    setDates(val)
-  }
-
-  const disabledDate = (current) => {
-    const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
-
-    if (!dates || dates.length === 0) {
-      const date =
-        (current && moment(current).format('DD') == 1) ||
-        (current && moment(current).format('DD') == 15) ||
-        (current && moment(current).format('DD') == daysInMonth)
-
-      return !date
-    } else {
-      if (dates[0]) {
-        return !(
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-
-      if (dates[1]) {
-        return !(
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-    }
-  }
-
   const onOpenChange = (open) => {
     if (open) {
       setHackValue([])
@@ -300,7 +222,10 @@ const SaleStatus = () => {
         .catch((error) => console.log(error.response)),
 
       saleStatusAPI
-        .getSaleInfo()
+        .getSaleInfo({
+          start: allDateOfCurrentMonth[0],
+          end: allDateOfCurrentMonth[1],
+        })
         .then((value) => {
           if (value && value.data && value.data.result) {
             setData((prevState) => ({
@@ -312,7 +237,10 @@ const SaleStatus = () => {
         .catch((error) => console.log(error.response)),
 
       saleStatusAPI
-        .getRevenueInfo()
+        .getRevenueInfo({
+          start: allDateOfCurrentMonth[0],
+          end: allDateOfCurrentMonth[1],
+        })
         .then((value) => {
           if (value && value.data && value.data.result) {
             setData((prevState) => ({
@@ -324,7 +252,10 @@ const SaleStatus = () => {
         .catch((error) => console.log(error.response)),
 
       saleStatusAPI
-        .getListMarket()
+        .getListMarket({
+          start: allDateOfCurrentMonth[0],
+          end: allDateOfCurrentMonth[1],
+        })
         .then((value) => {
           console.log(value)
           if (value && value.data && value.data.result) {
@@ -380,7 +311,6 @@ const SaleStatus = () => {
       key: valueOfSearchInput,
       lastIndex: lastItemOfDataSearch,
     }
-    console.log(params)
 
     saleStatusApi
       .getExcelFile(params)
@@ -455,16 +385,16 @@ const SaleStatus = () => {
   }
 
   return (
-    <div className="sale-status">
-      <Row justify="space-around">
+    <div className='sale-status'>
+      <Row justify='space-around'>
         <Col
           sm={24}
           md={11}
           lg={11}
           xl={5}
-          className="card-item-border card-item"
+          className='card-item-border card-item'
         >
-          <div className="card-item-text">
+          <div className='card-item-text'>
             <h2 style={{ color: '#2A4EAA', marginBottom: '0' }}>총 상품 수</h2>
             <h2
               style={{ color: '#6E798C', fontSize: '36px', fontWeight: '700' }}
@@ -472,7 +402,7 @@ const SaleStatus = () => {
               {data.totalProductCount ? data.totalProductCount : ''}개
             </h2>
           </div>
-          <div className="card-item-icon">
+          <div className='card-item-icon'>
             <img src={SaleStatus1 ? SaleStatus1 : ''} />
           </div>
         </Col>
@@ -481,9 +411,9 @@ const SaleStatus = () => {
           md={11}
           lg={11}
           xl={5}
-          className="card-item-border card-item"
+          className='card-item-border card-item'
         >
-          <div className="card-item-text">
+          <div className='card-item-text'>
             <h2 style={{ color: '#2A4EAA', marginBottom: '0' }}>총 리뷰</h2>
             <h2
               style={{
@@ -507,7 +437,7 @@ const SaleStatus = () => {
               건
             </p>
           </div>
-          <div className="card-item-icon">
+          <div className='card-item-icon'>
             <img src={SaleStatus2 ? SaleStatus2 : ''} />
           </div>
         </Col>
@@ -516,9 +446,9 @@ const SaleStatus = () => {
           md={11}
           lg={11}
           xl={5}
-          className="card-item-border card-item"
+          className='card-item-border card-item'
         >
-          <div className="card-item-text">
+          <div className='card-item-text'>
             <h2 style={{ color: '#2A4EAA', marginBottom: '0' }}>
               종합 판매순위
             </h2>
@@ -529,7 +459,7 @@ const SaleStatus = () => {
               위
             </h2>
           </div>
-          <div className="card-item-icon">
+          <div className='card-item-icon'>
             <img src={SaleStatus3 ? SaleStatus3 : ''} />
           </div>
         </Col>
@@ -538,9 +468,9 @@ const SaleStatus = () => {
           md={11}
           lg={11}
           xl={5}
-          className="card-item-border card-item"
+          className='card-item-border card-item'
         >
-          <div className="card-item-text">
+          <div className='card-item-text'>
             <h2 style={{ color: '#2A4EAA', marginBottom: '0' }}>
               종합 매출순위
             </h2>
@@ -565,21 +495,21 @@ const SaleStatus = () => {
               />
             </p>
           </div>
-          <div className="card-item-icon">
+          <div className='card-item-icon'>
             <img src={SaleStatus4 ? SaleStatus4 : ''} />
           </div>
         </Col>
       </Row>
 
-      <Row className="bar-style">
+      <Row className='bar-style'>
         <Col
           sm={24}
           md={24}
           lg={24}
           xl={24}
-          className="card-border info-search"
+          className='card-border info-search'
         >
-          <Space className="space-small" style={{ marginRight: '2rem' }}>
+          <Space className='space-small' style={{ marginRight: '2rem' }}>
             <DatePicker.RangePicker
               bordered={false}
               defaultValue={[moment(startOfMonth), moment(endOfMonth)]}
@@ -593,7 +523,7 @@ const SaleStatus = () => {
             <Button
               style={{ backgroundColor: '#71c4d5', border: 'none' }}
               onClick={getData}
-              type="primary"
+              type='primary'
               disabled={loading}
             >
               적용하기
@@ -603,12 +533,12 @@ const SaleStatus = () => {
             <Input
               style={{ borderRadius: '6px' }}
               onChange={getValueOfInputSearch}
-              placeholder="Search"
+              placeholder='Search'
             />
             <Button
               disabled={loading}
               style={{ backgroundColor: '#71c4d5', border: 'none' }}
-              type="primary"
+              type='primary'
               onClick={getExcelFile}
             >
               EXCEL
@@ -617,7 +547,7 @@ const SaleStatus = () => {
         </Col>
       </Row>
 
-      <Row gutter={24} className="market-of-user">
+      <Row gutter={24} className='market-of-user'>
         {newListMarket.map((market, i) => (
           <Col
             key={i}
@@ -627,9 +557,9 @@ const SaleStatus = () => {
             lg={3}
             xl={3}
             style={{ textAlign: 'center' }}
-            className="total-sale"
+            className='total-sale'
           >
-            <a href={market.url ? market.url : ''} target="_blank">
+            <a href={market.url ? market.url : ''} target='_blank'>
               <img src={market.img} />
               <span
                 style={{
@@ -663,13 +593,13 @@ const SaleStatus = () => {
             <Button
               disabled={loading}
               onClick={loadMore}
-              className="btn-light-blue border-radius-6"
+              className='btn-light-blue border-radius-6'
               style={{
                 backgroundColor: '#71c4d5',
                 border: 'none',
                 marginLeft: '10px',
               }}
-              type="primary"
+              type='primary'
             >
               LOAD MORE
             </Button>
