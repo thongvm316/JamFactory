@@ -210,7 +210,10 @@ const SaleStatus = () => {
         .catch((error) => console.log(error.response)),
 
       saleStatusAPI
-        .getReviewInfo()
+        .getReviewInfo({
+          start: allDateOfCurrentMonth[0],
+          end: allDateOfCurrentMonth[1],
+        })
         .then((value) => {
           if (value && value.data && value.data.result) {
             setData((prevState) => ({
