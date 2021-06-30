@@ -214,7 +214,7 @@ const Filter = (props) => {
                 <Checkbox value='스마트스토어'>스마트스토어</Checkbox>
               </Col>
               <Col span={6}>
-                <Checkbox value='전제 선택'>전제 선택</Checkbox>
+                <Checkbox value='옥션'>옥션</Checkbox>
               </Col>
             </Row>
           </Checkbox.Group>
