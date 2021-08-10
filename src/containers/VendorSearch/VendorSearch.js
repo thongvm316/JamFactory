@@ -599,6 +599,8 @@ const VendorSearch = (props) => {
       var addSortParam = params.concat(`&sort=sale_count,desc`)
     }
 
+    params += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+
     saleStatusApi
       .getExcelFileBander(addSortParam)
       .then((value) => {
