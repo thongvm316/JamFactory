@@ -542,6 +542,8 @@ const VendorSearch = (props) => {
       }
     }
 
+    params += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+
     saleStatusApi
       .getExcelFileBander(params)
       .then((value) => {
