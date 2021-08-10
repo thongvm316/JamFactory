@@ -487,6 +487,8 @@ const VendorSearch = (props) => {
       }
     }
 
+    params += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+
     const config = {
       headers: {
         Accept: 'application/json',
