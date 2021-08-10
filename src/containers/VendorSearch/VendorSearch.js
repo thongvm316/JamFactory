@@ -60,29 +60,29 @@ const VendorSearch = (props) => {
   }, [lastIndex])
 
   useEffect(() => {
-    if (sortIndex == 0) return
-    if (triggerSortLoadMore.product_count_asc == true) {
+    if (sortIndex === 0) return
+    if (triggerSortLoadMore.product_count_asc === true) {
       sortApi('product_count', 'asc')
     }
-    if (triggerSortLoadMore.product_count_desc == true) {
+    if (triggerSortLoadMore.product_count_desc === true) {
       sortApi('product_count', 'desc')
     }
-    if (triggerSortLoadMore.revenue_asc == true) {
+    if (triggerSortLoadMore.revenue_asc === true) {
       sortApi('revenue', 'asc')
     }
-    if (triggerSortLoadMore.revenue_desc == true) {
+    if (triggerSortLoadMore.revenue_desc === true) {
       sortApi('revenue', 'desc')
     }
-    if (triggerSortLoadMore.total_review_asc == true) {
+    if (triggerSortLoadMore.total_review_asc === true) {
       sortApi('total_review', 'asc')
     }
-    if (triggerSortLoadMore.total_review_desc == true) {
+    if (triggerSortLoadMore.total_review_desc === true) {
       sortApi('total_review', 'desc')
     }
-    if (triggerSortLoadMore.sale_count_asc == true) {
+    if (triggerSortLoadMore.sale_count_asc === true) {
       sortApi('sale_count', 'asc')
     }
-    if (triggerSortLoadMore.sale_count_desc == true) {
+    if (triggerSortLoadMore.sale_count_desc === true) {
       sortApi('sale_count', 'desc')
     }
   }, [sortIndex])
@@ -346,7 +346,7 @@ const VendorSearch = (props) => {
     try {
       const res = await axios.get(
         `${API_URL}/bander/search?lastIndex=${
-          resetSortIndex == 0 ? resetSortIndex : sortIndex
+          resetSortIndex === 0 ? resetSortIndex : sortIndex
         }${params}&sort=${field},${sort}`,
         config,
       )
@@ -355,7 +355,7 @@ const VendorSearch = (props) => {
         if (lastIndex > 0) {
           setVendors([])
         }
-        if (resetSortIndex == 0) {
+        if (resetSortIndex === 0) {
           setVendors(res.data.data.result)
         } else {
           setVendors(vendors.concat(res.data.data.result))
@@ -371,7 +371,7 @@ const VendorSearch = (props) => {
       console.log(error.response)
       setLoading(false)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
@@ -541,7 +541,7 @@ const VendorSearch = (props) => {
         }`,
         config,
       )
-      if (res.status == 200) {
+      if (res.status === 200) {
         if (lastIndex > 0) {
           setVendors(vendors.concat(res.data.data.result))
         } else {
@@ -553,7 +553,7 @@ const VendorSearch = (props) => {
       console.log(error.response)
       setLoading(false)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
 
           props.history.push('/')
@@ -660,52 +660,52 @@ const VendorSearch = (props) => {
     }
   }
 
-  const disabledDate = (current) => {
-    const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
+  // const disabledDate = (current) => {
+  //   const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
 
-    if (!dates || dates.length === 0) {
-      const date =
-        (current && moment(current).format('DD') == 1) ||
-        (current && moment(current).format('DD') == 15) ||
-        (current && moment(current).format('DD') == daysInMonth)
+  //   if (!dates || dates.length === 0) {
+  //     const date =
+  //       (current && moment(current).format('DD') === 1) ||
+  //       (current && moment(current).format('DD') === 15) ||
+  //       (current && moment(current).format('DD') === daysInMonth)
 
-      return !date
-    } else {
-      if (dates[0]) {
-        return !(
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
+  //     return !date
+  //   } else {
+  //     if (dates[0]) {
+  //       return !(
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 1) ||
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 15) ||
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === daysInMonth)
+  //       )
+  //     }
 
-      if (dates[1]) {
-        return !(
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-    }
-  }
+  //     if (dates[1]) {
+  //       return !(
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 1) ||
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 15) ||
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === daysInMonth)
+  //       )
+  //     }
+  //   }
+  // }
 
   const onChangeRangePicker = (val, dateString) => {
     setValue(val)
@@ -719,7 +719,7 @@ const VendorSearch = (props) => {
       const startDate = parseInt(moment(val[0]).format('DD'))
       const endDate = parseInt(moment(val[1]).format('DD'))
 
-      if (startDate == endDate) {
+      if (startDate === endDate) {
         setValue('')
       }
 
@@ -738,7 +738,7 @@ const VendorSearch = (props) => {
     if (val && val[0]) {
       const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
       const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth == day) {
+      if (daysInMonth === day) {
         modal('시작일은 월의 마지막 일자가 될 수 없습니다')
         return
       }
@@ -746,7 +746,7 @@ const VendorSearch = (props) => {
 
     if (val && val[1]) {
       const day = parseInt(moment(val[1]).format('DD'))
-      if (1 == day) {
+      if (1 === day) {
         modal('시작일을 마지막 일자로 선택 할 수 없습니다')
         return
       }
@@ -756,7 +756,7 @@ const VendorSearch = (props) => {
       const startDate = parseInt(moment(val[0]).format('DD'))
       const endDate = parseInt(moment(val[1]).format('DD'))
 
-      if (startDate == endDate) {
+      if (startDate === endDate) {
         modal('시작일은 종료일과 같을 수 없습니다')
 
         return

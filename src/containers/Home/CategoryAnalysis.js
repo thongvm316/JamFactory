@@ -102,7 +102,7 @@ const CategoryAnalysis = (props) => {
               </li>
 
               <Popover content={product.name}>
-                <li className="style-text-home" style={{ flexBasis: '60%' }}>
+                <li className='style-text-home' style={{ flexBasis: '60%' }}>
                   <a
                     style={{
                       fontWeight: '400',
@@ -110,7 +110,7 @@ const CategoryAnalysis = (props) => {
                       color: '#495057',
                     }}
                     href={product.url}
-                    target="_blank"
+                    target='_blank'
                   >
                     {product.name}
                   </a>
@@ -241,43 +241,43 @@ const CategoryAnalysis = (props) => {
 
     if (!dates || dates.length === 0) {
       const date =
-        (current && moment(current).format('DD') == 1) ||
-        (current && moment(current).format('DD') == 15) ||
-        (current && moment(current).format('DD') == daysInMonth)
+        (current && moment(current).format('DD') === 1) ||
+        (current && moment(current).format('DD') === 15) ||
+        (current && moment(current).format('DD') === daysInMonth)
 
       return !date
     } else {
       if (dates[0]) {
         return !(
-          (moment(dates[0]).format('YYYY-MM') ==
+          (moment(dates[0]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[0]).format('YYYY-MM') ==
+            moment(current).format('DD') === 1) ||
+          (moment(dates[0]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[0]).format('YYYY-MM') ==
+            moment(current).format('DD') === 15) ||
+          (moment(dates[0]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == daysInMonth)
+            moment(current).format('DD') === daysInMonth)
         )
       }
 
       if (dates[1]) {
         return !(
-          (moment(dates[1]).format('YYYY-MM') ==
+          (moment(dates[1]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[1]).format('YYYY-MM') ==
+            moment(current).format('DD') === 1) ||
+          (moment(dates[1]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[1]).format('YYYY-MM') ==
+            moment(current).format('DD') === 15) ||
+          (moment(dates[1]).format('YYYY-MM') ===
             moment(current).format('YYYY-MM') &&
             current &&
-            moment(current).format('DD') == daysInMonth)
+            moment(current).format('DD') === daysInMonth)
         )
       }
     }
@@ -288,7 +288,7 @@ const CategoryAnalysis = (props) => {
     if (val && val[0] && val[1]) {
       const start = moment(val[0]).format('YYYY-MM-DD')
       const end = moment(val[1]).format('YYYY-MM-DD')
-      if (start == end) {
+      if (start === end) {
         setValue('')
       }
       let storeDay = [toTimestamp(start), toTimestamp(end)]
@@ -300,7 +300,7 @@ const CategoryAnalysis = (props) => {
     if (val && val[0]) {
       const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
       const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth == day) {
+      if (daysInMonth === day) {
         modal('시작일은 월의 마지막 일자가 될 수 없습니다')
         return
       }
@@ -308,7 +308,7 @@ const CategoryAnalysis = (props) => {
 
     if (val && val[1]) {
       const day = parseInt(moment(val[1]).format('DD'))
-      if (1 == day) {
+      if (1 === day) {
         modal('시작일을 마지막 일자로 선택 할 수 없습니다')
         return
       }
@@ -317,7 +317,7 @@ const CategoryAnalysis = (props) => {
     if (val && val[0] && val[1]) {
       const startDate = parseInt(moment(val[0]).format('DD'))
       const endDate = parseInt(moment(val[1]).format('DD'))
-      if (startDate == endDate) {
+      if (startDate === endDate) {
         modal('시작일은 종료일과 같을 수 없습니다')
         return
       }
@@ -515,16 +515,16 @@ const CategoryAnalysis = (props) => {
   // }, [])
 
   return (
-    <div className="category-analysis">
-      <GroupButton redirect={props.history.push} clickable="b" />
+    <div className='category-analysis'>
+      <GroupButton redirect={props.history.push} clickable='b' />
 
       <Row
         gutter={16}
-        className="aggregate-month card-border"
-        justify="space-between"
-        align="middle"
+        className='aggregate-month card-border'
+        justify='space-between'
+        align='middle'
       >
-        <Col xs={17} sm={21} md={21} lg={21} xl={22} className="date-picker">
+        <Col xs={17} sm={21} md={21} lg={21} xl={22} className='date-picker'>
           <Row gutter={[4, 4]}>
             <Col xs={24} sm={3} md={3} lg={2} xl={1}>
               <h1
@@ -557,7 +557,7 @@ const CategoryAnalysis = (props) => {
                   fontWeight: 'bold',
                 }}
                 disabled={loading}
-                type="primary"
+                type='primary'
                 onClick={getData}
               >
                 {loading ? (
@@ -582,7 +582,7 @@ const CategoryAnalysis = (props) => {
           lg={3}
           xl={2}
           style={{ textAlign: 'center' }}
-          className="category-analysis"
+          className='category-analysis'
         >
           <CategoryList
             category={category}
@@ -593,12 +593,12 @@ const CategoryAnalysis = (props) => {
 
       <Row
         gutter={24}
-        className="chart card-border"
+        className='chart card-border'
         style={{
           marginTop: '24px',
           marginBottom: '24px',
         }}
-        justify="center"
+        justify='center'
       >
         <Col style={{ textAlign: 'center' }} span={24}>
           <HighchartsReact
@@ -629,11 +629,11 @@ const CategoryAnalysis = (props) => {
                 lg={3}
                 xl={3}
                 style={{ textAlign: 'center' }}
-                className="total-sale"
+                className='total-sale'
               >
-                <div className="style-border">
-                  <img src={market.img} />
-                  <span className="style-market">{market.market}</span>
+                <div className='style-border'>
+                  <img src={market.img} alt='' />
+                  <span className='style-market'>{market.market}</span>
                 </div>
                 <p
                   style={{

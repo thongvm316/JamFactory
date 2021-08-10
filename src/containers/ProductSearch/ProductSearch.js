@@ -70,23 +70,23 @@ const ProductSearch = (props) => {
   }, [filters, lastIndex])
 
   useEffect(() => {
-    if (sortIndex == 0) return
-    if (triggerSortLoadMore.seller_price_asc == true) {
+    if (sortIndex === 0) return
+    if (triggerSortLoadMore.seller_price_asc === true) {
       sortApi('seller_price', 'asc')
     }
-    if (triggerSortLoadMore.seller_price_desc == true) {
+    if (triggerSortLoadMore.seller_price_desc === true) {
       sortApi('seller_price', 'desc')
     }
-    if (triggerSortLoadMore.review_asc == true) {
+    if (triggerSortLoadMore.review_asc === true) {
       sortApi('review', 'asc')
     }
-    if (triggerSortLoadMore.review_desc == true) {
+    if (triggerSortLoadMore.review_desc === true) {
       sortApi('review', 'desc')
     }
-    if (triggerSortLoadMore.sold_asc == true) {
+    if (triggerSortLoadMore.sold_asc === true) {
       sortApi('sold', 'asc')
     }
-    if (triggerSortLoadMore.sold_desc == true) {
+    if (triggerSortLoadMore.sold_desc === true) {
       sortApi('sold', 'desc')
     }
   }, [sortIndex])
@@ -114,7 +114,7 @@ const ProductSearch = (props) => {
 
     let filterOptions = {}
 
-    if (lastLocation && lastLocation.pathname == '/product-detail') {
+    if (lastLocation && lastLocation.pathname === '/product-detail') {
       if (productSearchOptions) {
         filterOptions = productSearchOptions
       } else {
@@ -145,7 +145,7 @@ const ProductSearch = (props) => {
 
     for (const key in filterOptions) {
       if (filterOptions[key]) {
-        if (key == 'maxPrice' && filterOptions[key] == 300000) {
+        if (key === 'maxPrice' && filterOptions[key] === 300000) {
         } else {
           params += `&${key}=${filterOptions[key]}`
         }
@@ -168,7 +168,7 @@ const ProductSearch = (props) => {
       )
       // console.log(res)
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         if (lastIndex > 0) {
           setProductList(productList.concat(res.data.data.result))
         } else {
@@ -182,7 +182,7 @@ const ProductSearch = (props) => {
       if (
         error &&
         error.response &&
-        error.response.statusText == 'Unauthorized'
+        error.response.statusText === 'Unauthorized'
       ) {
         localStorage.clear()
         props.history.push('/')
@@ -481,24 +481,24 @@ const ProductSearch = (props) => {
       try {
         const res = await axios.get(
           `${API_URL}/product/search?sortIndex=${
-            resetSortIndex == 0 ? resetSortIndex : sortIndex
+            resetSortIndex === 0 ? resetSortIndex : sortIndex
           }${addSortParam}`,
           config,
         )
 
         setGetParamForApiGetExcelSort(
           `sortIndex=${
-            resetSortIndex == 0 ? resetSortIndex : sortIndex
+            resetSortIndex === 0 ? resetSortIndex : sortIndex
           }${addSortParam}`,
         )
 
-        if (res.status == 200) {
+        if (res.status === 200) {
           if (sortIndex > 0) {
             if (lastIndex > 0) {
               setProductList([])
             }
 
-            if (resetSortIndex == 0) {
+            if (resetSortIndex === 0) {
               setProductList(res.data.data.result)
             } else {
               setProductList(res.data.data.result)
@@ -515,7 +515,7 @@ const ProductSearch = (props) => {
         console.log(error.response)
         setLoading(false)
         if (error && error.response && error.response.statusText) {
-          if (error.response.statusText == 'Unauthorized') {
+          if (error.response.statusText === 'Unauthorized') {
             localStorage.clear()
             props.history.push('/')
           }

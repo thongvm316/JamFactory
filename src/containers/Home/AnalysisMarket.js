@@ -13,7 +13,7 @@ import HighchartsReact from 'highcharts-react-official'
 import * as hcnd from 'highcharts/modules/no-data-to-display'
 
 import './AnalysisMarket.scss'
-import axios from 'axios'
+// import axios from 'axios'
 const { Option } = Select
 
 hcnd(Highcharts)
@@ -37,7 +37,7 @@ const AnalysisMarket = (props) => {
         {data.map((product, i) => (
           <React.Fragment key={i}>
             <ul
-              className="ul-list"
+              className='ul-list'
               style={{
                 fontWeight: '400',
                 fontSize: '16px',
@@ -84,7 +84,7 @@ const AnalysisMarket = (props) => {
     if (val && val[0] && val[1]) {
       const start = moment(val[0]).format('YYYY-MM-DD')
       const end = moment(val[1]).format('YYYY-MM-DD')
-      if (start == end) {
+      if (start === end) {
         setValue('')
       }
       let storeDay = [toTimestamp(start), toTimestamp(end)]
@@ -92,84 +92,84 @@ const AnalysisMarket = (props) => {
     }
   }
 
-  const onCalendarChange = (val) => {
-    if (val && val[0]) {
-      const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
-      const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth == day) {
-        modal('시작일은 월의 마지막 일자가 될 수 없습니다')
-        return
-      }
-    }
+  // const onCalendarChange = (val) => {
+  //   if (val && val[0]) {
+  //     const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
+  //     const day = parseInt(moment(val[0]).format('DD'))
+  //     if (daysInMonth === day) {
+  //       modal('시작일은 월의 마지막 일자가 될 수 없습니다')
+  //       return
+  //     }
+  //   }
 
-    if (val && val[1]) {
-      const day = parseInt(moment(val[1]).format('DD'))
-      if (1 == day) {
-        modal('시작일을 마지막 일자로 선택 할 수 없습니다')
-        return
-      }
-    }
+  //   if (val && val[1]) {
+  //     const day = parseInt(moment(val[1]).format('DD'))
+  //     if (1 === day) {
+  //       modal('시작일을 마지막 일자로 선택 할 수 없습니다')
+  //       return
+  //     }
+  //   }
 
-    if (val && val[0] && val[1]) {
-      const startDate = parseInt(moment(val[0]).format('DD'))
-      const endDate = parseInt(moment(val[1]).format('DD'))
+  //   if (val && val[0] && val[1]) {
+  //     const startDate = parseInt(moment(val[0]).format('DD'))
+  //     const endDate = parseInt(moment(val[1]).format('DD'))
 
-      if (startDate == endDate) {
-        modal('시작일은 종료일과 같을 수 없습니다')
+  //     if (startDate === endDate) {
+  //       modal('시작일은 종료일과 같을 수 없습니다')
 
-        return
-      }
-    }
+  //       return
+  //     }
+  //   }
 
-    setDates(val)
-  }
+  //   setDates(val)
+  // }
 
-  const disabledDate = (current) => {
-    const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
+  // const disabledDate = (current) => {
+  //   const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
 
-    if (!dates || dates.length === 0) {
-      const date =
-        (current && moment(current).format('DD') == 1) ||
-        (current && moment(current).format('DD') == 15) ||
-        (current && moment(current).format('DD') == daysInMonth)
+  //   if (!dates || dates.length === 0) {
+  //     const date =
+  //       (current && moment(current).format('DD') === 1) ||
+  //       (current && moment(current).format('DD') === 15) ||
+  //       (current && moment(current).format('DD') === daysInMonth)
 
-      return !date
-    } else {
-      if (dates[0]) {
-        return !(
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[0]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
+  //     return !date
+  //   } else {
+  //     if (dates[0]) {
+  //       return !(
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 1) ||
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 15) ||
+  //         (moment(dates[0]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === daysInMonth)
+  //       )
+  //     }
 
-      if (dates[1]) {
-        return !(
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 1) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == 15) ||
-          (moment(dates[1]).format('YYYY-MM') ==
-            moment(current).format('YYYY-MM') &&
-            current &&
-            moment(current).format('DD') == daysInMonth)
-        )
-      }
-    }
-  }
+  //     if (dates[1]) {
+  //       return !(
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 1) ||
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === 15) ||
+  //         (moment(dates[1]).format('YYYY-MM') ===
+  //           moment(current).format('YYYY-MM') &&
+  //           current &&
+  //           moment(current).format('DD') === daysInMonth)
+  //       )
+  //     }
+  //   }
+  // }
 
   const onOpenChange = (open) => {
     if (open) {
@@ -446,22 +446,22 @@ const AnalysisMarket = (props) => {
   /* Call API when change market */
   const [isCallApi, setIsCallApi] = useState(true)
   useEffect(() => {
-    if (isCallApi) return;
+    if (isCallApi) return
     getData()
     getMarketTotalSale()
   }, [selectMarket])
 
   return (
-    <div className="analysis-market">
-      <GroupButton redirect={props.history.push} clickable="c" />
+    <div className='analysis-market'>
+      <GroupButton redirect={props.history.push} clickable='c' />
 
       <Row
         gutter={16}
-        className="aggregate-month card-border"
-        justify="space-between"
-        align="middle"
+        className='aggregate-month card-border'
+        justify='space-between'
+        align='middle'
       >
-        <Col xs={14} sm={20} md={20} lg={21} xl={22} className="date-picker">
+        <Col xs={14} sm={20} md={20} lg={21} xl={22} className='date-picker'>
           <Row gutter={[4, 4]}>
             <Col xs={24} sm={3} md={3} lg={2} xl={1}>
               <h1
@@ -494,7 +494,7 @@ const AnalysisMarket = (props) => {
                   fontWeight: 'bold',
                 }}
                 disabled={loading}
-                type="primary"
+                type='primary'
                 onClick={() => {
                   getData()
                   getMarketTotalSale()
@@ -516,20 +516,20 @@ const AnalysisMarket = (props) => {
         </Col>
 
         <Col xs={10} sm={4} md={4} lg={3} xl={2} style={{ textAlign: 'end' }}>
-          <Select onChange={handleChangeSelectMarket} defaultValue="11번가">
-            <Option value="11번가">11번가</Option>
-            <Option value="G마켓">G마켓</Option>
-            <Option value="쿠팡">쿠팡</Option>
-            <Option value="인터파크">인터파크</Option>
-            <Option value="옥션">옥션</Option>
-            <Option value="스마트스토어">스마트스토어</Option>
-            <Option value="티몬">티몬</Option>
-            <Option value="위메프">위메프</Option>
+          <Select onChange={handleChangeSelectMarket} defaultValue='11번가'>
+            <Option value='11번가'>11번가</Option>
+            <Option value='G마켓'>G마켓</Option>
+            <Option value='쿠팡'>쿠팡</Option>
+            <Option value='인터파크'>인터파크</Option>
+            <Option value='옥션'>옥션</Option>
+            <Option value='스마트스토어'>스마트스토어</Option>
+            <Option value='티몬'>티몬</Option>
+            <Option value='위메프'>위메프</Option>
           </Select>
         </Col>
       </Row>
 
-      <Row gutter={16} style={{ marginTop: '20px' }} className="card-border">
+      <Row gutter={16} style={{ marginTop: '20px' }} className='card-border'>
         <Col span={24}>
           <h1 style={{ display: 'inline-block', marginBottom: '0px' }}>
             {selectMarket} 총매출
@@ -552,12 +552,12 @@ const AnalysisMarket = (props) => {
       </Row>
 
       {loadingUseEfect ? (
-        <Spin className="spin-usefect" size="large" />
+        <Spin className='spin-usefect' size='large' />
       ) : (
         <>
           <Row
             gutter={16}
-            className="chart-one card-border"
+            className='chart-one card-border'
             style={{ marginTop: '24px' }}
           >
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
@@ -569,14 +569,14 @@ const AnalysisMarket = (props) => {
             </Col>
 
             <Col xs={24} sm={24} md={24} lg={24} xl={12}>
-              <Row gutter={[16, 16]} justify="center">
+              <Row gutter={[16, 16]} justify='center'>
                 <Col xs={24} sm={12} md={12} lg={10} xl={10}>
-                  <Card title="매출액" style={{ borderRadius: '16px' }}>
+                  <Card title='매출액' style={{ borderRadius: '16px' }}>
                     <RenderData data={data1} />
                   </Card>
                 </Col>
                 <Col xs={24} sm={12} md={12} lg={10} xl={10}>
-                  <Card title="매출액" style={{ borderRadius: '16px' }}>
+                  <Card title='매출액' style={{ borderRadius: '16px' }}>
                     <RenderData data={data2} />
                   </Card>
                 </Col>
@@ -584,7 +584,7 @@ const AnalysisMarket = (props) => {
             </Col>
           </Row>
 
-          <Row style={{ marginTop: '40px' }} className="chart-two card-border">
+          <Row style={{ marginTop: '40px' }} className='chart-two card-border'>
             <Col span={24}>
               <HighchartsReact
                 highcharts={Highcharts}

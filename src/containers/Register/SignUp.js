@@ -270,14 +270,14 @@ const SignUp = (props) => {
   }
 
   return (
-    <div className="signup">
+    <div className='signup'>
       <Row gutter={24}>
         <Col span={24} style={{ textAlign: 'center' }}>
-          <h1 className="logo">GEM BOX</h1>
+          <h1 className='logo'>GEM BOX</h1>
         </Col>
       </Row>
 
-      <Row gutter={24} justify="center">
+      <Row gutter={24} justify='center'>
         <Col
           xs={24}
           sm={24}
@@ -287,7 +287,7 @@ const SignUp = (props) => {
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <Col
-            className="background-color"
+            className='background-color'
             xs={24}
             sm={24}
             md={16}
@@ -299,7 +299,7 @@ const SignUp = (props) => {
             </div>
             <Form onFinish={onFinish}>
               <FormItem
-                name="email"
+                name='email'
                 rules={[
                   {
                     required: true,
@@ -309,18 +309,18 @@ const SignUp = (props) => {
                 ]}
               >
                 <Input
-                  placeholder="이메일*"
-                  type="text"
+                  placeholder='이메일*'
+                  type='text'
                   onChange={(e) => {
                     setEmailVerify({ email: e.target.value })
                   }}
-                  name="email"
+                  name='email'
                   value={email}
                   onBlur={handleInputBlur}
                 />
               </FormItem>
               <FormItem
-                name="password"
+                name='password'
                 rules={[
                   {
                     required: true,
@@ -340,15 +340,15 @@ const SignUp = (props) => {
                 ]}
               >
                 <Input.Password
-                  placeholder="비밀번호 8자리*"
-                  type="text"
+                  placeholder='비밀번호 8자리*'
+                  type='text'
                   onChange={(e) => {
                     setValidatePassword(e.target.value)
                   }}
                 />
               </FormItem>
               <FormItem
-                name="confirmPassword"
+                name='confirmPassword'
                 dependencies={['password']}
                 hasFeedback
                 rules={[
@@ -370,9 +370,9 @@ const SignUp = (props) => {
                 ]}
               >
                 <Input.Password
-                  placeholder="비밀번호 재확인*"
-                  type="text"
-                  name="password"
+                  placeholder='비밀번호 재확인*'
+                  type='text'
+                  name='password'
                   value={password}
                   onChange={(e) => {
                     setConfirmPassword(e.target.value)
@@ -382,7 +382,7 @@ const SignUp = (props) => {
               </FormItem>
               <br />
               <FormItem
-                name="nameAndCompany"
+                name='nameAndCompany'
                 rules={[
                   {
                     required: true,
@@ -391,15 +391,15 @@ const SignUp = (props) => {
                 ]}
               >
                 <Input
-                  placeholder="이름 / 업체명*"
-                  type="text"
-                  name="nameAndCompany"
+                  placeholder='이름 / 업체명*'
+                  type='text'
+                  name='nameAndCompany'
                   // value={name}
                   onChange={onChange}
                 />
               </FormItem>
               <FormItem
-                name="phone"
+                name='phone'
                 rules={[
                   {
                     required: true,
@@ -409,26 +409,26 @@ const SignUp = (props) => {
                 style={{ display: 'flex' }}
               >
                 <Input
-                  placeholder="핸드폰 번호 입력*"
+                  placeholder='핸드폰 번호 입력*'
                   suffix={
                     <Button
                       onClick={verifySmsCode}
-                      className="send-sms"
-                      type="text"
+                      className='send-sms'
+                      type='text'
                     >
                       {/* {resendSms ? resendSms : '인증번호 전송'} */}
                       인증번호 전송
                     </Button>
                   }
-                  type="text"
-                  name="phone"
+                  type='text'
+                  name='phone'
                   value={phone}
                   onChange={onChange}
                 />
               </FormItem>
               {verifiedPhone ? (
                 <FormItem
-                  name="verify_code"
+                  name='verify_code'
                   rules={[
                     {
                       required: true,
@@ -438,8 +438,8 @@ const SignUp = (props) => {
                 >
                   <Input
                     onBlur={codeVerifyOtp}
-                    placeholder="인증번호 입력"
-                    type="text"
+                    placeholder='인증번호 입력'
+                    type='text'
                     ref={inputRef}
                     onChange={(e) => setOtp(e.target.value)}
                   />
@@ -448,14 +448,14 @@ const SignUp = (props) => {
                 ''
               )}
               <FormItem>
-                <div id="recaptcha"></div>
+                <div id='recaptcha'></div>
               </FormItem>
               <br />
               {inputs.inputs.map((input, index) => (
                 <Input
                   key={index}
-                  placeholder="신청 마켓 url 입력*"
-                  type="text"
+                  placeholder='신청 마켓 url 입력*'
+                  type='text'
                   style={{ marginBottom: '2px' }}
                   onChange={(e) => {
                     onChangeUrl(e, index)
@@ -473,7 +473,7 @@ const SignUp = (props) => {
               <br />
               <br />
               <FormItem
-                name="file"
+                name='file'
                 rules={[
                   {
                     required: true,
@@ -482,13 +482,13 @@ const SignUp = (props) => {
                 ]}
                 style={{ border: '1px dashed #A6B0CF', padding: '1rem' }}
               >
-                <Row gutter={24} justify="center">
+                <Row gutter={24} justify='center'>
                   <Col span={18} style={{ textAlign: 'center' }}>
                     {showNameOfFileUpload ? (
                       <p>{showNameOfFileUpload}</p>
                     ) : (
                       <>
-                        <Image src="/img/Upload.png" />
+                        <Image src='/img/Upload.png' alt='' />
                         <p
                           style={{
                             fontWeight: '400',
@@ -511,13 +511,13 @@ const SignUp = (props) => {
                         </p>
                       </>
                     )}
-                    <label className="custom-file-upload">
+                    <label className='custom-file-upload'>
                       <Input
                         style={{ display: 'none' }}
-                        id="file-upload"
-                        type="file"
-                        accept=".pdf"
-                        name="selectedFile"
+                        id='file-upload'
+                        type='file'
+                        accept='.pdf'
+                        name='selectedFile'
                         onChange={(e) => {
                           uploadPdfFile(e)
                           if (e.target.files && e.target.files[0].name) {
@@ -534,8 +534,8 @@ const SignUp = (props) => {
               <br />
               <br />
               <Form.Item
-                name="agreement"
-                valuePropName="checked"
+                name='agreement'
+                valuePropName='checked'
                 rules={[
                   {
                     validator: (_, value) =>
@@ -554,7 +554,7 @@ const SignUp = (props) => {
                   </span>
                 </Checkbox>
               </Form.Item>
-              <div className="agreement">
+              <div className='agreement'>
                 <p>
                   <span style={{ color: '#A6B0CF' }}>■</span> 수집하는 개인정보
                   항목회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은
@@ -578,7 +578,7 @@ const SignUp = (props) => {
                   없이 해당 정보를 지체 없이 파기합니다.
                 </p>
               </div>
-              <Row gutter={24} justify="center">
+              <Row gutter={24} justify='center'>
                 <Col
                   span={24}
                   style={{ textAlign: 'center', marginTop: '24px' }}
@@ -592,10 +592,10 @@ const SignUp = (props) => {
                         marginTop: '50px',
                       }}
                       disabled={loading}
-                      size="large"
-                      shape="round"
-                      htmlType="submit"
-                      className="submit"
+                      size='large'
+                      shape='round'
+                      htmlType='submit'
+                      className='submit'
                     >
                       {loading ? (
                         <Spin
@@ -617,9 +617,9 @@ const SignUp = (props) => {
             <Row gutter={24}>
               <Col span={24} style={{ marginTop: '23px' }}>
                 <Button
-                  type="text"
+                  type='text'
                   onClick={onFindPassword}
-                  className="btn-forgot-password"
+                  className='btn-forgot-password'
                   style={{ padding: '0' }}
                 >
                   비밀번호 찾기
@@ -643,13 +643,13 @@ const SignUp = (props) => {
       <Modal
         visible={signUp}
         onOk={handleOk}
-        okText="확인"
+        okText='확인'
         onCancel={() => setSignUp(false)}
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
-        <div className="modal-signup">
-          <Row gutter={24} align="middle" style={{ flexDirection: 'column' }}>
+        <div className='modal-signup'>
+          <Row gutter={24} align='middle' style={{ flexDirection: 'column' }}>
             <Col span={24}>
               <h1
                 style={{
@@ -663,7 +663,7 @@ const SignUp = (props) => {
               </h1>
             </Col>
             <Col span={15}>
-              <Image width={250} src="/img/signup-modal.png" />
+              <Image width={250} src='/img/signup-modal.png' alt='' />
             </Col>
             <Col span={15}>
               <p
@@ -691,9 +691,9 @@ const SignUp = (props) => {
                   color: '#fff',
                   marginTop: '50px',
                 }}
-                className="btn-modal-forgot-password"
-                shape="round"
-                size="large"
+                className='btn-modal-forgot-password'
+                shape='round'
+                size='large'
               >
                 확인
               </Button>

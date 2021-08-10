@@ -67,7 +67,7 @@ const AdminMemberRequest = (props) => {
   const { history } = props
 
   // Get Data
-  useEffect(async () => {
+  useEffect(() => {
     if (member_request.length === 0) {
       setLoading(true)
     }
@@ -90,16 +90,16 @@ const AdminMemberRequest = (props) => {
   }, [])
 
   return (
-    <div className="admin-member-request">
-      <Row gutter={[0, 16]} className="top" justify="space-between">
-        <Col className="style-click-btn">
-          <Radio.Group size="middle" defaultValue="b">
+    <div className='admin-member-request'>
+      <Row gutter={[0, 16]} className='top' justify='space-between'>
+        <Col className='style-click-btn'>
+          <Radio.Group size='middle' defaultValue='b'>
             <Space>
               <Radio.Button
                 onClick={() => {
                   history.push('/admin-member')
                 }}
-                value="a"
+                value='a'
               >
                 가입회원만 보기
               </Radio.Button>
@@ -107,25 +107,25 @@ const AdminMemberRequest = (props) => {
                 onClick={() => {
                   history.push('/member-request')
                 }}
-                value="b"
+                value='b'
               >
                 가입요청 보기
               </Radio.Button>
             </Space>
           </Radio.Group>
         </Col>
-        <Col className="style-input">
+        <Col className='style-input'>
           <Input
             onChange={(e) => {
               setFiltering(e.target.value.length > 0)
               filterResults(e.target.value)
             }}
-            placeholder="Search by name"
-            prefix={<SearchOutlined className="site-form-item-icon" />}
+            placeholder='Search by name'
+            prefix={<SearchOutlined className='site-form-item-icon' />}
           />
         </Col>
       </Row>
-      <Row className="render-data" style={{ marginTop: '2rem' }}>
+      <Row className='render-data' style={{ marginTop: '2rem' }}>
         <Col span={24}>
           <Table
             scroll={{ x: 1300 }}

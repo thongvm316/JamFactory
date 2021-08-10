@@ -106,7 +106,7 @@ const SaleStatus = () => {
     if (val && val[0] && val[1]) {
       const start = moment(val[0]).format('YYYY-MM-DD')
       const end = moment(val[1]).format('YYYY-MM-DD')
-      if (start == end) {
+      if (start === end) {
         setValue('')
       }
       let storeDay = [toTimestamp(start), toTimestamp(end)]
@@ -406,7 +406,7 @@ const SaleStatus = () => {
             </h2>
           </div>
           <div className='card-item-icon'>
-            <img src={SaleStatus1 ? SaleStatus1 : ''} />
+            <img src={SaleStatus1 ? SaleStatus1 : ''} alt='alt-img' />
           </div>
         </Col>
         <Col
@@ -441,7 +441,7 @@ const SaleStatus = () => {
             </p>
           </div>
           <div className='card-item-icon'>
-            <img src={SaleStatus2 ? SaleStatus2 : ''} />
+            <img src={SaleStatus2 ? SaleStatus2 : ''} alt='alt-img' />
           </div>
         </Col>
         <Col
@@ -463,7 +463,7 @@ const SaleStatus = () => {
             </h2>
           </div>
           <div className='card-item-icon'>
-            <img src={SaleStatus3 ? SaleStatus3 : ''} />
+            <img src={SaleStatus3 ? SaleStatus3 : ''} alt='alt-img' />
           </div>
         </Col>
         <Col
@@ -499,7 +499,7 @@ const SaleStatus = () => {
             </p>
           </div>
           <div className='card-item-icon'>
-            <img src={SaleStatus4 ? SaleStatus4 : ''} />
+            <img src={SaleStatus4 ? SaleStatus4 : ''} alt='alt-img' />
           </div>
         </Col>
       </Row>
@@ -563,7 +563,7 @@ const SaleStatus = () => {
             className='total-sale'
           >
             <a href={market.url ? market.url : ''} target='_blank'>
-              <img src={market.img} />
+              <img src={market.img} alt='alt-img' />
               <span
                 style={{
                   fontWeight: '400',

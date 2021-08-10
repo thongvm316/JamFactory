@@ -83,16 +83,16 @@ const Login = (props) => {
   }
 
   return (
-    <div className="login-page" style={{ height: '100vh' }}>
+    <div className='login-page' style={{ height: '100vh' }}>
       <Row gutter={24}>
         <Col span={24} style={{ textAlign: 'center' }}>
-          <h1 style={{ paddingTop: '3rem' }} className="logo">
+          <h1 style={{ paddingTop: '3rem' }} className='logo'>
             GEM FACTORY
           </h1>
         </Col>
       </Row>
 
-      <Row gutter={24} justify="center">
+      <Row gutter={24} justify='center'>
         <Col
           xs={24}
           sm={24}
@@ -102,18 +102,18 @@ const Login = (props) => {
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <Col xs={24} sm={16} md={16} lg={14} xl={6}>
-            <div className="background-color">
-              <Row gutter={24} justify="start">
+            <div className='background-color'>
+              <Row gutter={24} justify='start'>
                 <Col span={16}>
-                  <h1 className="login-title">로그인</h1>
-                  <p className="adv">
+                  <h1 className='login-title'>로그인</h1>
+                  <p className='adv'>
                     최상의 상품판매 전략을 위한 빅데이터 서비스
                   </p>
                 </Col>
               </Row>
               <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
                 <FormItem
-                  name="email"
+                  name='email'
                   rules={[
                     {
                       required: true,
@@ -123,15 +123,15 @@ const Login = (props) => {
                   ]}
                 >
                   <Input
-                    size="large"
-                    placeholder="이메일"
-                    type="text"
+                    size='large'
+                    placeholder='이메일'
+                    type='text'
                     bordered={true}
                   />
                 </FormItem>
 
                 <FormItem
-                  name="password"
+                  name='password'
                   rules={[
                     {
                       required: true,
@@ -140,9 +140,9 @@ const Login = (props) => {
                   ]}
                 >
                   <Input.Password
-                    size="large"
-                    type="password"
-                    placeholder="비밀번호 8자리"
+                    size='large'
+                    type='password'
+                    placeholder='비밀번호 8자리'
                     iconRender={(visible) =>
                       visible ? <EyeOutlined /> : 'Show'
                     }
@@ -150,14 +150,14 @@ const Login = (props) => {
                 </FormItem>
                 <Button
                   onClick={handleOkModalFindPassword}
-                  className="btn-forgot-password"
-                  type="text"
+                  className='btn-forgot-password'
+                  type='text'
                 >
                   비밀번호 찾기
                 </Button>
 
                 <FormItem>
-                  <Row justify="center">
+                  <Row justify='center'>
                     <Col span={12} style={{ textAlign: 'center' }}>
                       <Button
                         style={{
@@ -166,10 +166,10 @@ const Login = (props) => {
                           color: '#fff',
                           marginTop: '22px',
                         }}
-                        size="large"
-                        shape="round"
-                        className="btn-login"
-                        htmlType="submit"
+                        size='large'
+                        shape='round'
+                        className='btn-login'
+                        htmlType='submit'
                         disabled={loading}
                       >
                         {loading ? (
@@ -192,13 +192,13 @@ const Login = (props) => {
             </div>
             <Row gutter={24}>
               <Col span={24} style={{ textAlign: 'center' }}>
-                <p className="sign-up">
+                <p className='sign-up'>
                   Gem Factory를 처음 사용하십니까?{' '}
                   <Button
                     onClick={() => {
                       history.push('/signup')
                     }}
-                    type="text"
+                    type='text'
                   >
                     회원가입
                   </Button>
@@ -242,8 +242,8 @@ const Login = (props) => {
                   onClick={() => {
                     history.push('admin-login')
                   }}
-                  type="text"
-                  className="login-admin"
+                  type='text'
+                  className='login-admin'
                 >
                   관리자로 로그인
                 </Button>
@@ -258,8 +258,8 @@ const Login = (props) => {
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
       >
-        <div className="modal-forgot-password">
-          <Row gutter={24} align="middle" style={{ flexDirection: 'column' }}>
+        <div className='modal-forgot-password'>
+          <Row gutter={24} align='middle' style={{ flexDirection: 'column' }}>
             <Col span={24}>
               <h1
                 style={{
@@ -273,7 +273,7 @@ const Login = (props) => {
               </h1>
             </Col>
             <Col span={15}>
-              <Image width={250} src="/img/img-forgot-password.png" />
+              <Image width={250} src='/img/img-forgot-password.png' alt='' />
             </Col>
             <Col span={15}>
               <p
@@ -306,9 +306,9 @@ const Login = (props) => {
                   color: '#fff',
                   marginTop: '50px',
                 }}
-                className="btn-modal-forgot-password"
-                shape="round"
-                size="large"
+                className='btn-modal-forgot-password'
+                shape='round'
+                size='large'
               >
                 확인
               </Button>

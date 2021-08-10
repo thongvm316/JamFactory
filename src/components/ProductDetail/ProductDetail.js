@@ -11,7 +11,7 @@ import { API_URL } from '../../constants/appConstants'
 import { market_list } from '../../constants/appConstants'
 import NumberFormat from 'react-number-format'
 
-import * as _ from 'lodash'
+// import * as _ from 'lodash'
 import moment from 'moment'
 import MarketSaleStatusChart from '../MarketSaleStatusChart/MarketSaleStatusChart'
 
@@ -32,40 +32,40 @@ const ProductDetail = (props) => {
     const dataForRender = ['', '', '', '', '', '', '', '', '', '', '', '']
     data.map((item) => {
       let parseToNumber = parseInt(item.created)
-      if (parseToNumber == 1) {
+      if (parseToNumber === 1) {
         dataForRender[0] = parseInt(item.revenue)
       }
-      if (parseToNumber == 2) {
+      if (parseToNumber === 2) {
         dataForRender[1] = parseInt(item.revenue)
       }
-      if (parseToNumber == 3) {
+      if (parseToNumber === 3) {
         dataForRender[2] = parseInt(item.revenue)
       }
-      if (parseToNumber == 4) {
+      if (parseToNumber === 4) {
         dataForRender[3] = parseInt(item.revenue)
       }
-      if (parseToNumber == 5) {
+      if (parseToNumber === 5) {
         dataForRender[4] = parseInt(item.revenue)
       }
-      if (parseToNumber == 6) {
+      if (parseToNumber === 6) {
         dataForRender[5] = parseInt(item.revenue)
       }
-      if (parseToNumber == 7) {
+      if (parseToNumber === 7) {
         dataForRender[6] = parseInt(item.revenue)
       }
-      if (parseToNumber == 8) {
+      if (parseToNumber === 8) {
         dataForRender[7] = parseInt(item.revenue)
       }
-      if (parseToNumber == 9) {
+      if (parseToNumber === 9) {
         dataForRender[8] = parseInt(item.revenue)
       }
-      if (parseToNumber == 10) {
+      if (parseToNumber === 10) {
         dataForRender[9] = parseInt(item.revenue)
       }
-      if (parseToNumber == 11) {
+      if (parseToNumber === 11) {
         dataForRender[10] = parseInt(item.revenue)
       }
-      if (parseToNumber == 12) {
+      if (parseToNumber === 12) {
         dataForRender[11] = parseInt(item.revenue)
       }
     })
@@ -96,14 +96,14 @@ const ProductDetail = (props) => {
         config,
       )
       // console.log(res.data)
-      if (res.status == 200) {
+      if (res.status === 200) {
         setProductDetailShare(res.data.data.result.share)
       }
     } catch (error) {
       console.log(error.response)
       setSpinningOfShare(false)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
@@ -114,7 +114,7 @@ const ProductDetail = (props) => {
 
   const getProductTrendGraph = async (isUseEffectRun = false) => {
     setSpinning(true)
-    if (isUseEffectRun == true) {
+    if (isUseEffectRun === true) {
     } else {
       setYearForCallApi(year)
     }
@@ -136,14 +136,14 @@ const ProductDetail = (props) => {
       )
 
       console.log(res)
-      if (res.status == 200) {
+      if (res.status === 200) {
         setProductTrendGraph(res.data.data.result)
       }
     } catch (error) {
       console.log(error.response)
       setSpinning(false)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
@@ -166,13 +166,13 @@ const ProductDetail = (props) => {
         config,
       )
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         setCategoryRanking(res.data.data.result.category_rank)
       }
     } catch (error) {
       console.log(error.response)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
@@ -194,13 +194,13 @@ const ProductDetail = (props) => {
         config,
       )
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         setSaleRanking(res.data.data.result.total_rank)
       }
     } catch (error) {
       console.log(error.response)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }
@@ -222,13 +222,13 @@ const ProductDetail = (props) => {
         config,
       )
 
-      if (res.status == 200) {
+      if (res.status === 200) {
         setShareKing(res.data.data.result.share)
       }
     } catch (error) {
       console.log(error.response)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
 
           props.history.push('/')
@@ -242,9 +242,6 @@ const ProductDetail = (props) => {
       height: 200,
       type: 'pie',
       renderTo: 'container',
-    },
-    credits: {
-      enabled: false,
     },
     tooltip: {
       enabled: true,
@@ -281,7 +278,6 @@ const ProductDetail = (props) => {
       verticalAlign: 'middle',
       floating: false,
       itemWidth: 80,
-      floating: false,
       layout: 'vertical',
     },
   }
@@ -369,7 +365,7 @@ const ProductDetail = (props) => {
         <Col span={24}>
           <div className='info'>
             <div className='avatar'>
-              <img src={product.image} style={{ width: '100%' }} />
+              <img src={product.image} alt='avatar' style={{ width: '100%' }} />
             </div>
             <div className='text'>
               <div>
@@ -441,7 +437,7 @@ const ProductDetail = (props) => {
               <h2 style={{ color: '#6E798C' }}>{categoryRanking}위</h2>
             </div>
             <div className='card-item-icon'>
-              <img src={Card2} />
+              <img src={Card2} alt='card2' />
             </div>
           </div>
           <div className='card-item-border card-item'>
@@ -450,7 +446,7 @@ const ProductDetail = (props) => {
               <h2 style={{ color: '#6E798C' }}>{saleRanking}위</h2>
             </div>
             <div className='card-item-icon'>
-              <img src={Card3} />
+              <img src={Card3} alt='card3' />
             </div>
           </div>
           <div className='card-item-border card-chart'>

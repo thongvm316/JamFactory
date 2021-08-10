@@ -26,12 +26,12 @@ const Filter = (props) => {
   const [dates, setDates] = useState([])
 
   const [filter, setFilter] = useState({
-    searchBy: '2'
+    searchBy: '2',
   })
 
   let lastLocation = useLastLocation()
   let productSearchOptions =
-    lastLocation && lastLocation.pathname == '/product-detail'
+    lastLocation && lastLocation.pathname === '/product-detail'
       ? JSON.parse(localStorage.getItem('product-search-options'))
       : filter
 
@@ -101,7 +101,7 @@ const Filter = (props) => {
       const startDate = parseInt(moment(val[0]).format('DD'))
       const endDate = parseInt(moment(val[1]).format('DD'))
 
-      if (startDate == endDate) {
+      if (startDate === endDate) {
         setValue('')
       }
 

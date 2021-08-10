@@ -8,80 +8,7 @@ import { Spin } from 'antd'
 import moment from 'moment'
 
 const MarketSaleStatusChart = (props) => {
-  const [data, setData] = useState([
-    // {
-    //   revenue: '23900',
-    //   sold: '3',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '01',
-    // },
-    // {
-    //   revenue: '23900',
-    //   sold: '1',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '02',
-    // },
-    // {
-    //   revenue: '33900',
-    //   sold: '4',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '03',
-    // },
-    // {
-    //   revenue: '43900',
-    //   sold: '7',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '04',
-    // },
-    // {
-    //   revenue: '23900',
-    //   sold: '1',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '05',
-    // },
-    // {
-    //   revenue: '33900',
-    //   sold: '4',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '06',
-    // },
-    // {
-    //   revenue: '43900',
-    //   sold: '7',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '07',
-    // },
-    // {
-    //   revenue: '33900',
-    //   sold: '4',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '08',
-    // },
-    // {
-    //   revenue: '43900',
-    //   sold: '7',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '09',
-    // },
-    // {
-    //   revenue: '23900',
-    //   sold: '1',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '10',
-    // },
-    // {
-    //   revenue: '33900',
-    //   sold: '4',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '11',
-    // },
-    // {
-    //   revenue: '43900',
-    //   sold: '7',
-    //   bander_name: '수앤아이샵 미니샵으로 이동합니다',
-    //   created: '12',
-    // },
-  ])
+  const [data, setData] = useState([])
   const [spinning, setSpinning] = useState(false)
 
   useEffect(() => {
@@ -94,73 +21,73 @@ const MarketSaleStatusChart = (props) => {
     if (isGetRevenue) {
       data.map((item) => {
         let parseToNumber = parseInt(item.created)
-        if (parseToNumber == 1) {
+        if (parseToNumber === 1) {
           dataForRender[0] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 2) {
+        if (parseToNumber === 2) {
           dataForRender[1] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 3) {
+        if (parseToNumber === 3) {
           dataForRender[2] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 4) {
+        if (parseToNumber === 4) {
           dataForRender[3] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 5) {
+        if (parseToNumber === 5) {
           dataForRender[4] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 6) {
+        if (parseToNumber === 6) {
           dataForRender[5] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 7) {
+        if (parseToNumber === 7) {
           dataForRender[6] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 8) {
+        if (parseToNumber === 8) {
           dataForRender[7] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 9) {
+        if (parseToNumber === 9) {
           dataForRender[8] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 10) {
+        if (parseToNumber === 10) {
           dataForRender[9] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 11) {
+        if (parseToNumber === 11) {
           dataForRender[10] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
           }
         }
-        if (parseToNumber == 12) {
+        if (parseToNumber === 12) {
           dataForRender[11] = {
             y: parseInt(item.revenue),
             name: item.bander_name,
@@ -172,40 +99,40 @@ const MarketSaleStatusChart = (props) => {
     if (isGetSold) {
       data.map((item) => {
         let parseToNumber = parseInt(item.created)
-        if (parseToNumber == 1) {
+        if (parseToNumber === 1) {
           dataForRender[0] = parseInt(item.sold)
         }
-        if (parseToNumber == 2) {
+        if (parseToNumber === 2) {
           dataForRender[1] = parseInt(item.sold)
         }
-        if (parseToNumber == 3) {
+        if (parseToNumber === 3) {
           dataForRender[2] = parseInt(item.sold)
         }
-        if (parseToNumber == 4) {
+        if (parseToNumber === 4) {
           dataForRender[3] = parseInt(item.sold)
         }
-        if (parseToNumber == 5) {
+        if (parseToNumber === 5) {
           dataForRender[4] = parseInt(item.sold)
         }
-        if (parseToNumber == 6) {
+        if (parseToNumber === 6) {
           dataForRender[5] = parseInt(item.sold)
         }
-        if (parseToNumber == 7) {
+        if (parseToNumber === 7) {
           dataForRender[6] = parseInt(item.sold)
         }
-        if (parseToNumber == 8) {
+        if (parseToNumber === 8) {
           dataForRender[7] = parseInt(item.sold)
         }
-        if (parseToNumber == 9) {
+        if (parseToNumber === 9) {
           dataForRender[8] = parseInt(item.sold)
         }
-        if (parseToNumber == 10) {
+        if (parseToNumber === 10) {
           dataForRender[9] = parseInt(item.sold)
         }
-        if (parseToNumber == 11) {
+        if (parseToNumber === 11) {
           dataForRender[10] = parseInt(item.sold)
         }
-        if (parseToNumber == 12) {
+        if (parseToNumber === 12) {
           dataForRender[11] = parseInt(item.sold)
         }
       })
@@ -242,9 +169,9 @@ const MarketSaleStatusChart = (props) => {
         gridLineColor: 'transparent',
       },
     ],
-    tooltip: {
-      shared: true,
-    },
+    // tooltip: {
+    //   shared: true,
+    // },
     credits: {
       enabled: false,
     },
@@ -316,14 +243,14 @@ const MarketSaleStatusChart = (props) => {
         }`,
         config,
       )
-      if (res.status == 200) {
+      if (res.status === 200) {
         setData(res.data.data.result)
       }
     } catch (error) {
       console.log(error.response)
       setSpinning(false)
       if (error && error.response && error.response.statusText) {
-        if (error.response.statusText == 'Unauthorized') {
+        if (error.response.statusText === 'Unauthorized') {
           localStorage.clear()
           props.history.push('/')
         }

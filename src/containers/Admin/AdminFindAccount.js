@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { Form, Input, Button, Row, Col, Modal } from 'antd'
 import Footer from '../../components/Footer'
 
-import adminApi from '../../api/AdminAPI'
+// import adminApi from '../../api/AdminAPI'
 import './AdminFindAccount.scss'
-import { ExclamationCircleOutlined } from '@ant-design/icons'
+// import { ExclamationCircleOutlined } from '@ant-design/icons'
 import firebase from '../../constants/firebase'
 import { API_URL } from '../../constants/appConstants'
 import axios from 'axios'
@@ -28,7 +28,7 @@ const AdminFindAccount = (props) => {
   }
 
   const [phoneInput, setPhoneInput] = useState('')
-  const { phone, verify_code } = bodySubmit
+  const { phone } = bodySubmit
   const [firebaseToken, setFirebaseToken] = useState('')
   const [account, setAccount] = useState({})
 
@@ -80,7 +80,7 @@ const AdminFindAccount = (props) => {
     )
     console.log(data)
 
-    if (data.success == true) {
+    if (data.success === true) {
       setAccount(data.data.result)
       setIsModalVisible(true)
     }
@@ -127,7 +127,7 @@ const AdminFindAccount = (props) => {
 
   return (
     <div
-      className="admin-find-account"
+      className='admin-find-account'
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -136,7 +136,7 @@ const AdminFindAccount = (props) => {
         paddingTop: '17rem',
       }}
     >
-      <Row justify="center" gutter={24} style={{ textAlign: 'center' }}>
+      <Row justify='center' gutter={24} style={{ textAlign: 'center' }}>
         <Col span={24}>
           <h1>GEM BOX</h1>
         </Col>
@@ -153,12 +153,12 @@ const AdminFindAccount = (props) => {
           }}
         >
           <Form onFinish={onFinish} onFinishFailed={onFinishFailed}>
-            <div className="verified" style={{ display: 'flex' }}>
+            <div className='verified' style={{ display: 'flex' }}>
               <Form.Item>
-                <div id="recaptcha"></div>
+                <div id='recaptcha'></div>
               </Form.Item>
               <Form.Item
-                name="phone"
+                name='phone'
                 rules={[
                   {
                     required: true,
@@ -168,9 +168,9 @@ const AdminFindAccount = (props) => {
               >
                 <Input
                   onChange={onChange}
-                  name="phone"
-                  placeholder="핸드폰 번호 입력"
-                  type="text"
+                  name='phone'
+                  placeholder='핸드폰 번호 입력'
+                  type='text'
                 />
               </Form.Item>
               <Button disabled={loading} onClick={verify}>
@@ -179,7 +179,7 @@ const AdminFindAccount = (props) => {
             </div>
 
             <Form.Item
-              name="verify_code"
+              name='verify_code'
               rules={[
                 {
                   required: true,
@@ -189,17 +189,17 @@ const AdminFindAccount = (props) => {
             >
               <Input
                 onChange={onChangeVerifyCode}
-                name="verify_code"
-                placeholder="인증번호 입력"
-                type="text"
+                name='verify_code'
+                placeholder='인증번호 입력'
+                type='text'
               />
             </Form.Item>
 
             <Form.Item style={{ marginTop: '3rem' }}>
               <Button
                 style={{ width: '7rem' }}
-                className="btn-login"
-                htmlType="submit"
+                className='btn-login'
+                htmlType='submit'
                 disabled={loading}
               >
                 확인

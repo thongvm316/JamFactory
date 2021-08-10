@@ -213,39 +213,39 @@ const UserDetail = (props) => {
   return (
     <>
       {loading ? (
-        <div className="position-spiner">
-          <Spin size="large" />
+        <div className='position-spiner'>
+          <Spin size='large' />
         </div>
       ) : (
         <>
-          <div className="card-border user-detail">
+          <div className='card-border user-detail'>
             <Row>
               <Col span={24}>
-                <div className="user-info">
-                  <div className="user-item">
+                <div className='user-info'>
+                  <div className='user-item'>
                     <div>이름</div>
                     <div>{data.name}</div>
                   </div>
                   <Divider />
                 </div>
 
-                <div className="user-info">
-                  <div className="user-item">
+                <div className='user-info'>
+                  <div className='user-item'>
                     <div>회사명</div>
                     <div>{data.company}</div>
                   </div>
                   <Divider />
                 </div>
 
-                <div className="user-info">
-                  <div className="user-item">
+                <div className='user-info'>
+                  <div className='user-item'>
                     <div>이메일</div>
                     <div>{data.email}</div>
                   </div>
                   <Divider />
                 </div>
 
-                <div className="user-info">
+                <div className='user-info'>
                   <div style={{ marginBottom: 10 }}>등록 마켓</div>
                   <div>
                     <Card style={{ marginBottom: '5px' }}>
@@ -260,13 +260,13 @@ const UserDetail = (props) => {
                             </a>{' '}
                             <Button
                               onClick={() => deleteMarket(market.id)}
-                              className="btn-del"
+                              className='btn-del'
                               style={{
                                 backgroundColor: 'transparent',
                                 color: 'red',
                                 cursor: 'pointer',
                               }}
-                              type="text"
+                              type='text'
                             >
                               X
                             </Button>
@@ -277,8 +277,8 @@ const UserDetail = (props) => {
                     {inputs.inputs.map((input, index) => (
                       <Input
                         key={index}
-                        placeholder="신청 마켓 url 입력*"
-                        type="text"
+                        placeholder='신청 마켓 url 입력*'
+                        type='text'
                         style={{ marginBottom: '2px' }}
                         onChange={(e) => {
                           onChangeUrl(e, index)
@@ -296,12 +296,12 @@ const UserDetail = (props) => {
                   </div>
                 </div>
 
-                <div className="user-info" style={{ marginTop: 20 }}>
+                <div className='user-info' style={{ marginTop: 20 }}>
                   <div style={{ marginBottom: 10 }}>Password</div>
                   <div>
                     <Input
-                      size="large"
-                      defaultValue="******"
+                      size='large'
+                      defaultValue='******'
                       suffix={
                         <EditOutlined onClick={() => onChangePassword()} />
                       }
@@ -316,7 +316,7 @@ const UserDetail = (props) => {
                     padding: '1rem',
                     margin: '5px 40px 0 40px',
                   }}
-                  justify="center"
+                  justify='center'
                 >
                   <Col xs={24} sm={6} md={6} lg={6} xl={6}>
                     <Popover
@@ -337,10 +337,10 @@ const UserDetail = (props) => {
                             ? data.business_license
                             : 'https://via.placeholder.com/400'
                         }
-                        type="application/pdf"
-                        frameBorder="0"
-                        scrolling="auto"
-                        height="150"
+                        type='application/pdf'
+                        frameBorder='0'
+                        scrolling='auto'
+                        height='150'
                         style={{ width: '100%' }}
                       ></embed>
                     </Popover>
@@ -359,7 +359,7 @@ const UserDetail = (props) => {
                       </p>
                     ) : (
                       <>
-                        <Image src="/img/Upload.png" />
+                        <Image src='/img/Upload.png' alt='' />
                         <p
                           style={{
                             fontWeight: '400',
@@ -382,12 +382,12 @@ const UserDetail = (props) => {
                         </p>
                       </>
                     )}
-                    <label className="custom-file-upload">
+                    <label className='custom-file-upload'>
                       <Input
                         style={{ display: 'none' }}
-                        id="file-upload"
-                        type="file"
-                        accept=".pdf"
+                        id='file-upload'
+                        type='file'
+                        accept='.pdf'
                         onChange={async (e) => {
                           await uploadPdfFile(e)
                           if (e.target.files && e.target.files[0].name) {
@@ -400,14 +400,14 @@ const UserDetail = (props) => {
                   </Col>
                 </Row>
 
-                <div className="user-info" style={{ marginTop: 20 }}>
-                  <div className="actions">
+                <div className='user-info' style={{ marginTop: 20 }}>
+                  <div className='actions'>
                     <Button
                       disabled={disableBtn}
                       onClick={changeUserProfile}
-                      size="large"
-                      type=""
-                      className="btn-save"
+                      size='large'
+                      type=''
+                      className='btn-save'
                     >
                       변경사항 저장하기
                     </Button>
@@ -417,7 +417,7 @@ const UserDetail = (props) => {
             </Row>
 
             <Modal
-              title="Change Password"
+              title='Change Password'
               visible={isModalVisible}
               footer={false}
               onCancel={handleCancel}
@@ -425,43 +425,43 @@ const UserDetail = (props) => {
               <div style={{ padding: '0 80px' }}>
                 <div style={{ marginBottom: 20 }}>
                   <Input.Password
-                    name="current_password"
+                    name='current_password'
                     value={current_password}
                     onChange={onChange}
-                    size="large"
-                    placeholder="너의 비밀번호"
+                    size='large'
+                    placeholder='너의 비밀번호'
                   />
                 </div>
 
                 <div>
                   <Input.Password
-                    name="new_password"
+                    name='new_password'
                     value={new_password}
                     onChange={onChange}
-                    size="large"
-                    placeholder="새 비밀번호 입력"
+                    size='large'
+                    placeholder='새 비밀번호 입력'
                   />
                   <Input.Password
-                    name="confirm_new_password"
+                    name='confirm_new_password'
                     value={confirm_new_password}
                     onChange={onChange}
-                    size="large"
-                    placeholder="새 비밀번호 확인"
+                    size='large'
+                    placeholder='새 비밀번호 확인'
                   />
                 </div>
 
-                <div className="actions-change-password">
+                <div className='actions-change-password'>
                   <Button
-                    size="large"
+                    size='large'
                     onClick={handleCancel}
-                    className="btn-save"
+                    className='btn-save'
                   >
                     취소
                   </Button>
                   <Button
-                    size="large"
+                    size='large'
                     onClick={changePassword}
-                    className="btn-save"
+                    className='btn-save'
                   >
                     확인
                   </Button>
@@ -482,10 +482,10 @@ const UserDetail = (props) => {
                     ? data.business_license
                     : 'https://via.placeholder.com/400'
                 }
-                type="application/pdf"
-                frameBorder="0"
-                scrolling="auto"
-                height="800"
+                type='application/pdf'
+                frameBorder='0'
+                scrolling='auto'
+                height='800'
                 style={{ width: '100%' }}
               ></embed>
             </Modal>

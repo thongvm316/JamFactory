@@ -57,17 +57,17 @@ const AdminLogin = (props) => {
     }
   }
 
-  const handleOk = () => {
-    setFindPassword(false)
-  }
+  // const handleOk = () => {
+  //   setFindPassword(false)
+  // }
 
-  const onRegister = () => {
-    history.push('/register')
-  }
+  // const onRegister = () => {
+  //   history.push('/register')
+  // }
 
   return (
     <div
-      className="admin-login"
+      className='admin-login'
       style={{
         display: 'flex',
         flexDirection: 'column',
@@ -76,14 +76,14 @@ const AdminLogin = (props) => {
         paddingTop: '15rem',
       }}
     >
-      <Row justify="center" gutter={24} style={{ textAlign: 'center' }}>
+      <Row justify='center' gutter={24} style={{ textAlign: 'center' }}>
         <Col span={24}>
           <h1>GEM BOX</h1>
         </Col>
         <Col xs={20} sm={7} md={10} lg={7} xl={5}>
           <Form onFinish={onFinish}>
             <FormItem
-              name="email"
+              name='email'
               rules={[
                 {
                   required: true,
@@ -91,11 +91,11 @@ const AdminLogin = (props) => {
                 },
               ]}
             >
-              <Input size="large" placeholder="이메일" type="text" />
+              <Input size='large' placeholder='이메일' type='text' />
             </FormItem>
 
             <FormItem
-              name="password"
+              name='password'
               rules={[
                 {
                   required: true,
@@ -104,17 +104,17 @@ const AdminLogin = (props) => {
               ]}
             >
               <Input.Password
-                size="large"
-                type="password"
-                placeholder="비밀번호 8자리"
+                size='large'
+                type='password'
+                placeholder='비밀번호 8자리'
               />
             </FormItem>
 
             <FormItem>
               <Button
                 disabled={loading}
-                className="btn-login"
-                htmlType="submit"
+                className='btn-login'
+                htmlType='submit'
               >
                 로그인
               </Button>
@@ -123,10 +123,10 @@ const AdminLogin = (props) => {
         </Col>
       </Row>
 
-      <Row justify="center">
+      <Row justify='center'>
         <Col xs={6} sm={5} md={5} lg={5} xl={2}>
           <Button
-            className="btn-login"
+            className='btn-login'
             onClick={() => history.push('/admin-find-account')}
           >
             계정찾기

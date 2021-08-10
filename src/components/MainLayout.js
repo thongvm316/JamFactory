@@ -22,7 +22,7 @@ const MainLayout = (props) => {
   const renderUserInfor = () => {
     return (
       <div>
-        <img src={Logout} />{' '}
+        <img src={Logout} alt='main-alt' />{' '}
         <span
           onClick={logout}
           style={{
@@ -97,7 +97,7 @@ const MainLayout = (props) => {
   const isShowIconAndCollapsed = width < 576 ? true : false
 
   return (
-    <Layout className="admin-layout">
+    <Layout className='admin-layout'>
       {showSiderBar ? (
         <Sidebar collapsed={isShowIconAndCollapsed ? collapsed : false} />
       ) : (
@@ -106,7 +106,7 @@ const MainLayout = (props) => {
       <Layout style={{ background: '#fff' }}>
         <Header
           style={{ background: '#fff', padding: 0 }}
-          className="main-header"
+          className='main-header'
         >
           <MenuUnfoldOutlined
             style={
@@ -114,7 +114,7 @@ const MainLayout = (props) => {
                 ? { visibility: 'visible' }
                 : { visibility: 'hidden' }
             }
-            className="trigger"
+            className='trigger'
             onClick={() => toggle()}
           />
           <div style={{ display: 'flex' }}>
@@ -138,18 +138,26 @@ const MainLayout = (props) => {
             </Popover>
             <div style={{ marginLeft: '10px' }}>
               {localStorage.getItem('token') ? (
-                <Link to="/admin-setting">
-                  <img style={{ marginBottom: '9px' }} src={Setting} />
+                <Link to='/admin-setting'>
+                  <img
+                    style={{ marginBottom: '9px' }}
+                    alt='ad-setting'
+                    src={Setting}
+                  />
                 </Link>
               ) : (
-                <Link to="/user-detail">
-                  <img style={{ marginBottom: '9px' }} src={Setting} />
+                <Link to='/user-detail'>
+                  <img
+                    style={{ marginBottom: '9px' }}
+                    alt='us-detail'
+                    src={Setting}
+                  />
                 </Link>
               )}
             </div>
           </div>
         </Header>
-        <Content className="main-layout-content">{props.children}</Content>
+        <Content className='main-layout-content'>{props.children}</Content>
       </Layout>
     </Layout>
   )
