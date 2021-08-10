@@ -22,7 +22,6 @@ import NumberFormat from 'react-number-format'
 import saleStatusApi from '../../api/SaleStatusAPI'
 
 const { Option } = Select
-const { RangePicker } = DatePicker
 
 const VendorSearch = (props) => {
   const [hackValue, setHackValue] = useState()
@@ -30,14 +29,10 @@ const VendorSearch = (props) => {
   const [dates, setDates] = useState([])
 
   const [vendors, setVendors] = useState([])
-  // console.log(vendors)
-  // const [startDate, setStartDate] = useState()
-  // const [endDate, setEndDate] = useState()
-  // const [key, setKey] = useState()
   const [loading, setLoading] = useState(false)
 
   const [filter, setFilter] = useState({})
-  const [lastIndex, setLastIndex] = useState(0)
+  const [lastIndex, setLastIndex] = useState(100)
   const [sortIndex, setsortIndex] = useState(0)
   let resetSortIndex
   const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
@@ -313,7 +308,7 @@ const VendorSearch = (props) => {
 
   const loadMoreSort = (params) => {
     if (loadMoreFilterOrSort.isFilter) {
-      setLastIndex(vendors.length)
+      setLastIndex(vendors.length + 100)
     }
 
     if (loadMoreFilterOrSort.isSort) {
@@ -381,7 +376,6 @@ const VendorSearch = (props) => {
   }
 
   // Table
-  const [countSelected, setCountSelected] = useState(0)
   const goToStore = (record) => {
     var win = window.open(record.bander_url, '_blank')
     win.focus()
@@ -459,25 +453,6 @@ const VendorSearch = (props) => {
     },
   ]
 
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        'selectedRows: ',
-        selectedRows,
-      )
-      setCountSelected(selectedRows.length)
-    },
-    onSelect: (record, selected, selectedRows) => {
-      console.log(record, selected, selectedRows)
-    },
-    onSelectAll: (selected, selectedRows, changeRows) => {
-      console.log(selected, selectedRows, changeRows)
-      setCountSelected(selectedRows.length)
-    },
-  }
-  const [checkStrictly, setCheckStrictly] = useState(false)
-
   // DatePicker
   const { RangePicker } = DatePicker
   // set default daysInMonth
@@ -491,21 +466,6 @@ const VendorSearch = (props) => {
     toTimestamp(startOfMonth),
     toTimestamp(endOfMonth),
   ]
-
-  const onChangeStartDate = (date, dateString) => {
-    console.log(dateString)
-    // setStartDate(moment(dateString).unix())
-    setFilter({ ...filter, start: moment(dateString).unix() })
-  }
-
-  const onChangeEndDate = (date, dateString) => {
-    // setEndDate(moment(dateString).unix())
-    setFilter({ ...filter, end: moment(dateString).unix() })
-  }
-
-  function onOk(value) {
-    console.log('onOk: ', value)
-  }
 
   const onChangeSearch = (e) => {
     setFilter({ ...filter, key: e.target.value })
@@ -542,11 +502,7 @@ const VendorSearch = (props) => {
         config,
       )
       if (res.status === 200) {
-        if (lastIndex > 0) {
-          setVendors(vendors.concat(res.data.data.result))
-        } else {
-          setVendors(res.data.data.result)
-        }
+        setVendors(res.data.data.result)
       }
       setLoading(false)
     } catch (error) {
@@ -660,53 +616,6 @@ const VendorSearch = (props) => {
     }
   }
 
-  // const disabledDate = (current) => {
-  //   const daysInMonth = parseInt(moment(current, 'YYYY-MM').daysInMonth())
-
-  //   if (!dates || dates.length === 0) {
-  //     const date =
-  //       (current && moment(current).format('DD') === 1) ||
-  //       (current && moment(current).format('DD') === 15) ||
-  //       (current && moment(current).format('DD') === daysInMonth)
-
-  //     return !date
-  //   } else {
-  //     if (dates[0]) {
-  //       return !(
-  //         (moment(dates[0]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === 1) ||
-  //         (moment(dates[0]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === 15) ||
-  //         (moment(dates[0]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === daysInMonth)
-  //       )
-  //     }
-
-  //     if (dates[1]) {
-  //       return !(
-  //         (moment(dates[1]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === 1) ||
-  //         (moment(dates[1]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === 15) ||
-  //         (moment(dates[1]).format('YYYY-MM') ===
-  //           moment(current).format('YYYY-MM') &&
-  //           current &&
-  //           moment(current).format('DD') === daysInMonth)
-  //       )
-  //     }
-  //   }
-  // }
-
   const onChangeRangePicker = (val, dateString) => {
     setValue(val)
     console.log(dateString)
@@ -732,38 +641,6 @@ const VendorSearch = (props) => {
     } else {
       setFilter({ ...filter, start: '', end: '' })
     }
-  }
-
-  const onCalendarChange = (val) => {
-    if (val && val[0]) {
-      const daysInMonth = parseInt(moment(val[0], 'YYYY-MM').daysInMonth())
-      const day = parseInt(moment(val[0]).format('DD'))
-      if (daysInMonth === day) {
-        modal('시작일은 월의 마지막 일자가 될 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[1]) {
-      const day = parseInt(moment(val[1]).format('DD'))
-      if (1 === day) {
-        modal('시작일을 마지막 일자로 선택 할 수 없습니다')
-        return
-      }
-    }
-
-    if (val && val[0] && val[1]) {
-      const startDate = parseInt(moment(val[0]).format('DD'))
-      const endDate = parseInt(moment(val[1]).format('DD'))
-
-      if (startDate === endDate) {
-        modal('시작일은 종료일과 같을 수 없습니다')
-
-        return
-      }
-    }
-
-    setDates(val)
   }
 
   const modal = (text) => {
