@@ -343,7 +343,7 @@ const VendorSearch = (props) => {
     try {
       const res = await axios.get(
         `${API_URL}/bander/search?lastIndex=${
-          resetSortIndex === 0 ? resetSortIndex : sortIndex
+          resetSortIndex === 0 ? 100 : sortIndex
         }${params}&sort=${field},${sort}`,
         config,
       )
