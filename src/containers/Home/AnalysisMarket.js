@@ -414,9 +414,9 @@ const AnalysisMarket = (props) => {
     }
     try {
       const res = await homeApi.getMarketTotalSale(params)
-      if (res && res.data.result && res.data.result.total_sale) {
-        setMarketTotalSale(res.data.result.total_sale)
-      }
+      setMarketTotalSale(
+        res.data.result.total_sale === null ? 0 : res.data.result.total_sale,
+      )
       setIsCallApi(true)
     } catch (error) {
       console.log(error.response)
@@ -433,9 +433,9 @@ const AnalysisMarket = (props) => {
     }
     try {
       const res = await homeApi.getMarketTotalSale(params)
-      if (res && res.data.result && res.data.result.total_sale) {
-        setMarketTotalSale(res.data.result.total_sale)
-      }
+      setMarketTotalSale(
+        res.data.result.total_sale === null ? 0 : res.data.result.total_sale,
+      )
       setIsCallApi(true)
     } catch (error) {
       console.log(error.response)

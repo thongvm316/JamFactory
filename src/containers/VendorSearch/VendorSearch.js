@@ -33,7 +33,7 @@ const VendorSearch = (props) => {
 
   const [filter, setFilter] = useState({})
   const [lastIndex, setLastIndex] = useState(100)
-  const [sortIndex, setsortIndex] = useState(0)
+  const [sortIndex, setsortIndex] = useState(100)
   let resetSortIndex
   const [loadMoreFilterOrSort, setLoadMoreFilterOrSort] = useState({
     isFilter: false,
@@ -312,7 +312,7 @@ const VendorSearch = (props) => {
     }
 
     if (loadMoreFilterOrSort.isSort) {
-      setsortIndex(vendors.length)
+      setsortIndex(vendors.length + 100)
     }
   }
 
@@ -338,6 +338,8 @@ const VendorSearch = (props) => {
       }
     }
 
+    params += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+
     try {
       const res = await axios.get(
         `${API_URL}/bander/search?lastIndex=${
@@ -347,14 +349,16 @@ const VendorSearch = (props) => {
       )
 
       if (sortIndex > 0) {
-        if (lastIndex > 0) {
-          setVendors([])
-        }
-        if (resetSortIndex === 0) {
-          setVendors(res.data.data.result)
-        } else {
-          setVendors(vendors.concat(res.data.data.result))
-        }
+        // if (lastIndex > 0) {
+        //   setVendors([])
+        // }
+        // if (resetSortIndex === 0) {
+        //   setVendors(res.data.data.result)
+        // } else {
+        //   setVendors(vendors.concat(res.data.data.result))
+        // }
+
+        setVendors(res.data.data.result)
 
         resetSortIndex = undefined
       } else {
@@ -599,7 +603,7 @@ const VendorSearch = (props) => {
       var addSortParam = params.concat(`&sort=sale_count,desc`)
     }
 
-    params += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
+    addSortParam += `&start=${allDateOfCurrentMonth[0]}&end=${allDateOfCurrentMonth[1]}`
 
     saleStatusApi
       .getExcelFileBander(addSortParam)
