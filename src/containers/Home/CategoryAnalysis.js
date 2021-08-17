@@ -133,7 +133,7 @@ const CategoryAnalysis = (props) => {
   }
 
   /* Chart */
-  const [titleChart, setTitleChart] = useState('2020년 전체 점유율 분석')
+  const [titleChart, setTitleChart] = useState('2021년 전체 점유율 분석')
   const renameKeys = (obj, newKeys) => {
     const keyValues = Object.keys(obj).map((key) => {
       const newKey = newKeys[key] || key
@@ -186,8 +186,8 @@ const CategoryAnalysis = (props) => {
     title: {
       text:
         category === '전체보기'
-          ? '2020년 전체 점유율 분석'
-          : `2020년 ${category} 총 점유율 분석`,
+          ? '2021년 전체 점유율 분석'
+          : `2021년 ${category} 총 점유율 분석`,
       align: 'left',
       style: {
         color: '#495057',
