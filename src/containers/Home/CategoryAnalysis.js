@@ -24,6 +24,15 @@ import './CategoryAnalysis.scss'
 import CategoryList from '../CategoryList/CategoryList'
 
 const CategoryAnalysis = (props) => {
+  const [datePicker, setDatePicker] = useState([])
+  const [yearTitle, setYearTitle] = useState(moment().format('YYYY'))
+  const [hackValue, setHackValue] = useState()
+  const [value, setValue] = useState()
+  const [dates, setDates] = useState([])
+  const toTimestamp = (strDate) => {
+    var datum = Date.parse(strDate)
+    return datum / 1000
+  }
   const [loading, setLoading] = useState(false)
   const [totalSale, setTotalSale] = useState([])
   const [spinning, setSpinning] = useState(false)
@@ -186,8 +195,8 @@ const CategoryAnalysis = (props) => {
     title: {
       text:
         category === '전체보기'
-          ? '2021년 전체 점유율 분석'
-          : `2021년 ${category} 총 점유율 분석`,
+          ? `${yearTitle}년 전체 점유율 분석`
+          : `${yearTitle}년 ${category} 총 점유율 분석`,
       align: 'left',
       style: {
         color: '#495057',
@@ -216,16 +225,6 @@ const CategoryAnalysis = (props) => {
       </h3>
     </div>
   )
-
-  /* DatePicker */
-  const [datePicker, setDatePicker] = useState([])
-  const [hackValue, setHackValue] = useState()
-  const [value, setValue] = useState()
-  const [dates, setDates] = useState([])
-  const toTimestamp = (strDate) => {
-    var datum = Date.parse(strDate)
-    return datum / 1000
-  }
 
   const onOpenChange = (open) => {
     if (open) {
@@ -285,6 +284,7 @@ const CategoryAnalysis = (props) => {
 
   const onChangeRangePicker = (val) => {
     setValue(val)
+    setYearTitle(moment(val[0]).format('YYYY'))
     if (val && val[0] && val[1]) {
       const start = moment(val[0]).format('YYYY-MM-DD')
       const end = moment(val[1]).format('YYYY-MM-DD')
