@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+
 import './ProductDetail.scss'
 import { Row, Col, Button, Space, Divider, Spin, DatePicker } from 'antd'
 import Highcharts from 'highcharts/highstock'
@@ -75,7 +76,6 @@ const ProductDetail = (props) => {
   useEffect(() => {
     getCategoryRanking()
     getSaleRanking()
-    //getShareRanking()
     getProductTrendGraph(true)
     getProductDetailShare()
   }, [])
@@ -92,7 +92,9 @@ const ProductDetail = (props) => {
 
     try {
       const res = await axios.get(
-        `${API_URL}/product/detail/share?id=${product.id}`,
+        `${API_URL}/product/detail/share?id=${
+          product.id
+        }&year=${moment().format('YYYY')}`,
         config,
       )
       // console.log(res.data)
@@ -162,7 +164,9 @@ const ProductDetail = (props) => {
     }
     try {
       const res = await axios.get(
-        `${API_URL}/product/detail/categoryrank?id=${product.id}`,
+        `${API_URL}/product/detail/categoryrank?id=${
+          product.id
+        }&year=${moment().format('YYYY')}`,
         config,
       )
 
@@ -190,7 +194,9 @@ const ProductDetail = (props) => {
     }
     try {
       const res = await axios.get(
-        `${API_URL}/product/detail/salerank?id=${product.id}`,
+        `${API_URL}/product/detail/salerank?id=${
+          product.id
+        }&year=${moment().format('YYYY')}`,
         config,
       )
 
@@ -207,35 +213,6 @@ const ProductDetail = (props) => {
       }
     }
   }
-
-  // const getShareRanking = async () => {
-  //   const config = {
-  //     headers: {
-  //       Accept: 'application/json',
-  //       'Content-Type': 'application/json',
-  //       'X-Auth-Token': localStorage.getItem('token-user'),
-  //     },
-  //   }
-  //   try {
-  //     const res = await axios.get(
-  //       `${API_URL}/product/detail/share?id=${product.id}`,
-  //       config,
-  //     )
-
-  //     if (res.status === 200) {
-  //       setShareKing(res.data.data.result.share)
-  //     }
-  //   } catch (error) {
-  //     console.log(error.response)
-  //     if (error && error.response && error.response.statusText) {
-  //       if (error.response.statusText === 'Unauthorized') {
-  //         localStorage.clear()
-
-  //         props.history.push('/')
-  //       }
-  //     }
-  //   }
-  // }
 
   const options = {
     chart: {
