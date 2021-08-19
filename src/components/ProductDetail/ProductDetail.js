@@ -75,7 +75,7 @@ const ProductDetail = (props) => {
   useEffect(() => {
     getCategoryRanking()
     getSaleRanking()
-    getShareRanking()
+    //getShareRanking()
     getProductTrendGraph(true)
     getProductDetailShare()
   }, [])
@@ -208,34 +208,34 @@ const ProductDetail = (props) => {
     }
   }
 
-  const getShareRanking = async () => {
-    const config = {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'X-Auth-Token': localStorage.getItem('token-user'),
-      },
-    }
-    try {
-      const res = await axios.get(
-        `${API_URL}/product/detail/share?id=${product.id}`,
-        config,
-      )
+  // const getShareRanking = async () => {
+  //   const config = {
+  //     headers: {
+  //       Accept: 'application/json',
+  //       'Content-Type': 'application/json',
+  //       'X-Auth-Token': localStorage.getItem('token-user'),
+  //     },
+  //   }
+  //   try {
+  //     const res = await axios.get(
+  //       `${API_URL}/product/detail/share?id=${product.id}`,
+  //       config,
+  //     )
 
-      if (res.status === 200) {
-        setShareKing(res.data.data.result.share)
-      }
-    } catch (error) {
-      console.log(error.response)
-      if (error && error.response && error.response.statusText) {
-        if (error.response.statusText === 'Unauthorized') {
-          localStorage.clear()
+  //     if (res.status === 200) {
+  //       setShareKing(res.data.data.result.share)
+  //     }
+  //   } catch (error) {
+  //     console.log(error.response)
+  //     if (error && error.response && error.response.statusText) {
+  //       if (error.response.statusText === 'Unauthorized') {
+  //         localStorage.clear()
 
-          props.history.push('/')
-        }
-      }
-    }
-  }
+  //         props.history.push('/')
+  //       }
+  //     }
+  //   }
+  // }
 
   const options = {
     chart: {
