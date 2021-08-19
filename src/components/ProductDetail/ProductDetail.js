@@ -239,7 +239,7 @@ const ProductDetail = (props) => {
         data: [
           {
             y: 100,
-            name: '유아 인형',
+            name: `${product.category_tag}`,
             color: '#ff7b7b',
           },
           {
