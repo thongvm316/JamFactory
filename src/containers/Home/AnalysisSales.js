@@ -47,6 +47,7 @@ const AnalysisSales = (props) => {
     }, [])
 
     const onFilter = async () => {
+        setValues([]);
         setSpinning(true)
         const config = {
             headers: {
@@ -59,10 +60,9 @@ const AnalysisSales = (props) => {
             const { data } = await axios.get(`${API_URL}/home/categoryanalyze?year=${params.year}&market=${params.market}&category=${params.category}`, config)
             if (data.success) {
                 let months = data.data.result.map(item => item.month)
-                let values = data.data.result.map(item => parseInt(item.sale))
+                let values = data.data.result.map(item => parseInt(item.sale) || '')
                 setMonths(months);
                 setValues(values);
-                console.log(values)
             }
             setSpinning(false)
 
