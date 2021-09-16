@@ -30,6 +30,7 @@ import AppRoute from './AppRoute'
 
 import AdminMemberContextProvider from '../lib/admin/AdminMemberContext'
 import UserDetailContextProvider from '../lib/userdetail/UserDetailContext'
+import AnalysisSales from '../containers/Home/AnalysisSales'
 
 const Routes = () => {
   return (
@@ -109,6 +110,13 @@ const Routes = () => {
           path="/category-analysis"
           dataToken={'token-user'}
           component={CategoryAnalysis}
+        />
+        <PrivateRoute
+          showSiderBar={true}
+          exact
+          path="/analysis-sales"
+          dataToken={'token-user'}
+          component={AnalysisSales}
         />
         <PrivateRoute
           showSiderBar={true}

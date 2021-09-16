@@ -149,11 +149,6 @@ const MarketSaleStatusChart = (props) => {
     },
     xAxis: {
       categories: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-      labels: {
-        formatter: function () {
-          return this.value + '월'
-        },
-      },
     },
     yAxis: [
       {

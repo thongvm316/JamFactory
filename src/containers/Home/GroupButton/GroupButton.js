@@ -28,6 +28,7 @@ const GroupButton = ({ redirect, clickable }) => {
                         </Radio.Button>
 
                         <Radio.Button
+                            style={{ marginLeft: '10px', marginRight: '10px' }}
                             className="style-small-device"
                             value="c"
                             shape="round"
@@ -35,6 +36,16 @@ const GroupButton = ({ redirect, clickable }) => {
                             onClick={() => redirect('/analysis-market')}
                         >
                             마켓별 분석
+                        </Radio.Button>
+
+                        <Radio.Button
+                            className="style-small-device"
+                            value="d"
+                            shape="round"
+                            size="middle"
+                            onClick={() => redirect('/analysis-sales')}
+                        >
+                            월별 카테고리 매출 분석
                         </Radio.Button>
                     </Radio.Group>
                 </Col>

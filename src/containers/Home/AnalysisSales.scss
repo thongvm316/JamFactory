@@ -1,0 +1,12 @@
+.filters{
+    display: flex;
+    .params{
+        display: flex;
+        align-items: center;
+        margin-right: 40px;
+        .label{
+            margin-right: 10px;
+            font-weight: bold;
+        }
+    }
+}
