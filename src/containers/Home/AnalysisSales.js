@@ -20,13 +20,15 @@ const AnalysisSales = (props) => {
     const paramsInterface = {
         year: moment().format('YYYY'),
         market: '11번가',
-        category: '물티슈',
+        category: '',
     }
 
     const [params, setParams] = useState(paramsInterface);
     const [months, setMonths] = useState();
     const [values, setValues] = useState();
     const [spinning, setSpinning] = useState(true);
+    const [categories, setCategories] = useState([]);
+    const [firstUpdate, setFirstUpdate] = useState(false);
 
 
 
@@ -43,8 +45,34 @@ const AnalysisSales = (props) => {
     }
 
     useEffect(() => {
+        onGetCategory()
+    }, [params.market])
+
+    useEffect(() => {
         onFilter()
-    }, [])
+    }, [firstUpdate])
+
+    const onGetCategory = async () => {
+        setCategories([])
+        const config = {
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                'X-Auth-Token': `${localStorage.getItem('token-user')}`,
+            },
+        }
+        try {
+            const { data } = await axios.get(`${API_URL}/home/listcategory?market=${params.market}`, config)
+            if (data.success) {
+                setCategories(data.data.result)
+                setParams({ ...params, category: data.data.result[0] })
+                setFirstUpdate(true)
+            }
+
+        } catch (error) {
+
+        }
+    }
 
     const onFilter = async () => {
         setValues([]);
@@ -68,7 +96,6 @@ const AnalysisSales = (props) => {
 
         } catch (error) {
             setSpinning(false)
-
         }
     }
     var colors = ['#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A', '#FF4A4A'];
@@ -163,13 +190,14 @@ const AnalysisSales = (props) => {
                         </div>
                         <div className="option">
                             <Select
+                                style={{ width: 200 }}
                                 onChange={onChangeMarket}
-                                defaultValue='11번가'
+                                defaultValue={market_list[0]}
                             >
                                 {
                                     market_list.map(market => {
                                         return (
-                                            <Option value={market}>{market}</Option>
+                                            <Option key={market} value={market}>{market}</Option>
 
                                         )
                                     })
@@ -183,13 +211,14 @@ const AnalysisSales = (props) => {
                         </div>
                         <div className="option">
                             <Select
+                                style={{ width: 200 }}
                                 onChange={onChangeCategory}
-                                defaultValue='물티슈'
+                                value={params.category}
                             >
                                 {
-                                    category_list.map(category => {
+                                    categories.map(category => {
                                         return (
-                                            <Option value={category}>{category}</Option>
+                                            <Option key={category} value={category}>{category}</Option>
 
                                         )
                                     })
